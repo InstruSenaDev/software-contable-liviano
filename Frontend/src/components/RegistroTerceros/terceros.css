@@ -1,0 +1,52 @@
+.formTerceros {
+  margin-left: 10vh;
+  margin-right: 10vh;
+  border: solid 1px rgb(0, 0, 0);
+  margin: 5%;
+  padding: 7%;
+  color: black;
+}
+.claseGrandeFormularios {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 1%;
+}
+.inputTerceros {
+  width: 70vh;
+  background-color: darkgray;
+  border: none;
+  padding: 1%;
+  border-radius: 3px;
+}
+.botonContinuar {
+  border: none;
+  width: 60vh;
+  padding: 1%;
+  background-color: #172e73;
+  font-size: 20px;
+  color: white;
+  border-radius: 6px;
+}
+.divButtonCotinuar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2%;
+}
+.ultimoInput {
+  width: 70vh;
+  background-color: darkgray;
+  box-shadow: 5px black;
+  border: none;
+  padding: 0.5%;
+  border-radius: 3px;
+}
+.tittleTerceros {
+  text-align: center;
+  font-size: 37px;
+  margin-bottom: 2%;
+}
+.textTerceros {
+  margin-bottom: 2%;
+}
