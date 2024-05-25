@@ -22,6 +22,11 @@ module.exports = {
       },
       colors: {
         black: "#121212",
+        'blue-baby': '#9BBFE4',
+        'blue-baby2': '#2CECB4',
+        'blue-baby3': '#004AAD',
+        'blue-baby4': '#172E73',
+
         accent: {
           50: "#EBEDFF",
           100: "#D6DAFF",
