@@ -44,6 +44,10 @@ module.exports = {
         sans: ["Inter", ...defaultTheme.fontFamily.sans],
         display: ["Bricolage Grotesque", ...defaultTheme.fontFamily.sans],
       },
+
+      spacing: {
+        "section-margin-bottom": "0", 
+      },
     },
   },
   plugins: [require("@tailwindcss/typography"), require("@tailwindcss/forms")],
