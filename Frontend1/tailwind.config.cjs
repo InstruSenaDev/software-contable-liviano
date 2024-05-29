@@ -47,4 +47,17 @@ module.exports = {
     },
   },
   plugins: [require("@tailwindcss/typography"), require("@tailwindcss/forms")],
+  content: [
+    './src/**/*.{astro,html,js,jsx,svelte,ts,tsx,vue}',
+  ],
+  theme: {
+    extend: {
+      fontFamily: {
+        inter: ['Inter', 'sans-serif'],
+      },
+  
+    },
+  },
+  plugins: [],
 };
+

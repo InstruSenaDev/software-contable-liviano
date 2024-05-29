@@ -1,0 +1,27 @@
+---
+import ProviderRow from './usersData.astro';
+
+const providers = [
+  { name: 'Proveedor', nit: 'xxxxxxxxxxxxxxx', email: 'uncorreo@gmail.com', address: 'Cra 1 #24-7 Barrio Nuevo', status: 'Activo' },
+  { name: 'Proveedor', nit: 'xxxxxxxxxxxxxxxx', email: 'uncorreo@gmail.com', address: 'Cra 1 #24-7 Barrio Nuevo', status: 'Inactivo' },
+  { name: 'Proveedor', nit: 'xxxxxxxxxxxxxxx', email: 'uncorreo@gmail.com', address: 'Cra 1 #24-7 Barrio Nuevo', status: 'Activo' },
+  // ...más proveedores
+];
+---
+<table class="min-w-full bg-white border border-gray-200">
+  <thead>
+    <tr class="border-b">
+      <th class="p-2"><input type="checkbox" /></th>
+      <th class="p-2">Nombre</th>
+      <th class="p-2">NIT</th>
+      <th class="p-2">Correo</th>
+      <th class="p-2">Dirección</th>
+      <th class="p-2">Estado</th>
+    </tr>
+  </thead>
+  <tbody>
+    {providers.map(provider => (
+      <ProviderRow {...provider} />
+    ))}
+  </tbody>
+</table>

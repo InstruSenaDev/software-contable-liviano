@@ -1,0 +1,13 @@
+---
+const { name, nit, email, address, status } = Astro.props;
+---
+<tr class="border-b">
+  <td class="p-2"><input type="checkbox" /></td>
+  <td class="p-2">{name}</td>
+  <td class="p-2">{nit}</td>
+  <td class="p-2">{email}</td>
+  <td class="p-2">{address}</td>
+  <td class="p-2">
+    <span class={status === 'Activo' ? 'text-green-500' : 'text-red-500'}>{status}</span>
+  </td>
+</tr>
