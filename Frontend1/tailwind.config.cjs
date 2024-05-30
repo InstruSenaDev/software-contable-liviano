@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 const defaultTheme = require("tailwindcss/defaultTheme");
-const colors = require("tailwindcss/colors");
+
 module.exports = {
   content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
   theme: {
@@ -26,7 +26,6 @@ module.exports = {
         'blue-baby2': '#2CECB4',
         'blue-baby3': '#004AAD',
         'blue-baby4': '#172E73',
-
         accent: {
           50: "#EBEDFF",
           100: "#D6DAFF",
@@ -43,21 +42,9 @@ module.exports = {
       fontFamily: {
         sans: ["Inter", ...defaultTheme.fontFamily.sans],
         display: ["Bricolage Grotesque", ...defaultTheme.fontFamily.sans],
+        inter: ['Inter', 'sans-serif'],
       },
     },
   },
   plugins: [require("@tailwindcss/typography"), require("@tailwindcss/forms")],
-  content: [
-    './src/**/*.{astro,html,js,jsx,svelte,ts,tsx,vue}',
-  ],
-  theme: {
-    extend: {
-      fontFamily: {
-        inter: ['Inter', 'sans-serif'],
-      },
-  
-    },
-  },
-  plugins: [],
 };
-

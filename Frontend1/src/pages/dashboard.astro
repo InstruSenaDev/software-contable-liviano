@@ -1,26 +1,27 @@
 ---
-import Header from '../components/dashboard/header.astro';
-import Sidebar from '../components/dashboard/sidebar.astro';
-import Table from '../components/dashboard/table.astro';
+import Header from "../components/dashboard/header.astro";
+import Sidebar from "../components/dashboard/sidebar.astro";
+import Table from "../components/dashboard/table.astro";
 ---
-<!DOCTYPE html>
+
+<!doctype html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Proveedores - ProviSoft</title>
-  <link rel="stylesheet" href="/src/styles/tailwind.css">
-</head>
-<body class="bg-gray-100">
-  <div class="flex">
-    <Sidebar />
-    <div class="ml-64 w-full">
-      <Header />
-      <main class="p-6">
-        <h1 class="text-2xl font-bold mb-4">Proveedores</h1>
-        <Table />
-      </main>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Proveedores - ProviSoft</title>
+    <link rel="stylesheet" href="/src/styles/tailwind.css" />
+  </head>
+  <body class="bg-gray-100">
+    <div class="flex">
+      <Sidebar />
+      <div class="ml-64 w-full">
+        <Header />
+        <main class="p-6">
+          <h1 class="text-2xl font-bold mb-4">Proveedores</h1>
+          <Table />
+        </main>
+      </div>
     </div>
-  </div>
-</body>
+  </body>
 </html>
