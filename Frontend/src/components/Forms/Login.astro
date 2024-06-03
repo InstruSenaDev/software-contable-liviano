@@ -80,44 +80,14 @@
     </div>
   </div>
 </section>
-
-<!-- <script>
-document.getElementById('log-in').addEventListener('submit', function (event){
-  let isValid = true;
-  document.getElementById('name_error').textContent = '';
-  document.getElementById('password_error').textContent = '';
-
-  const name = (document.getElementById('name') as HTMLInputElement).value;
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(name)) {
-      document.getElementById('email_error').textContent = 'Correo Electrónico no es válido.';
-      isValid = false;
-    }
-  // const name = (document.getElementById('emeil') as HTMLInputElement).value;
-  // if (name.trim()=== ''){
-  //   document.getElementById('emeil_error').textContent = 'El correo es obligatorio'; isValid = false;
-  // }
- 
-    const password = (document.getElementById('company') as HTMLInputElement).value;
-    if (password.length < 8) {
-      document.getElementById('company_error').textContent = 'La contraseña debe tener al menos 8 caracteres.';
-      isValid = false;
-    }
-
-    if (!isValid) {
-      event.preventDefault();
-    }
-
-})
-</script> -->
 <script>
   document.getElementById('log-in').addEventListener('submit', function (event) {
     let isValid = true;
     document.getElementById('email_error').textContent = '';
     document.getElementById('password_error').textContent = '';
   
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
+    const email = (document.getElementById('email')as HTMLInputElement).value;
+    const password = (document.getElementById('password')as HTMLInputElement).value;
   
     if (email.trim() === '') {
       document.getElementById('email_error').textContent = 'El correo es obligatorio';
