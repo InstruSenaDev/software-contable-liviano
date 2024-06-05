@@ -94,13 +94,10 @@
       isValid = false;
     } else if (!emailPattern.test(email)) {
       document.getElementById('email_error').textContent = 'El correo debe contener un arroba (@)';
-      isValid = false;
+      isValid = false; 
     }
   
-    if (!emailPattern.test(email)) {
-      document.getElementById('email_error').textContent = 'Correo Electrónico no es válido.';
-      isValid = false;
-    }
+    
 
 
 
