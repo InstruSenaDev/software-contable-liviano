@@ -119,11 +119,16 @@
     }
 
     // Validate email
-    const email = (document.getElementById('email') as HTMLInputElement).value;
+  
+    const email = (document.getElementById('email')as HTMLInputElement).value;
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(email)) {
-      document.getElementById('email_error').textContent = 'Correo Electrónico no es válido.';
+  
+    if (email.trim() === '') {
+      document.getElementById('email_error').textContent = 'El correo es obligatorio';
       isValid = false;
+    } else if (!emailPattern.test(email)) {
+      document.getElementById('email_error').textContent = 'El correo debe contener un arroba (@)';
+      isValid = false; 
     }
 
     // Validate password (company)
