@@ -105,9 +105,13 @@
     document.getElementById('company_error').textContent = '';
 
     // Validate first name
+    const namePattern = /^[a-zA-Z\s]+$/;
     const firstName = (document.getElementById('first_name') as HTMLInputElement).value;
     if (firstName.trim() === '') {
       document.getElementById('first_name_error').textContent = 'Nombres es requerido.';
+      isValid = false;
+    } else if (!namePattern.test(firstName)){
+      document.getElementById('first_name_error').textContent = 'Tu nombre no debe contener caracteres especiales.'
       isValid = false;
     }
 
@@ -116,8 +120,9 @@
     if (lastName.trim() === '') {
       document.getElementById('last_name_error').textContent = 'Apellidos es requerido.';
       isValid = false;
+    } else if (!namePattern.test(lastName)){
+      document.getElementById('last_name_error').textContent = 'Tu apellido no debe contener caracteres especiales '
     }
-
     // Validate email
   
     const email = (document.getElementById('email')as HTMLInputElement).value;
@@ -133,7 +138,11 @@
 
     // Validate password (company)
     const password = (document.getElementById('company') as HTMLInputElement).value;
-    if (password.length < 8) {
+    if (password.trim() === ''){
+      document.getElementById('company_error').textContent = 'la contraseña es obligatoria';
+      isValid = false;
+    }
+    else if(password.length < 8) {
       document.getElementById('company_error').textContent = 'La contraseña debe tener al menos 8 caracteres.';
       isValid = false;
     }
