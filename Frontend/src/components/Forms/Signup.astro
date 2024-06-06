@@ -72,6 +72,7 @@
                   <a class="text-accent-500 hover:text-accent-400" href="/terms">Terminos y condiciones de servicio.
                   </a>
                 </label>
+                <span id="terms_error" class="text-red-500 text-sm"></span>
               </div>
             </div>
             <div class="col-span-full">
@@ -103,7 +104,7 @@
     document.getElementById('last_name_error').textContent = '';
     document.getElementById('email_error').textContent = '';
     document.getElementById('company_error').textContent = '';
-
+    document.getElementById('terms_error').textContent = ';'
     // Validate first name
     const namePattern = /^[a-zA-Z\s]+$/;
     const firstName = (document.getElementById('first_name') as HTMLInputElement).value;
@@ -147,6 +148,11 @@
       isValid = false;
     }
 
+    const TermsAccepted =(document.getElementById('remember-me') as HTMLInputElement).checked;
+    if(!TermsAccepted){
+      document.getElementById('terms_error').textContent ='Debes aceptar los terminos y condiciones.';
+      isValid = false;
+    }
     if (!isValid) {
       event.preventDefault();
     }
