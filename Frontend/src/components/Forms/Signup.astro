@@ -107,7 +107,7 @@
     document.getElementById('company_error').textContent = '';
     document.getElementById('terms_error').textContent = ';'
     // Validate first name
-    const namePattern = /r'^[a-zA-Z0-9]+$'/;
+    const namePattern = /^[a-zA-Z0-9]+$/;
     const firstName = (document.getElementById('first_name') as HTMLInputElement).value;
     if (firstName.trim() === '') {
       document.getElementById('first_name_error').textContent = 'Nombres es requerido.';
@@ -118,6 +118,7 @@
     }
 
     // Validate last name
+    
     const lastName = (document.getElementById('last_name') as HTMLInputElement).value;
     if (lastName.trim() === '') {
       document.getElementById('last_name_error').textContent = 'Apellidos es requerido.';
