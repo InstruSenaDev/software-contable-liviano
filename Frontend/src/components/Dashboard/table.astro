@@ -1,5 +1,6 @@
 ---
 import ProviderRow from './usersData.astro';
+import UsersData from './usersData.astro';
 
 const providers = [
   { name: 'Proveedor', nit: 'xxxxxxxxxxxxxxx', email: 'uncorreo@gmail.com', address: 'Cra 1 #24-7 Barrio Nuevo', status: 'Activo' },
@@ -16,6 +17,7 @@ const providers = [
   { name: 'Proveedor', nit: 'xxxxxxxxxxxxxxx', email: 'uncorreo@gmail.com', address: 'Cra 1 #24-7 Barrio Nuevo', status: 'Activo' },
   // ...más proveedores
 ];
+
 ---
 <div class="flex flex-row space-x-2 justify-end m-3">
   <div class="flex flex-row p-1 bg-blue-baby4 text-white rounded-md">
@@ -25,14 +27,39 @@ const providers = [
   
 <img class="" src="../../../public/img/black/trash.svg" alt="">
 </div>
-<table class="min-w-full bg-white border border-gray-200">
-  <thead>
-    <tr class="border-b">
+<table class="min-w-full bg-white border border-gray-200 flex  flex-col">
+  <thead id="providers" class="hidden">
+    <tr class="border-b flex justify-between">
+      <th></th>
       <th class="p-2">Nombre</th>
       <th class="p-2">NIT</th>
       <th class="p-2">Correo</th>
       <th class="p-2">Dirección</th>
       <th class="p-2">Estado</th>
+    </tr>
+  </thead>
+
+  <thead id="articulos" class="hidden">
+    <tr class="border-b flex justify-between">
+      <th class="p-2">Codigo de articulo</th>
+      <th class="p-2">Nombre</th>
+      <th class="p-2">Precio unitario</th>
+      <th class="p-2">Stock</th>
+      <th class="p-2">Tipo</th>
+    </tr>
+  </thead>
+
+  <thead id="compras" class="hidden">
+    <tr class="border-b flex justify-between">
+      <th class="p-2">Codigo de compra</th>
+      <th class="p-2">Nombre</th>
+      <th class="p-2">Precio unitario</th>
+      <th class="p-2">Cantidad</th>
+      <th class="p-2">Descuento</th>
+      <th class="p-2">Proveedor</th>
+      <th class="p-2">Encargado de compra</th>
+      <th class="p-2">fecha</th>
+
     </tr>
   </thead>
   <tbody>
