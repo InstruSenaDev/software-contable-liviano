@@ -31,7 +31,7 @@
                   name="first_name"
                   autocomplete="given-name"
                   placeholder="Nombres..." />
-                <span id="first_name_error" class="text-red-500 text-xxs"></span>
+                <span id="first_name_error" class="text-red-500 text-xxs ml-2" ></span>
               </div>
               <div class="w-full">
                 <input
@@ -73,7 +73,7 @@
                   <a class="text-accent-500 hover:text-accent-400" href="/terms">Terminos y condiciones de servicio.
                   </a>
                 </label>
-                <span id="terms_error" class="text-red-500 text-xxs"></span>
+                <span id="terms_error" class="text-red-500 text-xxs ml-16"></span>
               </div> </div>
             </div>
             <div class="col-span-full">
@@ -111,6 +111,7 @@
     const firstName = (document.getElementById('first_name') as HTMLInputElement).value;
     if (firstName.trim() === '') {
       document.getElementById('first_name_error').textContent = 'Nombres es requerido.';
+      document.getElementById('first_name_error').classList.add('ml-2');
       isValid = false;
     } else if (!namePattern.test(firstName)){
       document.getElementById('first_name_error').textContent = 'El nombre no debe contener caracteres especiales.'
