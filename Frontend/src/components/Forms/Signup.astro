@@ -107,7 +107,7 @@
     document.getElementById('company_error').textContent = '';
     document.getElementById('terms_error').textContent = ';'
     // Validate first name
-    const namePattern = /^[a-zA-Z0-9]+$/;
+    const namePattern =/^[a-zA-Z0-9\s]+$/;
     const firstName = (document.getElementById('first_name') as HTMLInputElement).value;
     if (firstName.trim() === '') {
       document.getElementById('first_name_error').textContent = 'Nombres es requerido.';
