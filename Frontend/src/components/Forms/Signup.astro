@@ -40,7 +40,7 @@
                   name="last_name"
                   autocomplete="family-name"
                   placeholder="Apellidos.." />
-                <span id="last_name_error" class="text-red-500 text-xxs"></span>
+                <span id="last_name_error" class="text-red-500 text-xxs ml-2"></span>
               </div>
             </div>
             <div>
@@ -49,7 +49,7 @@
                 name="email"
                 class="w-full focus:outline-none border py-3 appearance-none h-12 bg-gray-50 block border-gray-200 focus:bg-white focus:border-accent-500 focus:ring-accent-500 placeholder-gray-400 px-3 rounded-xl sm:text-sm text-accent-500"
                 placeholder="Correo Electrónico..." />
-              <span id="email_error" class="text-red-500 text-xxs"></span>
+              <span id="email_error" class="text-red-500 text-xxs ml-2"></span>
             </div>
             <div class="col-span-full">
               <input
@@ -58,7 +58,7 @@
                 class="w-full focus:outline-none border py-3 appearance-none h-12 bg-gray-50 block border-gray-200 focus:bg-white focus:border-accent-500 focus:ring-accent-500 placeholder-gray-400 px-3 rounded-xl sm:text-sm text-accent-500"
                 placeholder="Contraseña..."
                 type="password" />
-              <span id="company_error" class="text-red-500 text-xxs"></span>
+              <span id="company_error" class="text-red-500 text-xxs ml-2"></span>
             </div>
             <div class="flex">
               <div class="flex items-start">
@@ -73,7 +73,7 @@
                   <a class="text-accent-500 hover:text-accent-400" href="/terms">Terminos y condiciones de servicio.
                   </a>
                 </label>
-                <span id="terms_error" class="text-red-500 text-xxs ml-16"></span>
+                <span id="terms_error" class="text-red-500 text-xxs ml-2"></span>
               </div> </div>
             </div>
             <div class="col-span-full">
@@ -111,7 +111,6 @@
     const firstName = (document.getElementById('first_name') as HTMLInputElement).value;
     if (firstName.trim() === '') {
       document.getElementById('first_name_error').textContent = 'Nombres es requerido.';
-      document.getElementById('first_name_error').classList.add('ml-2');
       isValid = false;
     } else if (!namePattern.test(firstName)){
       document.getElementById('first_name_error').textContent = 'El nombre no debe contener caracteres especiales.'
@@ -124,6 +123,7 @@
     const lastName = (document.getElementById('last_name') as HTMLInputElement).value;
     if (lastName.trim() === '') {
       document.getElementById('last_name_error').textContent = 'Apellidos es requerido.';
+
       isValid = false;
     } else if (!namePattern.test(lastName)){
       document.getElementById('last_name_error').textContent = 'El apellido no debe contener caracteres especiales '
@@ -135,7 +135,6 @@
   
     if (email.trim() === '') {
       document.getElementById('email_error').textContent = 'El correo es obligatorio';
-      isValid = false;
     } else if (!emailPattern.test(email)) {
       document.getElementById('email_error').textContent = 'El correo debe contener un arroba (@)';
       isValid = false; 
@@ -145,6 +144,7 @@
     const password = (document.getElementById('company') as HTMLInputElement).value;
     if (password.trim() === ''){
       document.getElementById('company_error').textContent = 'la contraseña es obligatoria';
+    
       isValid = false;
     }
     else if(password.length < 8) {
@@ -155,6 +155,7 @@
     const TermsAccepted =(document.getElementById('remember-me') as HTMLInputElement).checked;
     if(!TermsAccepted){
       document.getElementById('terms_error').textContent ='Debes aceptar los terminos y condiciones.';
+     
       isValid = false;
     }
     if (!isValid) {
