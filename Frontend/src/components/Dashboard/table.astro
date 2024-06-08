@@ -17,6 +17,19 @@ const providers = [
   { name: 'Proveedor', nit: 'xxxxxxxxxxxxxxx', email: 'uncorreo@gmail.com', address: 'Cra 1 #24-7 Barrio Nuevo', status: 'Activo' },
   // ...más proveedores
 ];
+const compras = [
+  {Codigo_de_compra: '1', Nombre:'producto1', Precio_unitario:'1000', Cantidad:'20', Descuento:'00%', Proveedor:'Proveedor1', Encargado_de_compra:'Usuario1', Fecha:'1/11/2024'},
+  {Codigo_de_compra: '1', Nombre:'producto1', Precio_unitario:'1000', Cantidad:'20', Descuento:'00%', Proveedor:'Proveedor1', Encargado_de_compra:'Usuario1', Fecha:'1/11/2024'},
+  {Codigo_de_compra: '1', Nombre:'producto1', Precio_unitario:'1000', Cantidad:'20', Descuento:'00%', Proveedor:'Proveedor1', Encargado_de_compra:'Usuario1', Fecha:'1/11/2024'},
+  {Codigo_de_compra: '1', Nombre:'producto1', Precio_unitario:'1000', Cantidad:'20', Descuento:'00%', Proveedor:'Proveedor1', Encargado_de_compra:'Usuario1', Fecha:'1/11/2024'},
+  {Codigo_de_compra: '1', Nombre:'producto1', Precio_unitario:'1000', Cantidad:'20', Descuento:'00%', Proveedor:'Proveedor1', Encargado_de_compra:'Usuario1', Fecha:'1/11/2024'},
+  {Codigo_de_compra: '1', Nombre:'producto1', Precio_unitario:'1000', Cantidad:'20', Descuento:'00%', Proveedor:'Proveedor1', Encargado_de_compra:'Usuario1', Fecha:'1/11/2024'},
+  {Codigo_de_compra: '1', Nombre:'producto1', Precio_unitario:'1000', Cantidad:'20', Descuento:'00%', Proveedor:'Proveedor1', Encargado_de_compra:'Usuario1', Fecha:'1/11/2024'}
+];
+const artiulos = [
+  {Codigo_de_articulo: '1', Nombre:'producto1', Precio_unitario:'1000', Stock:'20'},
+  
+];
 
 ---
 <div class="flex flex-row space-x-2 justify-end m-3">
@@ -49,7 +62,7 @@ const providers = [
     </tr>
   </thead>
 
-  <thead id="compras" class="hidden">
+  <thead id="compras" class="">
     <tr class="border-b flex justify-between">
       <th class="p-2">Codigo de compra</th>
       <th class="p-2">Nombre</th>
@@ -63,7 +76,7 @@ const providers = [
     </tr>
   </thead>
   <tbody>
-    {providers.map(provider => (
+    {articulos.map(provider => (
       <ProviderRow {...provider} />
     ))}
   </tbody>
