@@ -2,50 +2,97 @@
 
 ---
 
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Proveedores - ProviSoft</title>
+  <link rel="stylesheet" href="/src/styles/tailwind.css" />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;700&display=swap"
+  />
+</head>
 <aside class="w-64 bg-gray-100 h-full fixed">
   <nav class="p-4">
     <ul class="space-y-4">
-      <div>
-        <li class="m-4 text-blue-baby ">
-          Provi<span>Soft</span>
+      <div class="flex flex-row mb-20">
+        <img src="../../../public/img/black/logoPS.svg" alt="" />
+        <li class="font-display font-bold m-4 text-blue-baby4 text-2xl">
+          Provi<span class="text-blue-baby font-display font-bold">Soft</span>
         </li>
       </div>
 
-      <li>
-        <a
-          href="/"
-          class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded"
-          >Inicio</a
+      <a href="/">
+        <button
+          id="btnArticulos"
+          class="w-56 font-display shadow-md flex flex-row bg-white h-10 items-center rounded-md p-2 hover:bg-gray-300 active:bg-blue-baby4 active:text-white"
         >
-      </li>
-      <li>
-        <a
-          href="/Proveedores"
-          class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded"
-          >Proveedores</a
-        >
-      </li>
-      <li>
-        <a
-          href="/Compras"
-          class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded"
-          >Compras</a
-        >
-      </li>
-      <li>
-        <a
-          href="/Articulos"
-          class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded"
-          >Artículos</a
-        >
-      </li>
-      <li>
-        <a
-          href="/CerrarSesion"
-          class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded"
-          >Cerrar Sesión</a
-        >
-      </li>
+          <div>
+            <img
+              class="h-5 m-4 flex"
+              src="../../../public/img/black/dashboard.svg"
+              alt=""
+            />
+          </div>
+          Inicio
+        </button>
+      </a>
+
+      <button
+        id="btnArticulos"
+        class="w-56 font-display shadow-md flex flex-row bg-white h-10 items-center rounded-md p-2 hover:bg-gray-300"
+      >
+        <div>
+          <img
+            class="h-5 m-4 flex"
+            src="../../../public/img/black/person.svg"
+            alt=""
+          />
+        </div>
+        Proveedores
+      </button>
+
+      <button
+        id="btnArticulos"
+        class="w-56 font-display shadow-md flex flex-row bg-white h-10 items-center rounded-md p-2 hover:bg-gray-300"
+      >
+        <div>
+          <img
+            class="h-5 m-4 flex"
+            src="../../../public/img/black/shoping.svg"
+            alt=""
+          />
+        </div>
+        Compras
+      </button>
+
+      <button
+        id="btnArticulos"
+        class="w-56 font-display shadow-md flex flex-row bg-white h-10 items-center rounded-md p-2 hover:bg-gray-300"
+      >
+        <div>
+          <img
+            class="h-5 m-4 flex"
+            src="../../../public/img/black/lista.svg"
+            alt=""
+          />
+        </div>
+        Articulos
+      </button>
+
+      <button
+        id="btnLogout"
+        class="w-56 font-display shadow-md flex flex-row bg-white h-10 items-center rounded-md p-2 hover:bg-gray-300"
+      >
+        <div>
+          <img
+            class="h-5 m-4 flex"
+            src="../../../public/img/black/Logout.svg"
+            alt=""
+          />
+        </div>
+        Cerrar sesion
+      </button>
     </ul>
   </nav>
 </aside>

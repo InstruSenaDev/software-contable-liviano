@@ -1,8 +1,10 @@
 ---
 const { name, nit, email, address, status } = Astro.props;
+const {Codigo_de_compra,Nombre, Precio_unitario, Cantidad, Descuento, Proveedor, Encargado_de_compra, Fecha } = Astro.props;
+const {Codigo_de_articulo, Stock, Tipo } = Astro.props;
 ---
-<tr class="border-b">
-  <td class="p-2"><input type="checkbox" /></td>
+<tr class="border-b flex justify-between  ">
+  <td class="p-2"><input class="rounded-sm" type="checkbox" /></td>
   <td class="p-2">{name}</td>
   <td class="p-2">{nit}</td>
   <td class="p-2">{email}</td>
@@ -10,4 +12,25 @@ const { name, nit, email, address, status } = Astro.props;
   <td class="p-2">
     <span class={status === 'Activo' ? 'text-green-500' : 'text-red-500'}>{status}</span>
   </td>
+</tr>
+ 
+<tr class="border-b flex justify-between hidden ">
+  <td class="p-2"><input class="rounded-sm" type="checkbox" /></td>
+  <td class="p-2">{Codigo_de_compra}</td>
+  <td class="p-2">{Nombre}</td>
+  <td class="p-2">{Precio_unitario}</td>
+  <td class="p-2">{Cantidad}</td>
+  <td class="p-2">{Descuento}</td>
+  <td class="p-2">{Proveedor}</td>
+  <td class="p-2">{Encargado_de_compra}</td>
+  <td class="p-2">{Fecha}</td>
+</tr>
+
+<tr class="border-b flex justify-between hidden ">
+  <td class="p-2"><input class="rounded-sm" type="checkbox" /></td>
+  <td class="p-2">{Codigo_de_articulo}</td>
+  <td class="p-2">{Nombre}</td>
+  <td class="p-2">{Precio_unitario}</td>
+  <td class="p-2">{Stock}</td>
+  <td class="p-2">{Tipo}</td>
 </tr>
