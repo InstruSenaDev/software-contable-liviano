@@ -27,6 +27,7 @@ module.exports = {
         'blue-baby2': '#2CECB4',
         'blue-baby3': '#004AAD',
         'blue-baby4': '#172E73',
+        'grisesito':'#E9E9E9',
         accent: {
           50: "#EBEDFF",
           100: "#D6DAFF",
