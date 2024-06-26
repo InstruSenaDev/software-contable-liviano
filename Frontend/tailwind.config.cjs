@@ -28,6 +28,8 @@ module.exports = {
         'blue-baby3': '#004AAD',
         'blue-baby4': '#172E73',
         'grisesito':'#E9E9E9',
+        'grisinpu':'#D1D1D1',
+        'grisfont':'#646464',
         accent: {
           50: "#EBEDFF",
           100: "#D6DAFF",
