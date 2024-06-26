@@ -1,0 +1,18 @@
+swagger: "2.0"
+info:
+  description: "This is a sample server."
+  version: "1.0.0"
+  title: "Swagger Sample"
+host: "localhost:3000"
+basePath: "/api"
+schemes:
+  - "http"
+paths:
+  /hello:
+    get:
+      summary: "Returns a greeting message"
+      responses:
+        200:
+          description: "A greeting message"
+          schema:
+            type: "string"
