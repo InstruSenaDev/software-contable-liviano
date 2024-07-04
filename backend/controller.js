@@ -15,8 +15,8 @@ const usuarios =(req, res) => {
     });
 };
 
-const rol =(req, res) => {
-    pool.query('SELECT * FROM rol',(error, results) =>
+const roles =(req, res) => {
+    pool.query('SELECT * FROM roles',(error, results) =>
     {
         if (error){
             console.error('Error al ejecutar la consulta:',error);
@@ -27,5 +27,5 @@ const rol =(req, res) => {
     });
 };
 module.exports = {
-    saludo, usuarios, rol
+    saludo, usuarios, roles
 };
