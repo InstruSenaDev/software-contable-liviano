@@ -1,9 +1,10 @@
 ---
 // import TablaCompras from "../components/Dashboard/compras/tablaCompras.astro";
 import Header from "../components/Dashboard/header.astro";
-import RegistroP from "../components/Dashboard/proveeddores/registroP.astro";
+// import RegistroP from "../components/Dashboard/proveeddores/registroP.astro";
 // import TablaProvi from "../components/Dashboard/proveeddores/tablaProvi.astro";
 import Sidebar from "../components/Dashboard/sidebar.astro";
+import Perfil from "../components/perfil.astro";
 // import Registro from "../components/Dashboard/compras/registro.astro";
 
 ---
@@ -17,13 +18,13 @@ import Sidebar from "../components/Dashboard/sidebar.astro";
     <link rel="stylesheet" href="/src/styles/tailwind.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;700&display=swap">
   </head>
-  <body class="bg-white">
+  <body class="bg-white ">
     <div class="flex">
       <Sidebar />
       <div class="ml-64 w-full">
         <Header />
         <main class="p-6"> 
-          <RegistroP />
+          <Perfil />
         </main>
       </div>
     </div>
