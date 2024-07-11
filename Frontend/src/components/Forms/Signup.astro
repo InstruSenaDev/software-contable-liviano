@@ -77,7 +77,8 @@
               </div> </div>
             </div>
             <div class="col-span-full">
-              <button
+              <button id="submit_signup"
+              name="submit_signup"
                 class="items-center justify-center h-12 rounded-xl focus-visible:outline-black focus:outline-none inline-flex bg-black border-2 border-black duration-200 focus-visible:ring-black hover:bg-transparent hover:border-black hover:text-black px-6 py-3 text-center text-white w-full"
                 type="submit">Crea tu cuenta</button>
             </div>
@@ -96,9 +97,16 @@
     </div>
   </div>
 </section>
+
 <script>
-  document.getElementById('signupForm').addEventListener('submit', function (event) {
+// validaciones
+document.addEventListener("DOMContentLoaded",()=>{
+  const form = document.getElementById("signupForm");
+
+  form.addEventListener("submit", (e)=>{
+    e.preventDefault();
     let isValid = true;
+
 
     // Clear previous errors
     document.getElementById('first_name_error').textContent = '';
@@ -159,7 +167,58 @@
       isValid = false;
     }
     if (!isValid) {
-      event.preventDefault();
+      return;
     }
+       // Collect form data
+    const formData = {
+      first_name: firstName,
+      last_name: lastName,
+      email: email,
+      password: password
+    };
+
+    // Send form data to server
+    fetch("/registrer",{
+      method: "POST",
+      headers:{
+      'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        // Registration successful, redirect or show success message
+        alert('Registro exitoso');
+      } else {
+        // Handle registration error
+        alert('Error en el registro' + data.message);
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('Error en el registro '+ error.message);
+    });
   });
+});
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
