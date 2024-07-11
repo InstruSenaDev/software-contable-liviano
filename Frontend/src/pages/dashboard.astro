@@ -1,8 +1,8 @@
 ---
 import Header from "../components/Dashboard/header.astro";
 import Sidebar from "../components/Dashboard/sidebar.astro";
-// import Table from "../components/Dashboard/table.astro";
-import InicioDashboard from "../components/Dashboard/inicio/inicioDashboard.astro";
+import Table from "../components/Dashboard/table.astro";
+
 ---
 
 <!doctype html>
@@ -15,13 +15,13 @@ import InicioDashboard from "../components/Dashboard/inicio/inicioDashboard.astr
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;700&display=swap">
   </head>
   <body class="bg-white">
-    <div class="flex">
+    <div class="flex"> 
       <Sidebar />
       <div class="ml-64 w-full">
         <Header />
         <main class="p-6">
-          <h1 class="font-display mb-4">Proveedores</h1>
-          <InicioDashboard />
+           <h1 class="font-display mb-4">Proveedores</h1>
+          <Table/>
         </main>
       </div>
     </div>
