@@ -189,7 +189,7 @@ document.addEventListener("DOMContentLoaded",()=>{
     .then(data => {
       if (data.success) {
         // Registration successful, redirect or show success message
-        alert('Registro exitoso');
+        alert('Registro exitoso'+ data.message);
       } else {
         // Handle registration error
         alert('Error en el registro' + data.message);
