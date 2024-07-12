@@ -1,0 +1,179 @@
+---
+
+---
+
+<h1 class="font-bold text-3xl text-center mb-14">Registro de compras</h1>
+<div
+  class="bg-grisesito flex flex-row justify-around rounded-md h-24 p-5 w-full"
+>
+  <span class="flex flex-col text-grisfont">
+    <div class="font-bold">Fecha:</div>
+    <span id="fecha"></span>
+  </span>
+  <span class="flex flex-col text-grisfont">
+    <div class="text-grisfont font-bold">Hora:</div>
+    <span id="hora"></span>
+  </span>
+  <span class="flex flex-col">
+    <div class="text-grisfont font-bold">Encargado de compra:</div>
+  </span>
+  <span class="flex flex-col">
+    <div class="text-grisfont font-bold">Proveedor:</div>
+  </span>
+  <span class="flex flex-col">
+    <div class="text-grisfont font-bold">Encargado de la venta:</div>
+  </span>
+</div>
+<span class="flex flex-row">
+  <div class="flex flex-col justify-around p-1">
+    <div
+      class="flex flex-col border-black border-2 rounded-md h-auto p-5 w-auto m-2"
+    >
+      <h1 class="text-2xl font-bold p-5 text-center">
+        Informacion de la compra
+      </h1>
+      <div class="justify-between sm:flex sm:flex-row *:}flex flex-row">
+        <div>
+          <h3>Codigo de la compra</h3>
+          <input
+            class="bg-grisinpu rounded-md border-none w-70"
+            type="text"
+            placeholder="0000"
+          />
+        </div>
+        <div>
+          <h3>Precio bruto</h3>
+          <input
+            class="bg-grisinpu rounded-md border-none w-70"
+            type="text"
+            placeholder="$000000000"
+          />
+        </div>
+
+        <div>
+          <h3>Proveedor</h3>
+          <form>
+            <select class="bg-grisinpu rounded-md border-none w-50">
+              <option>Proveedor1 </option>
+              <option>Proveedor2 </option>
+              <option>Proveedor3 </option>
+            </select>
+          </form>
+        </div>
+      </div>
+      <div class="flex flex-row justify-between">
+        <div>
+          <h3 class="flex ml-11">Iva</h3>
+          <div class="flex flex-row">
+            <input
+              class="me-2 mt-[0.3rem] h-3.5 w-8 appearance-none rounded-[0.4375rem] bg-black/25 before:pointer-events-none before:absolute before:h-3.5 before:w-3.5 before:rounded-full before:bg-transparent before:content-[''] after:absolute after:z-[2] after:-mt-[0.1875rem] after:h-5 after:w-5 after:rounded-full after:border-none after:bg-gra after:shadow-switch-2 after:transition-[background-color_0.2s,transform_0.2s] after:content-[''] checked:bg-primary checked:after:absolute checked:after:z-[2] checked:after:-mt-[3px] checked:after:ms-[1.0625rem] checked:after:h-5 checked:after:w-5 checked:after:rounded-full checked:after:border-none checked:after:bg-primary checked:after:shadow-switch-1 checked:after:transition-[background-color_0.2s,transform_0.2s] checked:after:content-[''] hover:cursor-pointer focus:outline-none focus:before:scale-100 focus:before:opacity-[0.12] focus:before:shadow-switch-3 focus:before:shadow-black/60 focus:before:transition-[box-shadow_0.2s,transform_0.2s] focus:after:absolute focus:after:z-[1] focus:after:block focus:after:h-5 focus:after:w-5 focus:after:rounded-full focus:after:content-[''] checked:focus:border-primary checked:focus:bg-primary checked:focus:before:ms-[1.0625rem] checked:focus:before:scale-100 checked:focus:before:shadow-switch-3 checked:focus:before:transition-[box-shadow_0.2s,transform_0.2s] dark:bg-white/25 dark:after:bg-surface-dark dark:checked:bg-primary dark:checked:after:bg-primary"
+              type="checkbox"
+              role="switch"
+              id="flexSwitchCheckDefault"
+            />
+            <input
+              class="bg-grisinpu rounded-md border-none w-40"
+              type="text"
+            />
+          </div>
+        </div>
+        <div>
+          <h3 class="flex ml-11">Reteica</h3>
+          <div class="flex flex-row">
+            <input
+              class="me-2 mt-[0.3rem] h-3.5 w-8 appearance-none rounded-[0.4375rem] bg-black/25 before:pointer-events-none before:absolute before:h-3.5 before:w-3.5 before:rounded-full before:bg-transparent before:content-[''] after:absolute after:z-[2] after:-mt-[0.1875rem] after:h-5 after:w-5 after:rounded-full after:border-none after:bg-gra after:shadow-switch-2 after:transition-[background-color_0.2s,transform_0.2s] after:content-[''] checked:bg-primary checked:after:absolute checked:after:z-[2] checked:after:-mt-[3px] checked:after:ms-[1.0625rem] checked:after:h-5 checked:after:w-5 checked:after:rounded-full checked:after:border-none checked:after:bg-primary checked:after:shadow-switch-1 checked:after:transition-[background-color_0.2s,transform_0.2s] checked:after:content-[''] hover:cursor-pointer focus:outline-none focus:before:scale-100 focus:before:opacity-[0.12] focus:before:shadow-switch-3 focus:before:shadow-black/60 focus:before:transition-[box-shadow_0.2s,transform_0.2s] focus:after:absolute focus:after:z-[1] focus:after:block focus:after:h-5 focus:after:w-5 focus:after:rounded-full focus:after:content-[''] checked:focus:border-primary checked:focus:bg-primary checked:focus:before:ms-[1.0625rem] checked:focus:before:scale-100 checked:focus:before:shadow-switch-3 checked:focus:before:transition-[box-shadow_0.2s,transform_0.2s] dark:bg-white/25 dark:after:bg-surface-dark dark:checked:bg-primary dark:checked:after:bg-primary"
+              type="checkbox"
+              role="switch"
+              id="flexSwitchCheckDefault"
+            />
+            <input
+              class="bg-grisinpu rounded-md border-none w-40"
+              type="text"
+            />
+          </div>
+        </div>
+        <div>
+          <h3 class="flex ml-11">Descuento</h3>
+          <div class="flex flex-row">
+            <input
+              class="me-2 mt-[0.3rem] h-3.5 w-8 appearance-none rounded-[0.4375rem] bg-black/25 before:pointer-events-none before:absolute before:h-3.5 before:w-3.5 before:rounded-full before:bg-transparent before:content-[''] after:absolute after:z-[2] after:-mt-[0.1875rem] after:h-5 after:w-5 after:rounded-full after:border-none after:bg-gra after:shadow-switch-2 after:transition-[background-color_0.2s,transform_0.2s] after:content-[''] checked:bg-primary checked:after:absolute checked:after:z-[2] checked:after:-mt-[3px] checked:after:ms-[1.0625rem] checked:after:h-5 checked:after:w-5 checked:after:rounded-full checked:after:border-none checked:after:bg-primary checked:after:shadow-switch-1 checked:after:transition-[background-color_0.2s,transform_0.2s] checked:after:content-[''] hover:cursor-pointer focus:outline-none focus:before:scale-100 focus:before:opacity-[0.12] focus:before:shadow-switch-3 focus:before:shadow-black/60 focus:before:transition-[box-shadow_0.2s,transform_0.2s] focus:after:absolute focus:after:z-[1] focus:after:block focus:after:h-5 focus:after:w-5 focus:after:rounded-full focus:after:content-[''] checked:focus:border-primary checked:focus:bg-primary checked:focus:before:ms-[1.0625rem] checked:focus:before:scale-100 checked:focus:before:shadow-switch-3 checked:focus:before:transition-[box-shadow_0.2s,transform_0.2s] dark:bg-white/25 dark:after:bg-surface-dark dark:checked:bg-primary dark:checked:after:bg-primary"
+              type="checkbox"
+              role="switch"
+              id="flexSwitchCheckDefault"
+            />
+            <input
+              class="bg-grisinpu rounded-md border-none w-40"
+              type="text"
+            />
+          </div>
+        </div>
+        <div>
+          <h3 class="flex ml-11">Retefuente</h3>
+          <div class="flex flex-row">
+            <input
+              class="me-2 mt-[0.3rem] h-3.5 w-8 appearance-none rounded-[0.4375rem] bg-black/25 before:pointer-events-none before:absolute before:h-3.5 before:w-3.5 before:rounded-full before:bg-transparent before:content-[''] after:absolute after:z-[2] after:-mt-[0.1875rem] after:h-5 after:w-5 after:rounded-full after:border-none after:bg-gra after:shadow-switch-2 after:transition-[background-color_0.2s,transform_0.2s] after:content-[''] checked:bg-primary checked:after:absolute checked:after:z-[2] checked:after:-mt-[3px] checked:after:ms-[1.0625rem] checked:after:h-5 checked:after:w-5 checked:after:rounded-full checked:after:border-none checked:after:bg-primary checked:after:shadow-switch-1 checked:after:transition-[background-color_0.2s,transform_0.2s] checked:after:content-[''] hover:cursor-pointer focus:outline-none focus:before:scale-100 focus:before:opacity-[0.12] focus:before:shadow-switch-3 focus:before:shadow-black/60 focus:before:transition-[box-shadow_0.2s,transform_0.2s] focus:after:absolute focus:after:z-[1] focus:after:block focus:after:h-5 focus:after:w-5 focus:after:rounded-full focus:after:content-[''] checked:focus:border-primary checked:focus:bg-primary checked:focus:before:ms-[1.0625rem] checked:focus:before:scale-100 checked:focus:before:shadow-switch-3 checked:focus:before:transition-[box-shadow_0.2s,transform_0.2s] dark:bg-white/25 dark:after:bg-surface-dark dark:checked:bg-primary dark:checked:after:bg-primary"
+              type="checkbox"
+              role="switch"
+              id="flexSwitchCheckDefault"
+            />
+            <input
+              class="bg-grisinpu rounded-md border-none w-40"
+              type="text"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="flex flex-col border-black border-2 rounded-md h-auto p-5 w-auto m-2"
+    >
+      <div>
+        <h3>Valor</h3>
+        <input
+          class="bg-grisinpu rounded-md border-none w7 0"
+          type="text"
+          placeholder="$000000000"
+        />
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="flex flex-col border-black border-2 rounded-md h-auto w-auto m-2 p-5"
+  >
+    <h1 class="text-center font-bold text-2xl">Cuentas</h1>
+    <div>
+      <h3 class="">Codigo de cuenta</h3>
+      <div class="flex flex-row">
+        <input class="bg-grisinpu border-none rounded-md w-40" type="text" />
+        <img
+          class="p-2"
+          src="../../../../public/img/white/iconMore.svg"
+          alt=""
+        />
+      </div>
+    </div>
+  </div>
+</span>
+<div class="flex justify-end m-5 space-x-5">
+  <button class="bg-black text-white rounded-md p-2 w-40">Cancelar</button>
+  <button class="bg-blue-baby4 text-white rounded-md p-2 w-52">Registrar</button
+  >
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    function updateClock() {
+      const now = new Date();
+      const fecha = now.toLocaleDateString();
+      const hora = now.toLocaleTimeString();
+
+      document.getElementById("fecha").textContent = fecha;
+      document.getElementById("hora").textContent = hora;
+    }
+
+    updateClock(); 
+    setInterval(updateClock, 1000);
+  });
+</script>
