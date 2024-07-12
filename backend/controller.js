@@ -32,7 +32,7 @@ const registerUser = async (req, res) => {
     const { first_name, last_name, email, password } = req.body;
     try {
       const hashedPassword = await bcrypt.hash(password, 10);
-      await pool.query(
+      await pool.query( 
         'INSERT INTO usuarios (nombre, apellido, correo, contraseña) VALUES ($1, $2, $3, $4)',
         [first_name, last_name, email, hashedPassword]
       );
