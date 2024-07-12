@@ -176,31 +176,9 @@ document.addEventListener("DOMContentLoaded",()=>{
       email: email,
       password: password
     };
-
-    // Send form data to server
-    fetch("http://localhost:3000/register",{
-      method: "POST",
-      headers:{
-      'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(formData)
-    })
-    .then(response => response.json())
-    .then(data => {
-      if (data.success) {
-        // Registration successful, redirect or show success message
-        alert('Registro exitoso'+ data.message);
-      } else {
-        // Handle registration error
-        alert('Error en el registro' + data.message);
-      }
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      alert('Error en el registro '+ error.message);
-    });
   });
 });
+export let formData = {};
 </script>
 
 
