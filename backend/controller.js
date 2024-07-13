@@ -1,4 +1,4 @@
-import formData from "../Frontend/src/components/Forms/Signup.astro"
+// import formData from "../Frontend/src/components/Forms/Signup.astro"
 const { hasSubscribers } = require('diagnostics_channel');  
 const pool = require('./db.js')
 // const bcrypt = require('bcrypt');
