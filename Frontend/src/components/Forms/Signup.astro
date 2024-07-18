@@ -168,7 +168,7 @@
       };
 
       try {
-        const response = await fetch('/register', {
+        const response = await fetch('http://localhost:3000/register', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -181,12 +181,14 @@
           alert('Usuario registrado exitosamente');
           console.log(formData, "Usuario registrado exitosamente");
         } else {
-          alert('Error al registrar usuario: ' + result.message);
-          console.error('Error al registrar usuario:', result.message);
+          alert('Error al registrar usuario:1 ' + result.message);
+          console.error('Error al registrar usuario:2', result.message);
+          console.log(formData);
+
         }
       } catch (error) {
         console.error('Error al enviar la solicitud:', error);
-        alert('Error al registrar usuario');
+        alert('Error al registrar usuario 3');
         console.log(formData);
       }
     });
