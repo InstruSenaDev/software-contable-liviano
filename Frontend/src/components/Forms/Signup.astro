@@ -166,9 +166,9 @@
         email: email,
         password: password
       };
-
+      console.log('AAAAAAAAAAAAA');
       try {
-        const response = await fetch('http://localhost:3000/register', {
+        const response = await fetch('http://localhost:8080/register', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -181,7 +181,7 @@
           alert('Usuario registrado exitosamente');
           console.log(formData, "Usuario registrado exitosamente");
         } else {
-          alert('Error al registrar usuario:1 ' + result.message);
+          alert('Error al registrar usuario:1' + result.message);
           console.error('Error al registrar usuario:2', result.message);
           console.log(formData);
 

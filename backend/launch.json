@@ -1,0 +1,17 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Launch Backend",
+        "type": "node",
+        "request": "launch",
+        "program": "${workspaceFolder}/backend/index.js",
+        "outFiles": ["${workspaceFolder}/backend/**/*.js"],
+        "cwd": "${workspaceFolder}/backend",
+        "runtimeExecutable": "node",
+        "console": "integratedTerminal",
+        "internalConsoleOptions": "neverOpen"
+      }
+    ]
+  }
+  
