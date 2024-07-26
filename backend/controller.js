@@ -38,7 +38,7 @@ const registerUser = async (req, res) => {
         console.log('aaaaa11111111111111');
 
         await pool.query(
-            'INSERT INTO usuarios (nombre, apellido, correo, estado, contraseña, idRol) VALUES ($1, $2, $3, $4, $5, $6)',
+            'INSERT INTO usuarios (nombre, apellido, correo, estado, contrasena,idrol) VALUES ($1, $2, $3, $4, $5,$6)',
             [first_name, last_name, email, '1', hashedPassword,'2']
         );
 
