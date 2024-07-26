@@ -27,7 +27,7 @@ const roles =(req, res) => {
         }
         res.status(200).json(results.rows);
     });
-};
+};   
 
 
 const registerUser = async (req, res) => {
@@ -37,7 +37,7 @@ const registerUser = async (req, res) => {
         
         await pool.query(
             'INSERT INTO usuarios (nombre, apellido, correo, estado, contrasena,idrol) VALUES ($1, $2, $3, $4, $5,$6)',
-            [first_name, last_name, email, '1', hashedPassword,'2']
+            [first_name, last_name, email, 'activo', hashedPassword,'1']
         );
 
         res.status(201).json({ success: true, message: 'Usuario registrado exitosamente' });
