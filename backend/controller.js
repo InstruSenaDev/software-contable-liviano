@@ -31,12 +31,10 @@ const roles =(req, res) => {
 
 
 const registerUser = async (req, res) => {
-    console.log('aaaaa11111111111111');
     const { first_name, last_name, email, password } = req.body;
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
-        console.log('aaaaa11111111111111');
-
+        
         await pool.query(
             'INSERT INTO usuarios (nombre, apellido, correo, estado, contrasena,idrol) VALUES ($1, $2, $3, $4, $5,$6)',
             [first_name, last_name, email, '1', hashedPassword,'2']
@@ -45,7 +43,7 @@ const registerUser = async (req, res) => {
         res.status(201).json({ success: true, message: 'Usuario registrado exitosamente' });
     } catch (error) {
         console.error('Error al registrar usuario:', error);
-        res.status(500).json({ success: false, message: 'Error interno del servidor aaaaaa'+error });
+        res.status(500).json({ success: false, message: 'Error interno del servidor'+error });
     }
 };
 
