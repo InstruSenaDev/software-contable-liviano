@@ -47,9 +47,26 @@ const registerUser = async (req, res) => {
     }
 };
 
+const inicioUser = async (req, res) => {
+    const { email, password } = req.body;
+    try {
+        const hashedPassword = await bcrypt.hash(password, 10);
+        
+        await pool.query(
+            'SELECT * FROM usuarios WHERE correo = $1 AND contrasena = $2', [email, password]
+        );
+
+        res.status(201).json({ success: true, message: 'Usuario registrado exitosamente' });
+    } catch (error) {
+        console.error('Error al registrar usuario:', error);
+        res.status(500).json({ success: false, message: 'Error interno del servidor'+error });
+    }
+};
+
 module.exports = {
     saludo, 
     usuarios, 
     roles,
-    registerUser
+    registerUser,
+    inicioUser
 };
