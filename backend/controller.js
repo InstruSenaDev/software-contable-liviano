@@ -62,11 +62,27 @@ const inicioUser = async (req, res) => {
         res.status(500).json({ success: false, message: 'Error interno del servidor'+error });
     }
 };
+const registerProviders = async (req, res) => {
+    const { nombre, numero_documento, tipo_documento, numero_telefono, correo_electronico, direccion, encargado } = req.body;
+    try {
+        
+        await pool.query(
+            'INSERT INTO proveedores (nombre, numeroDocumento, idDocumento, correoElectronico, direccion, encargado, numeroTelefono) VALUES ($1, $2, $3, $4, $5, $6, $7)',
+            [nombre, numero_documento, tipo_documento, numero_telefono, correo_electronico, direccion, encargado]
+        );
+
+        res.status(201).json({ success: true, message: 'Usuario registrado exitosamente' });
+    } catch (error) {
+        console.error('Error al registrar usuario:', error);
+        res.status(500).json({ success: false, message: 'Error interno del servidor'+error });
+    }
+};
 
 module.exports = {
     saludo, 
     usuarios, 
     roles,
     registerUser,
-    inicioUser
+    inicioUser,
+    registerProviders
 };

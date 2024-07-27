@@ -6,7 +6,15 @@
 <div
   class="bg-grisesito flex flex-row justify-around rounded-md h-24 p-5 w-auto"
 >
-  <div class="text-grisfont font-bold">Fecha:</div>
+  <span class="flex flex-col text-grisfont">
+    <div class="font-bold">Fecha:</div>
+    <span id="fecha"></span>
+  </span>
+  <span class="flex flex-col text-grisfont">
+    <div class="text-grisfont font-bold">Hora:</div>
+    <span id="hora"></span>
+  </span>
+
   <div class="text-grisfont font-bold">Encargado del registro:</div>
 </div>
 <div class="flex flex-row justify-around p-1">
@@ -85,3 +93,10 @@
   <button class="bg-blue-baby4 text-white rounded-md p-2 w-52">Registrar</button
   >
 </div>
+<script>
+  import { updateClock } from "../../../js/formatoFH.js";
+
+  document.addEventListener("DOMContentLoaded", () => {
+    updateClock();
+  });
+</script>
