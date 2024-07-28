@@ -18,7 +18,7 @@ import { updateClock } from "../../../js/formatoFH.js";
   <div class="flex flex-col border-black border-2 rounded-md h-auto p-5 w-full m-5">
     <h1 class="text-2xl font-bold p-5 text-center">Informacion del proveedor</h1>
     <div class="justify-between sm:flex sm:flex-row flex flex-row">
-      <div class="flex flex-col p-2">
+      <div class="p-2 flex flex-col">
         <h3>Nombre</h3>
         <input
           id="nombre"
@@ -28,31 +28,31 @@ import { updateClock } from "../../../js/formatoFH.js";
         />
         <span id="error-nombre" class="text-red-500 text-sm hidden"></span>
       </div>
-      <div class="p-2">
+      <div class="p-2 flex flex-col">
         <h3>Tipo de documento</h3>
-        <form class="flex flex-col">
-          <select id="tipo_documento" class="bg-grisinpu rounded-md border-none w-50">
+        <form>
+          <select id="tipo-documento" class="bg-grisinpu rounded-md border-none w-50">
             <option value="">Tipo documento</option>
-            <option value="1">Cédula</option>
-            <option value="2">NIT</option>
+            <option value="cedula">Cédula</option>
+            <option value="nit">NIT</option>
           </select>
-          <span id="error-tipo-documento" class="text-red-500 text-sm hidden "></span>
+          <span id="error-tipo-documento" class="text-red-500 text-sm hidden"></span>
         </form>
       </div>
-      <div class="flex flex-col p-2">
+      <div class="p-2 flex flex-col">
         <h3>Número de documento</h3>
         <input
-          id="numero_documento"
+          id="numero-documento"
           class="bg-grisinpu rounded-md border-none w-70"
           type="text"
           placeholder="000000000"
         />
         <span id="error-numero-documento" class="text-red-500 text-sm hidden"></span>
       </div>
-      <div class="flex flex-col p-2">
+      <div class="p-2 flex flex-col">
         <h3>Número de teléfono</h3>
         <input
-          id="numero_telefono"
+          id="numero-telefono"
           class="bg-grisinpu rounded-md border-none w-70"
           type="text"
           placeholder="0000000000"
@@ -61,17 +61,17 @@ import { updateClock } from "../../../js/formatoFH.js";
       </div>
     </div>
     <div class="flex flex-row justify-between">
-      <div class="flex flex-col p-2">
+      <div class="p-2 flex flex-col">
         <h3>Correo electrónico</h3>
         <input
-          id="correo_electronico"
+          id="correo-electronico"
           class="bg-grisinpu rounded-md border-none w-70"
           type="text"
           placeholder="correo@correo.com"
         />
         <span id="error-correo-electronico" class="text-red-500 text-sm hidden"></span>
       </div>
-      <div class="flex flex-col p-2">
+      <div class="p-2 flex flex-col">
         <h3>Dirección</h3>
         <input
           id="direccion"
@@ -81,7 +81,7 @@ import { updateClock } from "../../../js/formatoFH.js";
         />
         <span id="error-direccion" class="text-red-500 text-sm hidden"></span>
       </div>
-      <div class="flex flex-col p-2">
+      <div class="p-2 flex flex-col">
         <h3>Encargado</h3>
         <input
           id="encargado"
@@ -100,7 +100,8 @@ import { updateClock } from "../../../js/formatoFH.js";
 </div>
 <script>
   import { updateClock } from "../../../js/formatoFH.js";
-  import {validateForm} from '../../../js/providersForm'
+  import { validateForm } from "../../../js/providersForm";
+
   document.addEventListener("DOMContentLoaded", () => {
     updateClock();
   });
