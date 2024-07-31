@@ -1,5 +1,4 @@
-import {handleButtonClick} from "../components/Dashboard/sidebar.astro"
-
+// showComponents.js
 export function showComponent(component) {
     const registroP = document.getElementById('registroP');
     const registro = document.getElementById('registro');
@@ -23,8 +22,8 @@ export function showComponent(component) {
         registro.style.display = 'block';
     } else if (component === 'tablaAdmin' && tablaAdmin) {
         tablaAdmin.style.display = 'block';
-    } else if (component === 'tablaProvi' && tablaProvi) {
-        tablaProvi.style.display = 'block';
+    } else if (component === 'tablaCompras' && tablaCompras) {
+        tablaCompras.style.display = 'block';
     } else if (component === 'registroAdmin' && registroAdmin) {
         registroAdmin.style.display = 'block';
     } else if (component === 'perfil' && perfil) {
@@ -33,5 +32,5 @@ export function showComponent(component) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    showComponent(handleButtonClick);
+    showComponent('registroP');
 });
