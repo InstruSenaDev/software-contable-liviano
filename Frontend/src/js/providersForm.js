@@ -1,7 +1,7 @@
-// validateForm.js
-
 export function validateForm() {
   let isValid = true;
+
+  console.log('Iniciando validación del formulario');
 
   // Obtener elementos del formulario
   const nombre = document.getElementById('nombre');
@@ -12,6 +12,8 @@ export function validateForm() {
   const direccion = document.getElementById('direccion');
   const encargado = document.getElementById('encargado');
 
+  console.log('Elementos del formulario:', { nombre, tipoDocumento, numeroDocumento, numeroTelefono, correoElectronico, direccion, encargado });
+
   // Obtener elementos de error
   const errorNombre = document.getElementById('error-nombre');
   const errorTipoDocumento = document.getElementById('error-tipo-documento');
@@ -20,6 +22,8 @@ export function validateForm() {
   const errorCorreoElectronico = document.getElementById('error-correo-electronico');
   const errorDireccion = document.getElementById('error-direccion');
   const errorEncargado = document.getElementById('error-encargado');
+
+  console.log('Elementos de error:', { errorNombre, errorTipoDocumento, errorNumeroDocumento, errorNumeroTelefono, errorCorreoElectronico, errorDireccion, errorEncargado });
 
   // Limpiar mensajes de error
   errorNombre.classList.add('hidden');
@@ -73,5 +77,6 @@ export function validateForm() {
     isValid = false;
   }
 
+  console.log('Validación completada:', isValid);
   return isValid;
 }
