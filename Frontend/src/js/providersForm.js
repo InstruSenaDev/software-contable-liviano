@@ -54,7 +54,7 @@ export function validateForm() {
   }
 
   if (numeroTelefono.value.trim() === '' || !/^\d{10}$/.test(numeroTelefono.value)) {
-    errorNumeroTelefono.textContent = 'El número de teléfono debe tener 10 dígitos numericos.';
+    errorNumeroTelefono.textContent = 'El número de teléfono debe tener 10 dígitos numéricos.';
     errorNumeroTelefono.classList.remove('hidden');
     isValid = false;
   }
@@ -80,3 +80,45 @@ export function validateForm() {
   console.log('Validación completada:', isValid);
   return isValid;
 }
+
+export function submitForm() {
+  if (validateForm()) {
+    const data = {
+      nombre: document.getElementById('nombre').value,
+      tipo_documento: document.getElementById('tipo-documento').value,
+      numero_documento: document.getElementById('numero-documento').value,
+      numero_telefono: document.getElementById('numero-telefono').value,
+      correo_electronico: document.getElementById('correo-electronico').value,
+      direccion: document.getElementById('direccion').value,
+      encargado: document.getElementById('encargado').value
+    };
+
+    console.log('Datos a enviar:', data);
+
+    fetch('http://localhost:8080/registerProviders', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(result => {
+      if (result.success) {
+        console.log('Registro exitoso:', result.message);
+      } else {
+        console.error('Error en el registro:', result.message);
+      }
+    })
+    .catch(error => {
+      console.error('Error en la solicitud:', error);
+    });
+  }
+}
+
+// Agregar el evento de envío del formulario
+document.getElementById('formProviders').addEventListener('submit', function(event) {
+  event.preventDefault();
+  submitForm();
+});
+

@@ -8,8 +8,8 @@ import Perfil from "../components/perfil.astro";
 import Registro from "../components/Dashboard/compras/registro.astro";
 import RegistroAdmin from "../components/Dashboard/Administradores/registroAdmin.astro"
 import RegistroP from "../components/Dashboard/proveedores/registroP.astro";
-import InicioDashboard from "../components/Dashboard/inicio/inicioDashboard.astro";
-import InicioDedashboard from "./inicioDedashboard.astro";
+import Signup from "./signup.astro";
+
 ---
 
 <!doctype html>
@@ -49,8 +49,9 @@ import InicioDedashboard from "./inicioDedashboard.astro";
           <div id="registroAdmin" style="display: none;">
             <RegistroAdmin />
           </div>
-          <div id="inicioDedashboard" style="display: none;">
-            <InicioDedashboard />
+
+          <div id="signup" style="display: none;">
+            <Signup />
           </div>
           
         </main>

@@ -7,6 +7,7 @@ export function showComponent(component) {
     const tablaAdmin = document.getElementById('tablaAdmin');
     const tablaProvi = document.getElementById('tablaProvi');
     const perfil = document.getElementById('perfil');
+    const signup = document.getElementById('signup');
 
     if (registroP) registroP.style.display = 'none';
     if (registro) registro.style.display = 'none';
@@ -15,6 +16,8 @@ export function showComponent(component) {
     if (tablaAdmin) tablaAdmin.style.display = 'none';
     if (tablaProvi) tablaProvi.style.display = 'none';
     if (perfil) perfil.style.display = 'none';
+    if (signup) signup.style.display = 'none';
+
 
     if (component === 'registroP' && registroP) {
         registroP.style.display = 'block';
@@ -28,6 +31,8 @@ export function showComponent(component) {
         registroAdmin.style.display = 'block';
     } else if (component === 'perfil' && perfil) {
         perfil.style.display = 'block';
+    } else if (component === 'signup' && signup) {
+        signup.style.display = 'block';
     }
 }
 
