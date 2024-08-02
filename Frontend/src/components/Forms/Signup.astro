@@ -56,8 +56,12 @@
                 name="company"
                 class="w-full focus:outline-none border py-3 appearance-none h-12 bg-gray-50 block border-gray-200 focus:bg-white focus:border-accent-500 focus:ring-accent-500 placeholder-gray-400 px-3 rounded-xl sm:text-sm text-accent-500"
                 placeholder="Contraseña..."
-                type="password" />
+                type="password"/>
               <span id="company_error" class="text-red-500 text-xxs ml-2"></span>
+              <div id="hidden_password" class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer">
+                <img id="icon_password" src="../../../public/img/black/show eye.svg" alt="" >
+              </div>
+              
             </div>
             <div class="flex">
               <div class="flex items-start">
@@ -96,4 +100,18 @@
   document.getElementById('submits').addEventListener('click', () =>{
     validacioneSignup()
   })
+</script>
+<script>
+   document.getElementById('hidden_password').addEventListener('click', function () {
+    const passwordInput = document.getElementById('company');
+    const icon_password = document.getElementById('icon_password');
+
+    // Toggle the type attribute using getAttribute() method
+    const isPassword = passwordInput.getAttribute('type') === 'password';
+    passwordInput.setAttribute('type', isPassword ? 'text' : 'password');
+
+    // Toggle the icon based on the input type
+    
+    icon_password.src = isPassword ? '../../../public/img/black/hidden.svg' : '../../../public/img/black/show eye.svg';
+  }); 
 </script>
