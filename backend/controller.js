@@ -54,24 +54,23 @@ const inicioUser = async (req, res) => {
             "SELECT * FROM usuarios WHERE correo = $1",
             [email]
         );
-
         if (result.rows.length > 0) {
             const user = result.rows[0];
             // const isMatch = await bcrypt.compare(password, user.contrasena);
 
             const storedHash = user.contrasena.trim();
             console.log('Stored hashed password: ', storedHash);
-            
+
             const isMatch = await bcrypt.compare(password, storedHash);
 
             if (isMatch) {
-              res
-                .status(200)
-                .json({ message: "Inicio de sesión exitoso", user: user });
+                res
+                    .status(200)
+                    .json({ message: "Inicio de sesión exitoso", user: user });
             } else {
-              res.status(400).json({ message: "Contraseña incorrecta" });
+                res.status(400).json({ message: "Contraseña incorrecta" });
             }
-      
+
 
 
             // bcrypt.compare(password, storedHash, (err, result) => {
@@ -79,14 +78,12 @@ const inicioUser = async (req, res) => {
             //     console.log('Password match statusss:', result); // Debería ser true
             //     if (result) {
             //         res.status(200).json({ message: "Inicio de sesión exitoso", user: user.nombre });
-               
             //     } else{
             //         res.status(400).json({ message: "Contraseña incorrecta" });
             //     }
 
 
             // });
-            
 
         } else {
             res.status(404).json({ message: "Usuario no encontrado" });
@@ -114,6 +111,8 @@ const registerProviders = async (req, res) => {
     }
   };
   
+
+
 
 
 
