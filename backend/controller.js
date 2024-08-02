@@ -96,6 +96,25 @@ const inicioUser = async (req, res) => {
         res.status(500).json({ message: "Error interno al procesar la solicitud", error });
     }
 };
+const registerProviders = async (req, res) => {
+    const { nombre, numero_documento, tipo_documento, numero_telefono, correo_electronico, direccion, encargado } = req.body;
+  
+    console.log('Datos recibidos:', req.body);
+  
+    try {
+      await pool.query(
+        'INSERT INTO proveedores (nombre, numeroDocumento, idDocumento, numeroTelefono, correoElectronico, direccion, encargado) VALUES ($1, $2, $3, $4, $5, $6, $7)',
+        [nombre, numero_documento, tipo_documento, numero_telefono, correo_electronico, direccion, encargado]
+      );
+  
+      res.status(201).json({ success: true, message: 'Proveedor registrado exitosamente' });
+    } catch (error) {
+      console.error('Error al registrar proveedor:', error.message);
+      res.status(500).json({ success: false, message: 'Error interno del servidor: ' + error.message });
+    }
+  };
+  
+
 
 
 module.exports = {
@@ -103,5 +122,6 @@ module.exports = {
     usuarios,
     roles,
     registerUser,
-    inicioUser
+    inicioUser,
+    registerProviders
 };

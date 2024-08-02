@@ -6,7 +6,14 @@
 <div
   class="bg-grisesito flex flex-row justify-around rounded-md h-24 p-5 w-auto"
 >
-  <div class="text-grisfont font-bold">Fecha:</div>
+  <span class="flex flex-col text-grisfont">
+    <div class="font-bold">Fecha:</div>
+    <span id="fecha"></span>
+  </span>
+  <span class="flex flex-col text-grisfont">
+    <div class="text-grisfont font-bold">Hora:</div>
+    <span id="hora"></span>
+  </span>
   <div class="text-grisfont font-bold">Encargado del registro:</div>
 </div>
 <div class="flex flex-row justify-around p-1">
@@ -16,72 +23,119 @@
     <h1 class="text-2xl font-bold p-5 text-center">
       Informacion del proveedor
     </h1>
-    <div class="justify-between sm:flex sm:flex-row *:}flex flex-row">
-      <div>
-        <h3>Nombre</h3>
-        <input
-          class="bg-grisinpu rounded-md border-none w-70"
-          type="text"
-          placeholder="nombre"
-        />
-      </div>
-      <div>
-        <h3>Tipo de documento</h3>
-        <form>
-          <select class="bg-grisinpu rounded-md border-none w-50">
-            <option>Tipo documento </option>
-            <option>Cedula </option>
-            <option>NIT </option>
+    <form action="" id="formProviders">
+      <div class="justify-between sm:flex sm:flex-row flex flex-row">
+        <div class="p-2 flex flex-col">
+          <h3>Nombre</h3>
+          <input
+            id="nombre"
+            class="bg-grisinpu rounded-md border-none w-70"
+            type="text"
+            placeholder="nombre"
+          />
+          <span id="error-nombre" class="text-red-500 text-sm hidden"></span>
+        </div>
+        <div class="p-2 flex flex-col">
+          <h3>Tipo de documento</h3>
+          <select
+            id="tipo-documento"
+            class="bg-grisinpu rounded-md border-none w-50"
+          >
+            <option value="">Tipo documento</option>
+            <option value="1">Cédula</option>
+            <option value="2">NIT</option>
           </select>
-        </form>
+          <span id="error-tipo-documento" class="text-red-500 text-sm hidden"
+          ></span>
+        </div>
+        <div class="p-2 flex flex-col">
+          <h3>Número de documento</h3>
+          <input
+            id="numero-documento"
+            class="bg-grisinpu rounded-md border-none w-70"
+            type="text"
+            placeholder="000000000"
+          />
+          <span id="error-numero-documento" class="text-red-500 text-sm hidden"
+          ></span>
+        </div>
+        <div class="p-2 flex flex-col">
+          <h3>Número de teléfono</h3>
+          <input
+            id="numero-telefono"
+            class="bg-grisinpu rounded-md border-none w-70"
+            type="text"
+            placeholder="0000000000"
+          />
+          <span id="error-numero-telefono" class="text-red-500 text-sm hidden"
+          ></span>
+        </div>
       </div>
-      <div>
-        <h3>Número de documento</h3>
-        <input
-          class="bg-grisinpu rounded-md border-none w-70"
-          type="text"
-          placeholder="000000000"
-        />
+      <div class="flex flex-row justify-between">
+        <div class="p-2 flex flex-col">
+          <h3>Correo electrónico</h3>
+          <input
+            id="correo-electronico"
+            class="bg-grisinpu rounded-md border-none w-70"
+            type="text"
+            placeholder="correo@correo.com"
+          />
+          <span
+            id="error-correo-electronico"
+            class="text-red-500 text-sm hidden"></span>
+        </div>
+        <div class="p-2 flex flex-col">
+          <h3>Dirección</h3>
+          <input
+            id="direccion"
+            class="bg-grisinpu rounded-md border-none w-70"
+            type="text"
+            placeholder="cra #"
+          />
+          <span id="error-direccion" class="text-red-500 text-sm hidden"></span>
+        </div>
+        <div class="p-2 flex flex-col">
+          <h3>Encargado</h3>
+          <input
+            id="encargado"
+            class="bg-grisinpu rounded-md border-none w-70"
+            type="text"
+            placeholder="nombre"
+          />
+          <span id="error-encargado" class="text-red-500 text-sm hidden"></span>
+        </div>
       </div>
-      <div>
-        <h3>Número de telefono</h3>
-        <input
-          class="bg-grisinpu rounded-md border-none w-70"
-          type="text"
-          placeholder="0000000000"
-        />
-      </div>
-    </div>
-    <div class="flex flex-row justify-between">
-      <div>
-        <h3>Correo electronico</h3>
-        <input
-          class="bg-grisinpu rounded-md border-none w-70"
-          type="text"
-          placeholder="corre@correo.com"
-        />
-      </div>
-      <div>
-        <h3>Dirección</h3>
-        <input
-          class="bg-grisinpu rounded-md border-none w-70"
-          type="text"
-          placeholder="cra #"
-        />
-      </div>
-      <div>
-        <h3>Encargado</h3>
-        <input
-          class="bg-grisinpu rounded-md border-none w-70"
-          type="text"
-          placeholder="nombre"
-        />
-      </div>
-    </div>
+    </form>
   </div>
 </div>
 <div class="flex justify-end m-5 space-x-5">
-  <button class="bg-black text-white rounded-md p-2 w-40">Cancelar</button>
-  <button class="bg-blue-baby4 text-white rounded-md p-2 w-52">Registrar</button
+  <button
+    type="button"
+    id="cancelar"
+    class="bg-black text-white rounded-md p-2 w-40">Cancelar</button
+  >
+  <button
+    type="button"
+    id="submit"
+    class="bg-blue-baby4 text-white rounded-md p-2 w-52">Registrar</button
   >
 </div>
+
+<script>
+  import { updateClock } from "../../../js/formatoFH.js";
+  import { validateForm } from "../../../js/providersForm";
+  import { submitForm } from "../../../js/providersForm";
+
+
+  document.addEventListener("DOMContentLoaded", () => {
+    updateClock();
+  });
+
+  document.getElementById("submit").addEventListener("click", () => {
+    validateForm();
+  });
+
+  document.getElementById("submit").addEventListener("click", () => {
+    submitForm();
+  });
+</script>
