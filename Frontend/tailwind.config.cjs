@@ -30,6 +30,7 @@ module.exports = {
         'grisesito':'#E9E9E9',
         'grisinpu':'#D1D1D1',
         'grisfont':'#646464',
+        'rojing':'#C70000',
         accent: {
           50: "#EBEDFF",
           100: "#D6DAFF",

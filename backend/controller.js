@@ -27,6 +27,17 @@ const roles = (req, res) => {
     });
 };
 
+const proveedores = (req, res) => {
+    pool.query('SELECT nombre, encargado FROM proveedores', (error, results) => {
+        if (error) {
+            console.error('Error al ejecutar la consulta:', error);
+            res.status(500).json({ error: 'Error interno del servidor' });
+            return;
+        }
+        res.status(200).json(results.rows);
+    });
+};
+
 
 const registerUser = async (req, res) => {
     const { first_name, last_name, email, password } = req.body;
@@ -95,32 +106,32 @@ const inicioUser = async (req, res) => {
 };
 const registerProviders = async (req, res) => {
     const { nombre, numero_documento, tipo_documento, numero_telefono, correo_electronico, direccion, encargado } = req.body;
-  
+
     console.log('Datos recibidos:', req.body);
-  
+
     try {
-      await pool.query(
-        'INSERT INTO proveedores (nombre, numeroDocumento, idDocumento, numeroTelefono, correoElectronico, direccion, encargado) VALUES ($1, $2, $3, $4, $5, $6, $7)',
-        [nombre, numero_documento, tipo_documento, numero_telefono, correo_electronico, direccion, encargado]
-      );
-  
-      res.status(201).json({ success: true, message: 'Proveedor registrado exitosamente' });
+        await pool.query(
+            'INSERT INTO proveedores (nombre, numeroDocumento, idDocumento, numeroTelefono, correoElectronico, direccion, encargado) VALUES ($1, $2, $3, $4, $5, $6, $7)',
+            [nombre, numero_documento, tipo_documento, numero_telefono, correo_electronico, direccion, encargado]
+        );
+
+        res.status(201).json({ success: true, message: 'Proveedor registrado exitosamente' });
+        console.log('Proveedor registrado exitosamente');
+
     } catch (error) {
-      console.error('Error al registrar proveedor:', error.message);
-      res.status(500).json({ success: false, message: 'Error interno del servidor: ' + error.message });
+        console.error('Error al registrar proveedor:', error.message);
+        res.status(500).json({ success: false, message: 'Error interno del servidor: ' + error.message });
     }
-  };
-  
+};
 
 
-
-
-
+// Exporta las funciones necesarias
 module.exports = {
     saludo,
     usuarios,
     roles,
     registerUser,
     inicioUser,
-    registerProviders
+    registerProviders,
+    proveedores,
 };

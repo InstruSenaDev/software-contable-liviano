@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
+const { saludo, usuarios, roles, registerUser, inicioUser, registerProviders, proveedores } = require('./controller');
 
-const { saludo, usuarios, roles, registerUser, inicioUser, registerProviders } = require('./controller'); // Asegúrate de que la ruta del controlador sea correcta
-
+// Definir las rutas
 router.get("/saludo", saludo);
 router.get("/usuarios", usuarios);
 router.get("/roles", roles);
+router.get("/proveedores", proveedores);
 router.post("/register", registerUser);
-router.post("/login",inicioUser);
-router.post("/registerProviders",registerProviders);
-
+router.post("/login", inicioUser);
+router.post("/registerProviders", registerProviders);
 
 module.exports = router;
