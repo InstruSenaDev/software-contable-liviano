@@ -37,5 +37,5 @@ export function showComponent(component) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    showComponent('registroP');
+    showComponent('registro');
 });
