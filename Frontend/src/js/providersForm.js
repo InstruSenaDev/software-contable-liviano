@@ -106,14 +106,39 @@ export function submitForm() {
     .then(result => {
       if (result.success) {
         console.log('Registro exitoso:', result.message);
+        showModal('success');
+        resetForm();
       } else {
         console.error('Error en el registro:', result.message);
+        showModal('error');
       }
     })
     .catch(error => {
       console.error('Error en la solicitud:', error);
+      showModal('error');
     });
   }
+}
+
+function showModal(type) {
+  const modalSuccess = document.getElementById('modal-success');
+  const modalError = document.getElementById('modal-error');
+
+  if (type === 'success') {
+    modalSuccess.classList.remove('hidden');
+    setTimeout(() => {
+      modalSuccess.classList.add('hidden');
+    }, 2000);
+  } else if (type === 'error') {
+    modalError.classList.remove('hidden');
+    setTimeout(() => {
+      modalError.classList.add('hidden');
+    }, 2000);
+  }
+}
+
+function resetForm() {
+  document.getElementById('formProviders').reset();
 }
 
 // Agregar el evento de envío del formulario
@@ -121,4 +146,3 @@ document.getElementById('formProviders').addEventListener('submit', function(eve
   event.preventDefault();
   submitForm();
 });
-

@@ -1,5 +1,4 @@
 ---
-
 ---
 
 <h1 class="font-bold text-3xl text-center mb-14">Registro de Proveedores</h1>
@@ -121,11 +120,23 @@
   >
 </div>
 
+<div id="modal-success" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-end p-5 justify-end hidden">
+  <div class="bg-white rounded-md shadow-lg flex flex-row">
+    <img class="w-9 h-auto p-2" src="../../../../public/img/Check.svg" alt="">
+    <p class="text-green-600 p-2">Registro exitoso</p>
+  </div>
+</div>
+
+<div id="modal-error" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-end p-5 justify-end hidden ">
+  <div class="bg-white rounded-md shadow-lg flex flex-row">
+    <img class="w-9 h-auto p-2" src="../../../../public/img/Error.svg" alt="">
+    <p class="text-rojing p-2">Error en el registro</p>
+  </div>
+</div>
+
 <script>
   import { updateClock } from "../../../js/formatoFH.js";
-  import { validateForm } from "../../../js/providersForm";
-  import { submitForm } from "../../../js/providersForm";
-
+  import { validateForm, submitForm } from "../../../js/providersForm";
 
   document.addEventListener("DOMContentLoaded", () => {
     updateClock();
