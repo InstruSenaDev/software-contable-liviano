@@ -1,72 +1,3 @@
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  document.getElementById('log-in').addEventListener('submit', async function (event) {
-    event.preventDefault(); // Evita el envío del formulario
-    let isValid = true;
-
-    // Limpiar mensajes de error anteriores
-    document.getElementById('email_error').textContent = '';
-    document.getElementById('password_error').textContent = '';
-
-    // Validación del correo electrónico
-    const email = (document.getElementById('email')as HTMLInputElement).value;
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (email.trim() === '') {
-      document.getElementById('email_error').textContent = 'El correo es obligatorio';
-      isValid = false;
-    } else if (!emailPattern.test(email)) {
-      document.getElementById('email_error').textContent = 'El correo debe contener un arroba (@)';
-      isValid = false;
-    }
-
-    // Validación de la contraseña
-    const password = (document.getElementById('password')as HTMLInputElement).value;
-    if (password.trim() === '') {
-      document.getElementById('password_error').textContent = 'La contraseña es obligatoria';
-      isValid = false;
-    } else if (password.length < 8) {
-      document.getElementById('password_error').textContent = 'La contraseña debe tener al menos 8 caracteres.';
-      isValid = false;
-    }
-
-    // Si no es válido, detener el proceso
-    if (!isValid) {
-      return;
-    }
-
-    // Si las validaciones son correctas, proceder con el inicio de sesión
-    const loginData = {
-      email: email,
-      password: password
-    };
-
-    try {
-      const response = await fetch('http://localhost:8080/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(loginData)
-      });
-
-      const result = await response.json();
-      if (response.ok) {
-        alert('Inicio de sesión exitoso');
-        console.log(result, "Inicio de sesión exitoso");
-        // Redirigir a la página de inicio u otra página
-         window.location.href = '/dashboard';
-      } else {
-        document.getElementById('password_error').textContent = 'Credenciales inválidas';
-        console.error('Error al iniciar sesión:', result.message);
-      }
-    } catch (error) {
-      console.error('Error al enviar la solicitud:', error);
-      alert('Error al iniciar sesión, por favor intente nuevamente.');
-      console.log(loginData,"DICK")
-    }
-  });
-});
-</script>
 
 <section>
 <div class="flex relative justify-center lg:px-0 items-center lg:h-screen md:px-12 overflow-hidden">
@@ -101,18 +32,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 placeholder="Correo Electrónico..."/>
             </div>
             <div id="email_error" class="text-red-500 text-xxs ml-2" ></div>
-            <div class="col-span-full">
-              <!-- <label for="passwrod" class="sr-only" name="company"
-                >Password</label
-              > -->
+            <div class="relative">
+              
               <input
                 id="password"
                 name="password"
-                class="w-full focus:outline-none border py-3 appearance-none h-12 bg-gray-50 block border-gray-200 focus:bg-white focus:border-accent-500 focus:ring-accent-500 placeholder-gray-400 px-3 rounded-xl sm:text-sm text-accent-500 mb-4"
+                class="w-full focus:outline-none border py-3 appearance-none h-12 bg-gray-50 block border-gray-200 focus:bg-white focus:border-accent-500 focus:ring-accent-500 placeholder-gray-400 px-3 pr-12 rounded-xl sm:text-sm text-accent-500 mb-4"
                 placeholder="Contraseña..."
                 type="password"/>
                 <div id="password_error" class="text-red-500 text-xxs ml-2 "></div>
-
+                <div id="hidden_password" class="absolute w-8 inset-y-0 right-0 pr-3 flex items-center cursor-pointer">
+                  <img id="icon_password" src="../../../public/img/white/hidden.svg" alt=""/>
+                </div>
              </div>
             <div class="flex items-center justify-between">
               <div class="flex items-center">
@@ -223,6 +154,20 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 
 
+<script>
+  document.getElementById('hidden_password').addEventListener('click', function () {
+    const passwordInput = document.getElementById('password') as HTMLInputElement;
+    const icon_password = document.getElementById('icon_password') as HTMLImageElement;
+
+    // Toggle the type attribute using getAttribute() method
+    const isPassword = passwordInput.getAttribute('type') === 'password';
+    passwordInput.setAttribute('type', isPassword ? 'text' : 'password');
+
+    // Toggle the icon based on the input type
+    icon_password.src = isPassword ? '../../../public/img/white/show eye.svg' : '../../../public/img/white/hidden.svg';
+  });
+
+</script>
 
 
 
@@ -236,4 +181,3 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-  </script>
