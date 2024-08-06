@@ -48,6 +48,23 @@ export function validacioneSignup() {
       document.getElementById('email_error').textContent = 'El correo debe ser válido (usuario@dominio.com).';
       isValid = false;
     }
+    else {
+      try
+      {
+        const checkResponse = await fetch (`/check-email?email=${email}`);
+        const checkResult = await checkResponse.json();
+
+        if (checkResult.exists){
+          document.getElementById('email_error').textContent = 'El correo ya esta registardo';
+          isValid = false;
+        }
+      }
+        catch (error){
+          console.error('Error al verificar el correo', error);
+          isValid = false;
+       
+      }
+    }
 
     // Validar contraseña
     const password = document.getElementById('company').value;

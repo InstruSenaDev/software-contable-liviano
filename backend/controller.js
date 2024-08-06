@@ -42,7 +42,15 @@ const proveedores = (req, res) => {
 const registerUser = async (req, res) => {
     const { first_name, last_name, email, password } = req.body;
     try {
-        console.log('aaaaaaaaaaaaaaaa ', email);
+        const existingUser = await pool.query(
+            'SELECT * FROM usuarios WHERE correo = $1',
+            [email]
+        );
+
+        if (existingUser.rows.length > 0) {
+            return res.status(400).json({ success: false, message: 'El correo ya está registrado' });
+        }
+
         const hashedPassword = await bcrypt.hash(password, 10);
         await pool.query(
             'INSERT INTO usuarios (nombre, apellido, correo, estado, contrasena,idrol) VALUES ($1, $2, $3, $4, $5,$6)',
