@@ -36,7 +36,7 @@
           <input id="precio-bruto" class="bg-grisinpu rounded-md border-none w-70" type="text" placeholder="$000000000"/>
           <span id="error-precio-bruto" class="text-red-500 text-sm hidden"></span>
         </div>
-        <div class="relative">
+        <div class="flex flex-col p-2">
           <h3>Proveedor</h3>
           <select id="proveedor" class="bg-grisinpu rounded-md border-none w-50 flex flex-col p-2">
             <option value="">Seleccione un proveedor</option>
@@ -79,25 +79,33 @@
         </div>
       </div>
     </div>
-    <div class="flex flex-col border-black border-2 rounded-md h-auto p-2 w-auto m-2">
+    <div class="flex flex-row border-black border-2 rounded-md h-auto p-2 w-auto m-2">
       <div class="flex flex-col p-2">
         <h3>Valor</h3>
-        <input id="valor" class="bg-grisinpu rounded-md border-none w-70" type="text" placeholder="$000000000"/>
+        <input id="valor-cuenta" class="bg-grisinpu rounded-md border-none w-70" type="text" placeholder="$000000000"/>
         <span id="error-valor" class="text-red-500 text-sm hidden"></span>
+      </div>
+
+      <div id="campos-cuentas">
+        <h3>Código de cuenta</h3>
+        <div class="flex flex-col p-2">
+          <span class="flex flex-row">
+            <input id="codigo-cuenta" class="bg-grisinpu border-none rounded-md w-40" type="text"/>
+            <button id="addCampo">
+              <img class="p-2" src="../../../../public/img/white/iconMore.svg" alt=""/>
+            </button>
+          </span>
+          <span id="error-codigo-cuenta" class="text-red-500 text-sm hidden"></span>
+        </div>
       </div>
     </div>
   </div>
   <div class="flex flex-col border-black border-2 rounded-md h-auto w-auto m-2 p-2">
-    <h1 class="text-center font-bold text-2xl">Cuentas</h1>
-    <div class="">
-      <h3>Código de cuenta</h3>
-      <div class="flex flex-col p-2">
-        <span class="flex flex-row">
-          <input id="codigo-cuenta" class="bg-grisinpu border-none rounded-md w-40" type="text"/>
-          <img class="p-2" src="../../../../public/img/white/iconMore.svg" alt=""/>
-        </span>
-        <span id="error-codigo-cuenta" class="text-red-500 text-sm hidden"></span>
-      </div>
+    <h1 class="text-center font-bold text-2xl">pre-registro</h1>
+    <div class="flex flex-row p-2">
+      <span class="text-grisfont" id="valorbruto"></span>
+      <span class="text-grisfont">-</span>
+      <span class="text-grisfont" id="cuenta"></span>
     </div>
   </div>
 </div>
@@ -107,7 +115,7 @@
 </div>
 
 <script>
-  import { validatePurchaseForm, desplegable } from "../../../js/purchaseForm.js";
+  import { validatePurchaseForm, desplegable, addNewField} from "../../../js/purchaseForm.js";
   import { updateClock } from "../../../js/formatoFH.js";
 
   document.addEventListener("DOMContentLoaded", () => {
@@ -117,5 +125,9 @@
 
   document.getElementById('registrar').addEventListener('click', () => {
     validatePurchaseForm();
+  });
+
+  document.getElementById('addCampo').addEventListener('click', () => {
+    addNewField();
   });
 </script>
