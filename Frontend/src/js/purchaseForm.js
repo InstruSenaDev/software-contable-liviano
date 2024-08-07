@@ -135,4 +135,35 @@ const setupCheckboxListeners = () => {
 
 document.addEventListener('DOMContentLoaded', () => {
     setupCheckboxListeners();
+    setupProveedorListener(); // Añadir el listener para el select de proveedor
 });
+
+// js/purchaseForm.js
+
+export function desplegable() {
+    const selectElement = document.getElementById('proveedor');
+
+    fetch('http://localhost:8080/proveedores')
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(proveedor => {
+                const option = document.createElement('option');
+                option.value = proveedor.idproveedores;
+                option.textContent = proveedor.nombre;
+                option.dataset.encargado = proveedor.encargado; 
+                selectElement.appendChild(option);
+            });
+        })
+        .catch(error => {
+            console.error('Error al obtener los proveedores:', error);
+        });
+
+    selectElement.addEventListener('change', () => {
+        const nameElement = document.getElementById('nombreP');
+        const encargadoElement = document.getElementById('encargado_venta');
+
+        const selectedOption = selectElement.options[selectElement.selectedIndex];
+        nameElement.textContent = selectedOption.text;
+        encargadoElement.textContent = selectedOption.dataset.encargado; 
+    });
+}

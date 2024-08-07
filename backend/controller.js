@@ -28,7 +28,7 @@ const roles = (req, res) => {
 };
 
 const proveedores = (req, res) => {
-    pool.query('SELECT nombre, encargado FROM proveedores', (error, results) => {
+    pool.query('SELECT idproveedores, nombre, encargado FROM proveedores', (error, results) => {
         if (error) {
             console.error('Error al ejecutar la consulta:', error);
             res.status(500).json({ error: 'Error interno del servidor' });
