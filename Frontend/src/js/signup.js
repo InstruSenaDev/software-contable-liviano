@@ -48,23 +48,7 @@ export function validacioneSignup() {
       document.getElementById('email_error').textContent = 'El correo debe ser válido (usuario@dominio.com).';
       isValid = false;
     }
-    else {
-      try
-      {
-        const checkResponse = await fetch (`/check-email?email=${email}`);
-        const checkResult = await checkResponse.json();
-
-        if (checkResult.exists){
-          document.getElementById('email_error').textContent = 'El correo ya esta registardo';
-          isValid = false;
-        }
-      }
-        catch (error){
-          console.error('Error al verificar el correo', error);
-          isValid = false;
-       
-      }
-    }
+   
 
     // Validar contraseña
     const password = document.getElementById('company').value;
@@ -94,7 +78,7 @@ export function validacioneSignup() {
       email: email,
       password: password
     };
-    console.log('AAAAAAAAAAAAA');
+    
     try {
       const response = await fetch('http://localhost:8080/register', {
         method: 'POST',
@@ -109,8 +93,8 @@ export function validacioneSignup() {
         alert('Usuario registrado exitosamente');
         console.log(formData, "Usuario registrado exitosamente");
       } else {
-        alert('Error al registrar usuario:1' + result.message);
-        console.error('Error al registrar usuario:2', result.message);
+        alert('Error al registrar usuario:' + result.message);
+        console.error('Error al registrar usuario:', result.message);
         console.log(formData);
       }
     } catch (error) {
