@@ -150,7 +150,7 @@ export function desplegable() {
                 const option = document.createElement('option');
                 option.value = proveedor.idproveedores;
                 option.textContent = proveedor.nombre;
-                option.dataset.encargado = proveedor.encargado; 
+                option.dataset.encargado = proveedor.encargado;
                 selectElement.appendChild(option);
             });
         })
@@ -164,6 +164,67 @@ export function desplegable() {
 
         const selectedOption = selectElement.options[selectElement.selectedIndex];
         nameElement.textContent = selectedOption.text;
-        encargadoElement.textContent = selectedOption.dataset.encargado; 
+        encargadoElement.textContent = selectedOption.dataset.encargado;
     });
+}
+// js/purchaseForm.js
+
+export function addNewField() {
+    const camposCuentas = document.getElementById('campos-cuentas');
+
+    // Obtener valores de los inputs actuales
+    const codigoCuentaInput = document.getElementById('codigo-cuenta');
+    const valorCuentaInput = document.getElementById('valor-cuenta');
+    const valorBrutoSpan = document.getElementById('valorbruto');
+    const cuentaSpan = document.getElementById('cuenta');
+
+    const codigoCuenta = codigoCuentaInput.value;
+    const valorCuenta = valorCuentaInput.value;
+
+    if (codigoCuenta && valorCuenta) {
+        // Actualizar spans con los valores
+        valorBrutoSpan.textContent = valorCuenta;
+        cuentaSpan.textContent = codigoCuenta;
+
+        // Limpiar y desactivar los inputs actuales
+        codigoCuentaInput.value = '';
+        valorCuentaInput.value = '';
+        codigoCuentaInput.disabled = true;
+        valorCuentaInput.disabled = true;
+
+        // Deshabilitar el botón actual
+        document.getElementById('addCampo').disabled = true;
+
+        // Crear nuevos inputs y botón
+        const newField = document.createElement('div');
+        newField.classList.add('flex', 'flex-row', 'p-2');
+        newField.innerHTML = `
+    <div class="flex flex-row">
+      <div class="flex flex-col p-2">
+        <h3>Valor</h3>
+        <input id="valor-cuenta" class="bg-grisinpu rounded-md border-none w-70" type="text" placeholder="$000000000"/>
+        <span id="error-valor" class="text-red-500 text-sm hidden"></span>
+      </div>
+
+      <div id="campos-cuentas">
+        <h3>Código de cuenta</h3>
+        <div class="flex flex-col p-2">
+          <span class="flex flex-row">
+            <input id="codigo-cuenta" class="bg-grisinpu border-none rounded-md w-40" type="text"/>
+            <button id="addCampo">
+              <img class="p-2" src="../../../../public/img/white/iconMore.svg" alt=""/>
+            </button>
+          </span>
+          <span id="error-codigo-cuenta" class="text-red-500 text-sm hidden"></span>
+        </div>
+      </div>
+    </div>
+      `;
+
+        // Añadir evento al nuevo botón
+        newField.querySelector('button').addEventListener('click', addNewField);
+
+        // Agregar nuevos inputs al contenedor
+        camposCuentas.appendChild(newField);
+    }
 }
