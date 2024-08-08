@@ -49,7 +49,6 @@ export function validacioneSignup() {
       isValid = false;
     }
    
-
     // Validar contraseña
     const password = document.getElementById('company').value;
     if (password.trim() === '') {
@@ -90,17 +89,31 @@ export function validacioneSignup() {
 
       const result = await response.json();
       if (response.ok) {
-        alert('Usuario registrado exitosamente');
+        mostrarModal('success-modal');
         console.log(formData, "Usuario registrado exitosamente");
       } else {
-        alert('Error al registrar usuario:' + result.message);
+        mostrarModal('error-modal', result.message);
         console.error('Error al registrar usuario:', result.message);
-        console.log(formData);
       }
     } catch (error) {
+      mostrarModal('error-modal', 'Error al enviar la solicitud');
       console.error('Error al enviar la solicitud:', error);
-      alert('Error al registrar usuario 3');
-      console.log(formData);
     }
   });
+}
+
+// Función para mostrar el modal
+function mostrarModal(modalId) {
+  const modal = document.getElementById(modalId);
+  modal.classList.remove('hidden');
+  modal.classList.add('opacity-100');
+  
+  setTimeout(() => {
+    modal.classList.add('opacity-0');
+    modal.classList.remove('opacity-100');
+    
+    setTimeout(() => {
+      modal.classList.add('hidden');
+    }, 300); // Duración de la transición de ocultación
+  }, 2000); // Tiempo que el modal permanece visible
 }
