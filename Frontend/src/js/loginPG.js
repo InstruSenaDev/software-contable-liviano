@@ -34,7 +34,8 @@ export function validacioneLogin() {
     }
 
     // Guardar el correo en localStorage
-    localStorage.setItem("email", email);
+    localStorage.setItem("email", email ) ;
+    localStorage.setItem("password",password);
 
     // Aquí procedes con el envío de datos al servidor, etc.
     const loginData = {
