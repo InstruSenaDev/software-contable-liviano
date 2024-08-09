@@ -91,6 +91,8 @@ export function validacioneSignup() {
       if (response.ok) {
         mostrarModal('success-modal');
         console.log(formData, "Usuario registrado exitosamente");
+        window.location.href = '/login';
+
       } else {
         mostrarModal('error-modal', result.message);
         console.error('Error al registrar usuario:', result.message);
