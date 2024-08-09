@@ -117,3 +117,17 @@ function mostrarModal(modalId) {
     }, 300); // Duración de la transición de ocultación
   }, 2000); // Tiempo que el modal permanece visible
 }
+
+
+   document.getElementById('hidden_password').addEventListener('click', function () {
+    const passwordInput = document.getElementById('company');
+    const icon_password = document.getElementById('icon_password');
+
+    // Toggle the type attribute using getAttribute() method
+    const isPassword = passwordInput.getAttribute('type') === 'password';
+    passwordInput.setAttribute('type', isPassword ? 'text' : 'password');
+
+    // Toggle the icon based on the input type
+    
+    icon_password.src = isPassword ? '../../../public/img/white/show eye.svg' : '../../../public/img/white/hidden.svg';
+  }); 
