@@ -1,6 +1,8 @@
 const express = require('express');
-const app = express();
+const app = express(); 
 const cors = require('cors');
+const nodemailer = require('nodemailer');
+const crypto = require('crypto');
 const dataRouters = require('./dataRouters');
 const puerto = 8080;
 
