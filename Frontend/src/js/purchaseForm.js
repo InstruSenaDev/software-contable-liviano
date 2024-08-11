@@ -135,7 +135,6 @@ const setupCheckboxListeners = () => {
 
 document.addEventListener('DOMContentLoaded', () => {
     setupCheckboxListeners();
-    setupProveedorListener(); // Añadir el listener para el select de proveedor
 });
 
 // js/purchaseForm.js

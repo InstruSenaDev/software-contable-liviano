@@ -27,7 +27,9 @@ export function showComponent(component) {
         tablaAdmin.style.display = 'block';
     } else if (component === 'tablaCompras' && tablaCompras) {
         tablaCompras.style.display = 'block';
-    } else if (component === 'registroAdmin' && registroAdmin) {
+    } else if (component === 'tablaProvi' && tablaProvi) {
+        tablaProvi.style.display = 'block';
+    }  else if (component === 'registroAdmin' && registroAdmin) {
         registroAdmin.style.display = 'block';
     } else if (component === 'perfil' && perfil) {
         perfil.style.display = 'block';
@@ -37,5 +39,5 @@ export function showComponent(component) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    showComponent('registro');
+    showComponent('registroP');
 });

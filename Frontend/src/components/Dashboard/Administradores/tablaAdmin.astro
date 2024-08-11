@@ -1,43 +1,33 @@
 ---
 import DataAdmin from "./dataAdmin.astro";
 
-const providers = [
-  {
-    name: "usuario2",
-    last_name: "uno",
-    email: "uncorreo@gmail.com",
-    status: "Activo",
-    rol: "superadmin",
-  },
-  {
-    name: "usuario1",
-    last_name: "uno",
-    email: "uncorreo@gmail.com",
-    status: "Activo",
-    rol: "administrador",
-  },
-  {
-    name: "usuario1",
-    last_name: "uno",
-    email: "uncorreo@gmail.com",
-    rol: "administrador",
-    status: "Activo",
-  },
-  {
-    name: "usuario1",
-    last_name: "uno",
-    email: "uncorreo@gmail.com",
-    status: "Inactivo",
-    rol: "administrador",
-  },
-  {
-    name: "usuario1",
-    last_name: "uno",
-    email: "uncorreo@gmail.com",
-    status: "Activo",
-    rol: "administrador",
-  },
-];
+// Realiza el fetch a tu endpoint
+const fetchData = async () => {
+  try {
+    const response = await fetch('http://localhost:8080/usuarios'); // Ajusta la URL según sea necesario
+    if (!response.ok) throw new Error('Network response was not ok');
+    const data = await response.json();
+    console.log(data); // Muestra los datos en la consola
+    return data;
+  } catch (error) {
+    console.error('Error al obtener los datos:', error);
+    return [];
+  }
+};
+
+// Función para mapear idrol a descripciones
+const getRoleDescription = (idrol) => {
+  switch (idrol) {
+    case 1:
+      return "superadmin";
+    case 2:
+      return "administrador";
+    default:
+      return "desconocido"; // Valor por defecto si idrol no coincide
+  }
+};
+
+const providers = await fetchData();
 ---
 
 <h1 class="font-bold text-3xl flex justify-center">Administradores</h1>
@@ -59,8 +49,9 @@ const providers = [
         src="../../../public/img/white/register-shopping.svg"
         alt=""
       />
-    <a href="/signup">      <button>Registrar administrador</button>
-    </a>
+      <a href="/signup">
+        <button>Registrar administrador</button>
+      </a>
     </div>
     <div class="p-2 hover:border border-red-700 rounded-sm">
       <img class="" src="../../../public/img/black/trash.svg" alt="" />
@@ -68,18 +59,23 @@ const providers = [
   </div>
 </div>
 
-<table class="min-w-full bg-white border border-gray-200 flex flex-col">
-  <thead id="providers" class="">
-    <tr class="border-b flex justify-between">
+<table class="min-w-full bg-white border border-gray-200">
+  <thead>
+    <tr class="border-b text-justify">
       <th class="p-2">Nombre</th>
       <th class="p-2">Apellido</th>
       <th class="p-2">Correo</th>
-      <th class="p-2">Estado</th>
-      <th class="p-2">rol</th>
+      <th class="p-2">Rol</th>
     </tr>
   </thead>
-
   <tbody>
-    {providers.map((provider) => <DataAdmin {...provider} />)}
+    {providers.map((provider) => (
+      <tr key={provider.idusuario} class="border-b">
+        <td class="p-2">{provider.nombre}</td>
+        <td class="p-2">{provider.apellido}</td>
+        <td class="p-2">{provider.correo}</td>
+        <td class="p-2">{getRoleDescription(provider.idrol)}</td> <!-- Muestra la descripción del rol -->
+      </tr>
+    ))}
   </tbody>
 </table>

@@ -1,93 +1,34 @@
 ---
 import ProviderRow from "./dataProvi.astro";
 
-const providers = [
-  {
-    name: "Proveedor",
-    nit: "xxxxxxxxxxxxxxx",
-    email: "uncorreo@gmail.com",
-    address: "Cra 1 #24-7 Barrio Nuevo",
-    status: "Activo",
-  },
-  {
-    name: "Proveedor",
-    nit: "xxxxxxxxxxxxxxxx",
-    email: "uncorreo@gmail.com",
-    address: "Cra 1 #24-7 Barrio Nuevo",
-    status: "Inactivo",
-  },
-  {
-    name: "Proveedor",
-    nit: "xxxxxxxxxxxxxxx",
-    email: "uncorreo@gmail.com",
-    address: "Cra 1 #24-7 Barrio Nuevo",
-    status: "Activo",
-  },
-  {
-    name: "Proveedor",
-    nit: "xxxxxxxxxxxxxxx",
-    email: "uncorreo@gmail.com",
-    address: "Cra 1 #24-7 Barrio Nuevo",
-    status: "Activo",
-  },
-  {
-    name: "Proveedor",
-    nit: "xxxxxxxxxxxxxxx",
-    email: "uncorreo@gmail.com",
-    address: "Cra 1 #24-7 Barrio Nuevo",
-    status: "Activo",
-  },
-  {
-    name: "Proveedor",
-    nit: "xxxxxxxxxxxxxxx",
-    email: "uncorreo@gmail.com",
-    address: "Cra 1 #24-7 Barrio Nuevo",
-    status: "Activo",
-  },
-  {
-    name: "Proveedor",
-    nit: "xxxxxxxxxxxxxxx",
-    email: "uncorreo@gmail.com",
-    address: "Cra 1 #24-7 Barrio Nuevo",
-    status: "Activo",
-  },
-  {
-    name: "Proveedor",
-    nit: "xxxxxxxxxxxxxxx",
-    email: "uncorreo@gmail.com",
-    address: "Cra 1 #24-7 Barrio Nuevo",
-    status: "Activo",
-  },
-  {
-    name: "Proveedor",
-    nit: "xxxxxxxxxxxxxxx",
-    email: "uncorreo@gmail.com",
-    address: "Cra 1 #24-7 Barrio Nuevo",
-    status: "Activo",
-  },
-  {
-    name: "Proveedor",
-    nit: "xxxxxxxxxxxxxxx",
-    email: "uncorreo@gmail.com",
-    address: "Cra 1 #24-7 Barrio Nuevo",
-    status: "Activo",
-  },
-  {
-    name: "Proveedor",
-    nit: "xxxxxxxxxxxxxxx",
-    email: "uncorreo@gmail.com",
-    address: "Cra 1 #24-7 Barrio Nuevo",
-    status: "Activo",
-  },
-  {
-    name: "Proveedor",
-    nit: "xxxxxxxxxxxxxxx",
-    email: "uncorreo@gmail.com",
-    address: "Cra 1 #24-7 Barrio Nuevo",
-    status: "Activo",
-  },
-  // ...más proveedores
-];
+// Realiza el fetch a tu endpoint
+const fetchData = async () => {
+  try {
+    const response = await fetch('http://localhost:8080/proveedores'); // Ajusta la URL según sea necesario
+    if (!response.ok) throw new Error('Network response was not ok');
+    const data = await response.json();
+    console.log(data); // Muestra los datos en la consola
+    return data;
+  } catch (error) {
+    console.error('Error al obtener los datos:', error);
+    return [];
+  }
+};
+
+// Función para convertir el tipo de documento a su descripción
+const getDocumentType = (type) => {
+  switch(type) {
+    case 1:
+      return "Cédula";
+    case 2:
+      return "NIT";
+    default:
+      return "Desconocido";
+  }
+};
+
+// Obtén la lista de proveedores
+const providers = await fetchData();
 ---
 
 <h1 class="font-bold text-3xl flex justify-center">Proveedores</h1>
@@ -117,18 +58,30 @@ const providers = [
   </div>
 </div>
 
-<table class="min-w-full bg-white border border-gray-200 flex flex-col">
-  <thead id="providers" class="">
-    <tr class="border-b flex justify-between">
+<table class="min-w-full bg-white border border-gray-200">
+  <thead>
+    <tr class="border-b text-justify">
       <th class="p-2">Nombre</th>
-      <th class="p-2">NIT</th>
+      <th class="p-2">Encargado</th>
+      <th class="p-2">Numero.Doc</th>
+      <th class="p-2">Tipo documento</th>
+      <th class="p-2">Telefono</th>
       <th class="p-2">Correo</th>
       <th class="p-2">Dirección</th>
-      <th class="p-2">Estado</th>
     </tr>
   </thead>
 
   <tbody>
-    {providers.map((provider) => <ProviderRow {...provider} />)}
+    {providers.map((provider) => (
+      <ProviderRow
+        name={provider.nombre}
+        encargado={provider.encargado}
+        nit={provider.numerodocumento}
+        tipeDocument={getDocumentType(provider.iddocumento)}
+        email={provider.correoelectronico}
+        telefono={provider.numerotelefono}
+        address={provider.direccion}
+      />
+    ))}
   </tbody>
 </table>

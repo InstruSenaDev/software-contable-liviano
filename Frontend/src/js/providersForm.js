@@ -12,8 +12,6 @@ export function validateForm() {
   const direccion = document.getElementById('direccion');
   const encargado = document.getElementById('encargado');
 
-  console.log('Elementos del formulario:', { nombre, tipoDocumento, numeroDocumento, numeroTelefono, correoElectronico, direccion, encargado });
-
   // Obtener elementos de error
   const errorNombre = document.getElementById('error-nombre');
   const errorTipoDocumento = document.getElementById('error-tipo-documento');
@@ -22,8 +20,6 @@ export function validateForm() {
   const errorCorreoElectronico = document.getElementById('error-correo-electronico');
   const errorDireccion = document.getElementById('error-direccion');
   const errorEncargado = document.getElementById('error-encargado');
-
-  console.log('Elementos de error:', { errorNombre, errorTipoDocumento, errorNumeroDocumento, errorNumeroTelefono, errorCorreoElectronico, errorDireccion, errorEncargado });
 
   // Limpiar mensajes de error
   errorNombre.classList.add('hidden');
@@ -49,6 +45,11 @@ export function validateForm() {
 
   if (numeroDocumento.value.trim() === '') {
     errorNumeroDocumento.textContent = 'El número de documento es obligatorio.';
+    errorNumeroDocumento.classList.remove('hidden');
+    isValid = false;
+  } else if (tipoDocumento.value === '2' && !/^\d{9,12}-\d$/.test(numeroDocumento.value)) {
+    // Validación para NIT: formato ejemplo 10122012334-5
+    errorNumeroDocumento.textContent = 'El NIT debe tener el formato válido: 10122012334-5.';
     errorNumeroDocumento.classList.remove('hidden');
     isValid = false;
   }
@@ -81,61 +82,86 @@ export function validateForm() {
   return isValid;
 }
 
-export function submitForm() {
-  if (validateForm()) {
-    const data = {
-      nombre: document.getElementById('nombre').value,
-      tipo_documento: document.getElementById('tipo-documento').value,
-      numero_documento: document.getElementById('numero-documento').value,
-      numero_telefono: document.getElementById('numero-telefono').value,
-      correo_electronico: document.getElementById('correo-electronico').value,
-      direccion: document.getElementById('direccion').value,
-      encargado: document.getElementById('encargado').value
-    };
 
-    console.log('Datos a enviar:', data);
+// providersForm.js
+export async function submitForm() {
+  const nombre = document.getElementById('nombre').value;
+  const numero_documento = document.getElementById('numero-documento').value;
+  const tipo_documento = document.getElementById('tipo-documento').value;
+  const numero_telefono = document.getElementById('numero-telefono').value;
+  const correo_electronico = document.getElementById('correo-electronico').value;
+  const direccion = document.getElementById('direccion').value;
+  const encargado = document.getElementById('encargado').value;
+  const fecha = document.getElementById('fecha').textContent;
+  const hora = document.getElementById('hora').textContent;
 
-    fetch('http://localhost:8080/registerProviders', {
+  console.log('Datos a enviar:', {
+    nombre,
+    numero_documento,
+    tipo_documento,
+    numero_telefono,
+    correo_electronico,
+    direccion,
+    encargado,
+    fecha,
+    hora
+  });
+
+  try {
+    const response = await fetch('http://localhost:8080/registerProviders', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data)
-    })
-    .then(response => response.json())
-    .then(result => {
-      if (result.success) {
-        console.log('Registro exitoso:', result.message);
-        showModal('success');
-        resetForm();
-      } else {
-        console.error('Error en el registro:', result.message);
-        showModal('error');
-      }
-    })
-    .catch(error => {
-      console.error('Error en la solicitud:', error);
-      showModal('error');
+      body: JSON.stringify({
+        nombre,
+        numero_documento,
+        tipo_documento,
+        numero_telefono,
+        correo_electronico,
+        direccion,
+        encargado,
+        fecha,
+        hora
+      }),
     });
+
+    const result = await response.json();
+    console.log('Respuesta del servidor:', result);
+
+    if (result.success) {
+      // Muestra modal de éxito
+      document.getElementById('modal-success').classList.remove('hidden');
+      setTimeout(() => {
+        document.getElementById('modal-success').classList.add('hidden');
+      }, 2000);
+
+      // Limpia los campos del formulario
+      document.getElementById('formProviders').reset();
+    } else {
+      // Muestra modal de error
+      document.getElementById('modal-error').classList.remove('hidden');
+      setTimeout(() => {
+        document.getElementById('modal-error').classList.add('hidden');
+      }, 2000);
+    }
+  } catch (error) {
+    console.error('Error al enviar el formulario:', error);
+    document.getElementById('modal-error').classList.remove('hidden');
+    setTimeout(() => {
+      document.getElementById('modal-error').classList.add('hidden');
+    }, 2000);
   }
 }
 
-function showModal(type) {
-  const modalSuccess = document.getElementById('modal-success');
-  const modalError = document.getElementById('modal-error');
-
-  if (type === 'success') {
-    modalSuccess.classList.remove('hidden');
-    setTimeout(() => {
-      modalSuccess.classList.add('hidden');
-    }, 2000);
-  } else if (type === 'error') {
-    modalError.classList.remove('hidden');
-    setTimeout(() => {
-      modalError.classList.add('hidden');
-    }, 2000);
+// Agregar el evento de envío del formulario
+document.getElementById('formProviders').addEventListener('submit', function(event) {
+  event.preventDefault();
+  if (validateForm()) {
+    submitForm();
   }
-}
+});
+
 
 function resetForm() {
   document.getElementById('formProviders').reset();

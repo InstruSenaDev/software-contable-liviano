@@ -6,7 +6,5 @@ const { name, last_name, email, status, rol } = Astro.props;
   <td class="p-2">{last_name}</td>
   <td class="p-2">{email}</td>
   <td class="p-2">{rol}</td>
-  <td class="p-2">
-    <span class={status === 'Activo' ? 'text-green-500' : 'text-red-500'}>{status}</span>
-  </td>
+
 </tr>
