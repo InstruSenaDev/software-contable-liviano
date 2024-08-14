@@ -49,7 +49,7 @@ export function validateForm() {
     isValid = false;
   } else if (tipoDocumento.value === '2' && !/^\d{9,12}-\d$/.test(numeroDocumento.value)) {
     // Validación para NIT: formato ejemplo 10122012334-5
-    errorNumeroDocumento.textContent = 'El NIT debe tener el formato válido: 10122012334-5.';
+    errorNumeroDocumento.textContent = 'El NIT debe tener el formato válido: 00000000000-0.';
     errorNumeroDocumento.classList.remove('hidden');
     isValid = false;
   }
