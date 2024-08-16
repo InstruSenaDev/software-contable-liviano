@@ -1,5 +1,12 @@
 // validatePurchaseForm.js
-
+export function valorTotal (){
+    const iva = document.getElementById('iva-valor');
+    const descuento = document.getElementById('descuento-valor');
+    const precioBruto = document.getElementById('precio-bruto');
+    const calculatorIva = (iva * precioBruto/100);
+    const calculatorDescount = (descuento* precioBruto/100);
+    console.log("resultados",calculatorDescount, calculatorIva);
+}
 export function validatePurchaseForm() {
     let isValid = true;
 

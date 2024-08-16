@@ -19,6 +19,10 @@
     <div class="text-grisfont font-bold">Encargado de la venta:</div>
     <span class="text-grisfont" id="encargado_venta"></span>
   </span>
+  <span>
+    <div class="text-grisfont font-bold">Valor total:</div>
+    <span id="vrTotal"></span>
+  </span>
 </div>
 
 <div class="flex flex-row">
@@ -44,7 +48,7 @@
           <span id="error-proveedor" class="text-red-500 text-sm hidden"></span>
         </div>
       </div>
-      <div class="flex flex-row justify-between">
+      <div class="flex flex-row">
         <div class="flex flex-col p-2">
           <h3 class="flex ml-11">IVA</h3>
           <div class="flex flex-row">
@@ -54,28 +58,12 @@
           <span id="error-iva-valor" class="text-red-500 text-sm hidden"></span>
         </div>
         <div class="flex flex-col p-2">
-          <h3 class="flex ml-11">Reteica</h3>
-          <div class="flex flex-row">
-            <input class="me-2 mt-[0.3rem] h-3.5 w-8 appearance-none rounded-[0.4375rem] bg-black/25" type="checkbox" id="reteica"/>
-            <input id="reteica-valor" class="bg-grisinpu rounded-md border-none w-40" type="text"/>
-          </div>
-          <span id="error-reteica-valor" class="text-red-500 text-sm hidden"></span>
-        </div>
-        <div class="flex flex-col p-2">
           <h3 class="flex ml-11">Descuento</h3>
           <div class="flex flex-row">
             <input class="me-2 mt-[0.3rem] h-3.5 w-8 appearance-none rounded-[0.4375rem] bg-black/25" type="checkbox" id="descuento"/>
             <input id="descuento-valor" class="bg-grisinpu rounded-md border-none w-40" type="text"/>
           </div>
           <span id="error-descuento-valor" class="text-red-500 text-sm hidden"></span>
-        </div>
-        <div class="flex flex-col p-2">
-          <h3 class="flex ml-11">Retefuente</h3>
-          <div class="flex flex-row">
-            <input class="me-2 mt-[0.3rem] h-3.5 w-8 appearance-none rounded-[0.4375rem] bg-black/25" type="checkbox" id="retefuente"/>
-            <input id="retefuente-valor" class="bg-grisinpu rounded-md border-none w-40" type="text"/>
-          </div>
-          <span id="error-retefuente-valor" class="text-red-500 text-sm hidden"></span>
         </div>
       </div>
     </div>
@@ -115,7 +103,7 @@
 </div>
 
 <script>
-  import { validatePurchaseForm, desplegable, addNewField} from "../../../js/purchaseForm.js";
+  import { validatePurchaseForm, desplegable,valorTotal, addNewField} from "../../../js/purchaseForm.js";
   import { updateClock } from "../../../js/formatoFH.js";
 
   document.addEventListener("DOMContentLoaded", () => {
