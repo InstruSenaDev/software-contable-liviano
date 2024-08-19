@@ -1,12 +1,33 @@
-// validatePurchaseForm.js
-export function valorTotal (){
-    const iva = document.getElementById('iva-valor');
-    const descuento = document.getElementById('descuento-valor');
-    const precioBruto = document.getElementById('precio-bruto');
-    const calculatorIva = (iva * precioBruto/100);
-    const calculatorDescount = (descuento* precioBruto/100);
-    console.log("resultados",calculatorDescount, calculatorIva);
+// funcion para calcular los descuentos y totales
+export function valorTotal() {
+    const ivaInput = document.getElementById('iva-valor');
+    const descuentoInput = document.getElementById('descuento-valor');
+    const precioBrutoInput = document.getElementById('precio-bruto');
+    
+    const iva = parseFloat(ivaInput.value) || 0;
+    const descuento = parseFloat(descuentoInput.value) || 0;
+    const precioBruto = parseFloat(precioBrutoInput.value) || 0;
+    
+    const calculatorIva = (iva / 100) * precioBruto;
+    const calculatorDescuento = (descuento / 100) * precioBruto;
+    const totalValor = precioBruto + calculatorIva - calculatorDescuento;
+
+    document.getElementById('valorIva').textContent = calculatorIva.toFixed(2);
+    document.getElementById('valorDiscount').textContent = calculatorDescuento.toFixed(2);
+    document.getElementById('totalValor').textContent = totalValor.toFixed(2);
 }
+
+export function setupInputListeners() {
+    const ivaInput = document.getElementById('iva-valor');
+    const descuentoInput = document.getElementById('descuento-valor');
+    const precioBrutoInput = document.getElementById('precio-bruto');
+
+    ivaInput.addEventListener('input', valorTotal);
+    descuentoInput.addEventListener('input', valorTotal);
+    precioBrutoInput.addEventListener('input', valorTotal);
+}
+
+
 export function validatePurchaseForm() {
     let isValid = true;
 
@@ -124,7 +145,9 @@ export function validatePurchaseForm() {
 }
 
 // Añadir listeners a los checkboxes para habilitar/deshabilitar campos en tiempo real
-const setupCheckboxListeners = () => {
+// js/purchaseForm.js
+
+export function setupCheckboxListeners() {
     const ivaCheckbox = document.getElementById('iva');
     const ivaValor = document.getElementById('iva-valor');
     const reteicaCheckbox = document.getElementById('reteica');
@@ -134,11 +157,25 @@ const setupCheckboxListeners = () => {
     const retefuenteCheckbox = document.getElementById('retefuente');
     const retefuenteValor = document.getElementById('retefuente-valor');
 
-    ivaCheckbox.addEventListener('change', () => toggleInputState(ivaCheckbox, ivaValor));
-    reteicaCheckbox.addEventListener('change', () => toggleInputState(reteicaCheckbox, reteicaValor));
-    descuentoCheckbox.addEventListener('change', () => toggleInputState(descuentoCheckbox, descuentoValor));
-    retefuenteCheckbox.addEventListener('change', () => toggleInputState(retefuenteCheckbox, retefuenteValor));
-};
+    // Verificar si los elementos existen antes de añadir event listeners
+    if (ivaCheckbox && ivaValor) {
+        ivaCheckbox.addEventListener('change', () => toggleInputState(ivaCheckbox, ivaValor));
+    }
+    if (reteicaCheckbox && reteicaValor) {
+        reteicaCheckbox.addEventListener('change', () => toggleInputState(reteicaCheckbox, reteicaValor));
+    }
+    if (descuentoCheckbox && descuentoValor) {
+        descuentoCheckbox.addEventListener('change', () => toggleInputState(descuentoCheckbox, descuentoValor));
+    }
+    if (retefuenteCheckbox && retefuenteValor) {
+        retefuenteCheckbox.addEventListener('change', () => toggleInputState(retefuenteCheckbox, retefuenteValor));
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    setupCheckboxListeners();
+});
+
 
 document.addEventListener('DOMContentLoaded', () => {
     setupCheckboxListeners();
@@ -205,26 +242,7 @@ export function addNewField() {
         const newField = document.createElement('div');
         newField.classList.add('flex', 'flex-row', 'p-2');
         newField.innerHTML = `
-    <div class="flex flex-row">
-      <div class="flex flex-col p-2">
-        <h3>Valor</h3>
-        <input id="valor-cuenta" class="bg-grisinpu rounded-md border-none w-70" type="text" placeholder="$000000000"/>
-        <span id="error-valor" class="text-red-500 text-sm hidden"></span>
-      </div>
-
-      <div id="campos-cuentas">
-        <h3>Código de cuenta</h3>
-        <div class="flex flex-col p-2">
-          <span class="flex flex-row">
-            <input id="codigo-cuenta" class="bg-grisinpu border-none rounded-md w-40" type="text"/>
-            <button id="addCampo">
-              <img class="p-2" src="../../../../public/img/white/iconMore.svg" alt=""/>
-            </button>
-          </span>
-          <span id="error-codigo-cuenta" class="text-red-500 text-sm hidden"></span>
-        </div>
-      </div>
-    </div>
+     
       `;
 
         // Añadir evento al nuevo botón
@@ -234,3 +252,12 @@ export function addNewField() {
         camposCuentas.appendChild(newField);
     }
 }
+document.addEventListener("DOMContentLoaded", function() {
+    const email = localStorage.getItem("email");
+  
+    if (email) {
+      document.getElementById("encargadoUser").textContent = email;
+    } else {
+      document.getElementById("encargadoUser").textContent = "Usuario desconocido";
+    }
+  });

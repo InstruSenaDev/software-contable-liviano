@@ -1,28 +1,41 @@
 <h1 class="font-bold text-3xl text-center mb-4">Registro de compras</h1>
-<div class="bg-grisesito flex flex-row justify-around rounded-md h-24 p-2 w-full">
-  <span class="flex flex-col text-grisfont">
-    <div class="font-bold">Fecha:</div>
-    <span id="fecha"></span>
-  </span>
-  <span class="flex flex-col text-grisfont">
-    <div class="text-grisfont font-bold">Hora:</div>
-    <span id="hora"></span>
-  </span>
-  <span class="flex flex-col">
-    <div class="text-grisfont font-bold">Encargado del registro:</div>
-  </span>
-  <span class="flex flex-col">
-    <div class="text-grisfont font-bold">Proveedor:</div>
-    <span class="text-grisfont" id="nombreP"></span>
-  </span>
-  <span class="flex flex-col">
-    <div class="text-grisfont font-bold">Encargado de la venta:</div>
-    <span class="text-grisfont" id="encargado_venta"></span>
-  </span>
-  <span>
-    <div class="text-grisfont font-bold">Valor total:</div>
-    <span id="vrTotal"></span>
-  </span>
+<div class="bg-grisesito  h-auto p-2 w-full rounded-md">
+  <div class= " flex flex-row justify-around  ">
+    <span class="flex flex-col text-grisfont">
+      <div class="font-bold">Fecha:</div>
+      <span id="fecha"></span>
+    </span>
+    <span class="flex flex-col text-grisfont">
+      <div class="text-grisfont font-bold">Hora:</div>
+      <span id="hora"></span>
+    </span>
+    <span class="flex flex-col">
+      <div class="text-grisfont font-bold">Proveedor:</div>
+      <span class="text-grisfont" id="nombreP"></span>
+    </span>
+    <span class="flex flex-col">
+      <div class="text-grisfont font-bold">Encargado de la venta:</div>
+      <span class="text-grisfont" id="encargado_venta"></span>
+    </span>
+  </div>
+  <div class="flex flex-row justify-around ">
+    <span class="flex flex-col">
+      <div class="text-grisfont font-bold">Encargado del registro:</div>
+      <span class="text-grisfont" id="encargadoUser"></span>
+    </span>
+    <span>
+      <div class="text-grisfont font-bold">Valor iva:</div>
+      <span class="text-grisfont" id="valorIva"></span>
+    </span>
+    <span>
+      <div class="text-grisfont font-bold">Valor descuento:</div>
+      <span class="text-grisfont" id="valorDiscount"></span>
+    </span>
+    <span>
+      <div class="text-grisfont font-bold">Valor total:</div>
+      <span class="text-grisfont" id="totalValor"></span>
+    </span>
+  </div>
 </div>
 
 <div class="flex flex-row">
@@ -42,7 +55,7 @@
         </div>
         <div class="flex flex-col p-2">
           <h3>Proveedor</h3>
-          <select id="proveedor" class="bg-grisinpu rounded-md border-none w-50 flex flex-col p-2">
+          <select id="proveedor" class="bg-grisinpu rounded-md border-none w-50 flex flex-col ">
             <option value="">Seleccione un proveedor</option>
           </select>
           <span id="error-proveedor" class="text-red-500 text-sm hidden"></span>
@@ -68,6 +81,13 @@
       </div>
     </div>
     <div class="flex flex-row border-black border-2 rounded-md h-auto p-2 w-auto m-2">
+      <div class="flex items-center flex-col p-2">
+        <span>Movimiento</span>
+        <select class="bg-grisinpu rounded-md border-none w-50 flex flex-col "name="Movimiento" id="">
+          <option value="Debito">Debito</option>
+          <option value="Pasivos">Credito</option>
+        </select>
+      </div>
       <div class="flex flex-col p-2">
         <h3>Valor</h3>
         <input id="valor-cuenta" class="bg-grisinpu rounded-md border-none w-70" type="text" placeholder="$000000000"/>
@@ -90,10 +110,17 @@
   </div>
   <div class="flex flex-col border-black border-2 rounded-md h-auto w-5/11 m-2 p-2">
     <h1 class="text-center font-bold text-2xl">pre-registro</h1>
-    <div class="flex flex-row p-2">
-      <span class="text-grisfont" id="valorbruto"></span>
-      <span class="text-grisfont">-</span>
+    <div class="flex flex-row p-2 justify-around">
+      <span class="" id="">Tipo</span>
+      <span>|</span>
+      <span class="" id="">Codigo</span>
+      <span>|</span>
+      <span class="" id="">valor</span>
+    </div>
+    <div class="flex flex-row p-2 justify-around">
+      <span class="text-white">debito</span>
       <span class="text-grisfont" id="cuenta"></span>
+      <span class="text-grisfont" id="valorbruto"></span>
     </div>
   </div>
 </div>
@@ -103,12 +130,13 @@
 </div>
 
 <script>
-  import { validatePurchaseForm, desplegable,valorTotal, addNewField} from "../../../js/purchaseForm.js";
+  import { validatePurchaseForm, desplegable, setupInputListeners, addNewField} from "../../../js/purchaseForm.js";
   import { updateClock } from "../../../js/formatoFH.js";
 
   document.addEventListener("DOMContentLoaded", () => {
     updateClock();
     desplegable();
+    setupInputListeners();
   });
 
   document.getElementById('registrar').addEventListener('click', () => {

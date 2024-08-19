@@ -5,22 +5,17 @@
     <img src="../../../public/img/black/descarga.webp" alt="Imagen de usuario" class="w-8 h-8 rounded-full" />
     <div class="flex flex-col text-sm ">
       <span id="user_email" class="text-white"></span>
-      <span class="text-white">Usuario1</span>
     </div>
   </div>
 </header>
 
 <script>
   document.addEventListener("DOMContentLoaded", function() {
-  // Obtener el valor del correo desde localStorage
   const email = localStorage.getItem("email");
 
-  // Comprobar si el valor existe en localStorage
   if (email) {
-    // Asignar el valor al span
     document.getElementById("user_email").textContent = email;
   } else {
-    // Opcional: manejar el caso en que no haya un correo almacenado
     document.getElementById("user_email").textContent = "Usuario desconocido";
   }
 });
