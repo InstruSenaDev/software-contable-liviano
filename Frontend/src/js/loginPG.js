@@ -56,7 +56,7 @@ export function validacioneLogin() {
       if (response.ok) {
         alert("Inicio de sesión exitoso");
         console.log(result, "Inicio de sesión exitoso");
-        window.location.href = "/dashboard"; // Redirigir a otra página
+        window.location.href = "/tProviders"; // Redirigir a otra página
       } else {
         document.getElementById("password_error").textContent = "Credenciales inválidas";
         console.error("Error al iniciar sesión:", result.message);
