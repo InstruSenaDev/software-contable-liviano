@@ -210,48 +210,61 @@ export function desplegable() {
         encargadoElement.textContent = selectedOption.dataset.encargado;
     });
 }
+
+
+export function desplegableCuentas() {
+    const selectElement = document.getElementById('cuentas');
+
+    fetch('http://localhost:8080/cuentas')
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(cuenta => {
+                const option = document.createElement('option');
+                option.value = cuenta.idcuentas;
+                option.textContent = cuenta.nombre; // Nota: Este solo muestra el nombre
+                option.dataset.encargado = cuenta.codigo;
+                selectElement.appendChild(option);
+
+                // Imprimir datos por consola
+                console.log(cuenta.nombre, cuenta.codigo);
+            });
+        })
+        .catch(error => {
+            console.error('Error al obtener los proveedores:', error);
+        });
+}
+
+
 // js/purchaseForm.js
 
 export function addNewField() {
-    const camposCuentas = document.getElementById('campos-cuentas');
-
-    // Obtener valores de los inputs actuales
-    const codigoCuentaInput = document.getElementById('codigo-cuenta');
+    // Obtener valores de los elementos seleccionados
+    const cuentaSelect = document.getElementById('cuentas');
+    const tipoSelect = document.getElementById('tipo');
     const valorCuentaInput = document.getElementById('valor-cuenta');
-    const valorBrutoSpan = document.getElementById('valorbruto');
+    
+    // Obtener elementos donde se mostrarán los valores
+    const tipoSpan = document.getElementById('tipoM');
     const cuentaSpan = document.getElementById('cuenta');
-
-    const codigoCuenta = codigoCuentaInput.value;
+    const valorSpan = document.getElementById('valorbruto');
+    
+    // Obtener valores
+    const tipo = tipoSelect.value;
+    const cuenta = cuentaSelect.options[cuentaSelect.selectedIndex].text;
     const valorCuenta = valorCuentaInput.value;
-
-    if (codigoCuenta && valorCuenta) {
-        // Actualizar spans con los valores
-        valorBrutoSpan.textContent = valorCuenta;
-        cuentaSpan.textContent = codigoCuenta;
-
-        // Limpiar y desactivar los inputs actuales
-        codigoCuentaInput.value = '';
-        valorCuentaInput.value = '';
-        codigoCuentaInput.disabled = true;
-        valorCuentaInput.disabled = true;
-
-        // Deshabilitar el botón actual
-        document.getElementById('addCampo').disabled = true;
-
-        // Crear nuevos inputs y botón
-        const newField = document.createElement('div');
-        newField.classList.add('flex', 'flex-row', 'p-2');
-        newField.innerHTML = `
-     
-      `;
-
-        // Añadir evento al nuevo botón
-        newField.querySelector('button').addEventListener('click', addNewField);
-
-        // Agregar nuevos inputs al contenedor
-        camposCuentas.appendChild(newField);
-    }
+    
+    // Actualizar los spans con los valores
+    tipoSpan.textContent = tipo;
+    cuentaSpan.textContent = cuenta;
+    valorSpan.textContent = valorCuenta;
+    
+    // Limpiar el campo de valor
+    valorCuentaInput.value = '';
+    
+    // Deshabilitar el botón después de usarlo
+    document.getElementById('addCampo').disabled = true;
 }
+
 document.addEventListener("DOMContentLoaded", function() {
     const email = localStorage.getItem("email");
   
