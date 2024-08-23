@@ -83,9 +83,9 @@
     <div class="flex flex-row border-black border-2 rounded-md h-auto p-2 w-auto m-2">
       <div class="flex items-center flex-col p-2">
         <span>Movimiento</span>
-        <select class="bg-grisinpu rounded-md border-none w-50 flex flex-col "name="Movimiento" id="">
+        <select  class="bg-grisinpu rounded-md border-none w-50 flex flex-col "name="Movimiento" id="tipo">
           <option value="Debito">Debito</option>
-          <option value="Pasivos">Credito</option>
+          <option value="Credito">Credito</option>
         </select>
       </div>
       <div class="flex flex-col p-2">
@@ -98,7 +98,11 @@
         <h3>Código de cuenta</h3>
         <div class="flex flex-col p-2">
           <span class="flex flex-row">
-            <input id="codigo-cuenta" class="bg-grisinpu border-none rounded-md w-40" type="text"/>
+            <select id="cuentas" aria-placeholder="Cuenta" class="bg-grisinpu border-none rounded-md w-40"/>
+                <option value="">
+                  cuentas
+                </option>
+            </select>
             <button id="addCampo">
               <img class="p-2" src="../../../../public/img/white/iconMore.svg" alt=""/>
             </button>
@@ -113,12 +117,12 @@
     <div class="flex flex-row p-2 justify-around">
       <span class="" id="">Tipo</span>
       <span>|</span>
-      <span class="" id="">Codigo</span>
+      <span class="" id="cuentas">Codigo</span>
       <span>|</span>
-      <span class="" id="">valor</span>
+      <span class="" id="valor-cuenta">valor</span>
     </div>
     <div class="flex flex-row p-2 justify-around">
-      <span class="text-white">debito</span>
+      <span class="text-grisfont" id="tipoM"></span>
       <span class="text-grisfont" id="cuenta"></span>
       <span class="text-grisfont" id="valorbruto"></span>
     </div>
@@ -130,13 +134,14 @@
 </div>
 
 <script>
-  import { validatePurchaseForm, desplegable, setupInputListeners, addNewField} from "../../../js/purchaseForm.js";
+  import { validatePurchaseForm, desplegable, setupInputListeners, addNewField, desplegableCuentas} from "../../../js/purchaseForm.js";
   import { updateClock } from "../../../js/formatoFH.js";
 
   document.addEventListener("DOMContentLoaded", () => {
     updateClock();
     desplegable();
     setupInputListeners();
+    desplegableCuentas();
   });
 
   document.getElementById('registrar').addEventListener('click', () => {

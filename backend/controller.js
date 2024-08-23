@@ -38,6 +38,17 @@ const proveedores = (req, res) => {
     });
 };
 
+const cuentas = (req, res) => {
+    pool.query('SELECT idcuentas, codio, nombre, tipocuenta FROM cuentas', (error, results) => {
+        if (error) {
+            console.error('Error al ejecutar la consulta:', error);
+            res.status(500).json({ error: 'Error interno del servidor' });
+            return;
+        }
+        res.status(200).json(results.rows);
+    });
+};
+
 
 const registerUser = async (req, res) => {
     const { first_name, last_name, email, password } = req.body;
@@ -160,4 +171,5 @@ module.exports = {
     inicioUser,
     registerProviders,
     proveedores,
+    cuentas
 };
