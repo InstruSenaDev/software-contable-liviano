@@ -39,7 +39,7 @@ const proveedores = (req, res) => {
 };
 
 const cuentas = (req, res) => {
-    pool.query('SELECT idcuentas, codio, nombre, tipocuenta FROM cuentas', (error, results) => {
+    pool.query('SELECT idcuentas, codigo, nombre, tipocuenta FROM cuentas', (error, results) => {
         if (error) {
             console.error('Error al ejecutar la consulta:', error);
             res.status(500).json({ error: 'Error interno del servidor' });

@@ -21,7 +21,11 @@
         <nav class="p-4">
           <ul class="space-y-4">
             <div class="flex flex-row justify-center items-center mb-20">
-              <img class="w-8 h-auto" src="../../../public/img/logoPS.svg" alt="" />
+              <img
+                class="w-8 h-auto"
+                src="../../../public/img/logoPS.svg"
+                alt=""
+              />
               <li class="font-display font-bold m-2 text-blue-baby text-2xl">
                 Provi<span class="text-white font-display font-bold">Soft</span>
               </li>
@@ -46,7 +50,7 @@
             <a class="p-2" href="/tProviders">
               <button
                 id="btnProveedores"
-                class="w-56 font-display shadow-md flex flex-row bg-white h-10 items-center rounded-md  hover:bg-gray-300"
+                class="w-56 font-display shadow-md flex flex-row bg-white h-10 items-center rounded-md hover:bg-gray-300"
               >
                 <div>
                   <img
@@ -90,26 +94,25 @@
                 Administradores
               </button>
             </a>
-           <a class=" p-2" href="tInformes">
-            <button
-            id="btnInformes"
-            class="w-56 font-display shadow-md flex flex-row bg-white h-10 items-center rounded-md hover:bg-gray-300"
-          >
-            <div>
-              <img
-                class="h-5 m-4 flex"
-                src="../../../public/img/black/ReportN.svg"
-                alt=""
-              />
-            </div>
-            Informes
-          </button>
-           </a>
+            <a class="p-2" href="tInformes">
+              <button
+                id="btnInformes"
+                class="w-56 font-display shadow-md flex flex-row bg-white h-10 items-center rounded-md hover:bg-gray-300"
+              >
+                <div>
+                  <img
+                    class="h-5 m-4 flex"
+                    src="../../../public/img/black/ReportN.svg"
+                    alt=""
+                  />
+                </div>
+                Informes
+              </button>
+            </a>
 
-           <a class="p-2" href="">
             <button
             id="btnLogout"
-            class="w-56 font-display shadow-md flex flex-row bg-white h-10 items-center rounded-md  hover:bg-gray-300"
+            class="w-56 font-display shadow-md flex flex-row bg-white h-10 items-center rounded-md hover:bg-gray-300"
           >
             <div>
               <img
@@ -120,10 +123,32 @@
             </div>
             Cerrar sesión
           </button>
-           </a>
           </ul>
         </nav>
       </aside>
     </div>
   </body>
+  <div
+  id="modal-success"
+  class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-end p-5 justify-end hidden z-50"
+>
+  <div class="bg-white rounded-md shadow-lg flex flex-row w-96 p-2">
+    <img class="w-9 h-auto p-2" src="../../../../public/img/Check.svg" alt="" />
+    <p class="text-green-600 p-2"> Cerrando sesión</p>
+  </div>
+</div>
+
+<div
+  id="modal-error"
+  class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-end p-5 justify-end hidden z-50"
+>
+  <div class="bg-white rounded-md shadow-lg flex flex-row w-96 p-2">
+    <img class="w-9 h-auto p-2" src="../../../../public/img/Error.svg" alt="" />
+    <p class="text-rojing p-2">Error cerrar sesión</p>
+  </div>
+</div>
 </html>
+<script>
+  import { LogOut,  } from "../../js/sidebar.js";
+  document.getElementById("btnLogout").addEventListener("click", LogOut);
+</script>

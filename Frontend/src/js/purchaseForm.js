@@ -182,7 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // js/purchaseForm.js
-
+ 
 export function desplegable() {
     const selectElement = document.getElementById('proveedor');
 

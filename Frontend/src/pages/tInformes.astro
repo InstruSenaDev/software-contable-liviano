@@ -1,7 +1,7 @@
 ---
-
-import Header from "../components/Dashboard/header.astro"; 
+import Header from "../components/Dashboard/header.astro";
 import Sidebar from "../components/Dashboard/sidebar.astro";
+import Informe from "../components/Dashboard/Informes/informe.astro";
 ---
 
 <!doctype html>
@@ -11,8 +11,11 @@ import Sidebar from "../components/Dashboard/sidebar.astro";
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Informes - ProviSoft</title>
     <link rel="stylesheet" href="/src/styles/global.css" />
-    <link rel="stylesheet" href="../input.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;700&display=swap">
+    <link rel="stylesheet" href="../input.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;700&display=swap"
+    />
   </head>
   <body class="bg-white">
     <div class="flex">
@@ -20,11 +23,21 @@ import Sidebar from "../components/Dashboard/sidebar.astro";
       <div class="ml-64 w-full">
         <Header />
         <main class="p-6">
-          <div id="registroP">
+          <div id="informes">
+            <Informe />
           </div>
-          
         </main>
       </div>
     </div>
   </body>
+
 </html>
+
+<script>
+  import { updateClock } from "../js/formatoFH";
+
+  document.addEventListener("DOMContentLoaded", () => {
+    updateClock();
+
+  });
+</script>

@@ -1,0 +1,44 @@
+---
+
+---
+
+<div class="text-3xl font-bold">Informes</div>
+
+<div class="bg-grisesito h-auto p-2 w-full rounded-md">
+  <div class="flex flex-row justify-around">
+    <span class="flex flex-col">
+      <div class="text-grisfont font-bold">Encargado del registro:</div>
+      <span class="text-grisfont" id="encargadoUser"></span>
+    </span>
+    <span class="flex flex-col text-grisfont">
+      <div class="font-bold">Fecha:</div>
+      <span id="fecha"></span>
+    </span>
+    <span class="flex flex-col text-grisfont">
+      <div class="text-grisfont font-bold">Hora:</div>
+      <span id="hora"></span>
+    </span>
+  </div>
+</div>
+<div class="border-black border-2 rounded-md p-2 w-full h-full">
+  <div class="flex flex-col">
+    <span>Filtrar informe</span>
+    <select class="bg-grisinpu border-none rounded-md w-40" name="Tipo" id="">
+      <option value="">Filtro</option>
+      <option value="fecha">Fecha</option>
+      <option value="proveedor">Proveedor</option>
+      <option value="admin">Administrador</option>
+      <option value="codigo">Codigo compra</option>
+    </select>
+  </div>
+</div>
+
+<script>
+  import { updateClock } from "../../../js/formatoFH.js";
+  import { Storage,  } from "../../../js/informes";
+
+  document.addEventListener("DOMContentLoaded", () => {
+    updateClock();
+    Storage();
+  });
+</script>
