@@ -62,7 +62,7 @@ export function validacioneLogin() {
           mostrarModal("modal-success");
           console.log(result, "Inicio de sesión exitoso");
           setTimeout(() => {
-            window.location.href = "/tProviders";
+            window.location.href = "/inicioDedashboard";
           }, 1000); // Redirigir a otra página
         } else {
           mostrarModal("modal-error", result.textContent);
