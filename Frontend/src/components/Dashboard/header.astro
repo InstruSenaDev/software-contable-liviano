@@ -3,28 +3,59 @@
 ---
 
 <header
-  class="flex items-center p-4 bg-blue-baby4 shadow w-full md:items-end md:justify-end"
+  class="flex items-center p-4 bg-blue-baby4 shadow w-full md:items-end md:justify-end h-50"
 >
   <div class="md:flex md:flex-row p-2">
-    <div class="flex flex-col text-sm p-2">
-      <span id="user_email" class="text-white"></span>
+    <div id="openModalButton" class="flex flex-col text-sm p-2">
+      <span id="header_user_email" class="text-white"></span>
     </div>
-    <div class="bg-white text-black p-2 rounded-md">
-      <a href="/perfilUsuario">
-        <button>Editar perfil</button>
-      </a>
-    </div>
+   
   </div>
 </header>
 
-<script>
+<div class="relative">
+
+  <!-- Modal -->
+  <div id="modal" class="fixed inset-0 hidden items-center justify-center bg-black bg-opacity-50 z-50">
+    <div class="bg-white p-6 rounded-lg shadow-lg relative w-11/12 max-w-lg">
+      <!-- Contenido del modal -->
+      <span id="modal_user_email" class="text-blue-baby4 flex justify-center font-display font-bold"></span>
+      <a href="/perfilUsuario"><button>Editar Perfil</button></a>
+      <a href="/perfilUsuario"><button>Cerrar Sesión</button></a>
+
+      <button id="closeModalButton" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700">
+        &times;
+      </button>
+
+    </div>
+  </div>
+</div>
+
+  <script is:inline>
   document.addEventListener("DOMContentLoaded", function () {
     const email = localStorage.getItem("email");
 
     if (email) {
-      document.getElementById("user_email").textContent = email;
+      document.getElementById("header_user_email").textContent = email;
+      document.getElementById("modal_user_email").textContent = email;
     } else {
-      document.getElementById("user_email").textContent = "Usuario desconocido";
+      document.getElementById("header_user_email").textContent = "Usuario desconocido";
+      document.getElementById("modal_user_email").textContent = "Usuario desconocido";
     }
   });
+
+  // Funciones para manejar la apertura y cierre del modal
+  const showModal = () => {
+    const modal = document.getElementById('modal');
+    modal.classList.remove('hidden');
+  };
+
+  const closeModal = () => {
+    const modal = document.getElementById('modal');
+    modal.classList.add('hidden');
+  };
+
+  // Asignar las funciones a los botones mediante IDs
+  document.getElementById('openModalButton').addEventListener('click', showModal);
+  document.getElementById('closeModalButton').addEventListener('click', closeModal);
 </script>
