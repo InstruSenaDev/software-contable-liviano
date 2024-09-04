@@ -1,3 +1,62 @@
+let movimientos = []; // Aquí se almacenan los datos
+
+// Función para agregar un nuevo movimiento
+export function agregarMovimiento(movimiento) {
+    if (movimiento) {
+        console.log('movimiento recibido', movimiento)
+        
+        // Verificar si el movimiento ya existe (por ID o algún criterio único)
+        const exists = movimientos.some(m => m.id === movimiento.id);
+        if (exists) {
+            console.log('Actualizando movimiento con ID:', movimiento.id);
+            // Actualizar el movimiento existente
+            movimientos = movimientos.map(m => m.id === movimiento.id ? movimiento : m);
+        } else {
+            console.log('Agregando nuevo movimiento con ID:', movimiento.id);
+            // Agregar un nuevo movimiento
+            movimientos.push(movimiento);
+        }
+        mostrarMovimientos();
+    } else {
+        alert("Debes agregar información al movimiento.");
+    }
+}
+
+// Función para mostrar los movimientos
+export function mostrarMovimientos() {
+    const list = document.getElementById('movimientos-list');
+    list.innerHTML = ''; // Limpiar la lista antes de actualizar
+
+    movimientos.forEach(movimiento => {
+        const li = document.createElement('li');
+        li.textContent = `ID: ${movimiento.id}, Valor: ${movimiento.valor}`;
+        
+        const btnEliminar = document.createElement('button');
+        btnEliminar.textContent = 'Eliminar';
+        btnEliminar.addEventListener('click', () => eliminarMovimiento(movimiento.id));
+        
+        li.appendChild(btnEliminar);
+        list.appendChild(li);
+    });
+}
+
+// Función para eliminar un movimiento
+export function eliminarMovimiento(id) {
+    movimientos = movimientos.filter(m => m.id !== id);
+    mostrarMovimientos();
+}
+
+// Ejemplo de uso
+document.getElementById('addCampo').addEventListener('click', () => {
+    const id = Date.now(); // Ejemplo de ID único
+    const valor = document.getElementById('movimiento-valor').value;
+    
+    const movimiento = { id, valor };
+    agregarMovimiento(movimiento);
+});
+
+
+
 // funcion para calcular los descuentos y totales
 export function valorTotal() {
     const ivaInput = document.getElementById('iva-valor');
@@ -262,7 +321,6 @@ export function addNewField() {
     valorCuentaInput.value = '';
     
     // Deshabilitar el botón después de usarlo
-    document.getElementById('addCampo').disabled = true;
 }
 
 document.addEventListener("DOMContentLoaded", function() {

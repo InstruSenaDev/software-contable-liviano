@@ -134,7 +134,7 @@
 </div>
 
 <script>
-  import { validatePurchaseForm, desplegable, setupInputListeners, addNewField, desplegableCuentas} from "../../../js/purchaseForm.js";
+  import { validatePurchaseForm, desplegable, setupInputListeners, addNewField, desplegableCuentas, agregarMovimiento,mostrarMovimientos,eliminarMovimiento } from "../../../js/purchaseForm.js";
   import { updateClock } from "../../../js/formatoFH.js";
 
   document.addEventListener("DOMContentLoaded", () => {
@@ -142,6 +142,9 @@
     desplegable();
     setupInputListeners();
     desplegableCuentas();
+    agregarMovimiento();
+    mostrarMovimientos();
+    eliminarMovimiento();
   });
 
   document.getElementById('registrar').addEventListener('click', () => {
