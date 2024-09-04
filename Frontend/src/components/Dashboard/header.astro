@@ -13,16 +13,16 @@
   </div>
 </header>
 
-<div class="relative">
-
+<div class="relative  ">
   <!-- Modal -->
-  <div id="modal" class="fixed inset-0 hidden items-center justify-center bg-black bg-opacity-50 z-50">
-    <div class="bg-white p-6 rounded-lg shadow-lg relative w-11/12 max-w-lg">
+  <div id="modal" class="flex justify-end  fixed inset-0 hidden bg-black bg-opacity-25  z-50">
+    <div class="bg-white p-6 rounded-lg shadow-lg relative w-52 h-40 mt-24 max-w-lg flex flex-col items-center">
       <!-- Contenido del modal -->
-      <span id="modal_user_email" class="text-blue-baby4 flex justify-center font-display font-bold"></span>
-      <a href="/perfilUsuario"><button>Editar Perfil</button></a>
-      <a href="/perfilUsuario"><button>Cerrar Sesión</button></a>
-
+      <span id="modal_user_email" class="text-blue-baby4 flex justify-center font-display font-bold  flex-col mb-5">  
+      </span>
+      <a href="/perfilUsuario"><button class="hover:bg-blue-baby3 hover:text-white rounded-md p-2">Editar Perfil</button></a>
+      <a href=""><button class="p-2 hover:bg-blue-baby3 hover:text-white rounded-md ">Cerrar Sesión</button>
+      </a>
       <button id="closeModalButton" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700">
         &times;
       </button>
