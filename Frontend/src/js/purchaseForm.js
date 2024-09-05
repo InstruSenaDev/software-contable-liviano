@@ -1,61 +1,73 @@
-let movimientos = []; // Aquí se almacenan los datos
+let movimientos = []; 
 
 // Función para agregar un nuevo movimiento
-export function agregarMovimiento(movimiento) {
-    if (movimiento) {
-        console.log('movimiento recibido', movimiento)
-        
-        // Verificar si el movimiento ya existe (por ID o algún criterio único)
-        const exists = movimientos.some(m => m.id === movimiento.id);
-        if (exists) {
-            console.log('Actualizando movimiento con ID:', movimiento.id);
-            // Actualizar el movimiento existente
-            movimientos = movimientos.map(m => m.id === movimiento.id ? movimiento : m);
+export function agregarMovimiento() {
+    const tipo = document.getElementById('tipo');
+    const valorCuenta = document.getElementById('valor-cuenta');
+    const codigoCuenta = document.getElementById('cuentas');
+
+    if (tipo && valorCuenta && codigoCuenta) { 
+        if (tipo.value && valorCuenta.value && codigoCuenta.value) {
+            const nuevoMovimiento = {
+                tipo: tipo.value,
+                valorCuenta: valorCuenta.value,
+                codigoCuenta: codigoCuenta.value
+            };
+            
+            movimientos.push(nuevoMovimiento);
+            console.log('movimiento recibido', nuevoMovimiento);
+            mostrarMovimientos();
         } else {
-            console.log('Agregando nuevo movimiento con ID:', movimiento.id);
-            // Agregar un nuevo movimiento
-            movimientos.push(movimiento);
+            alert("Por favor, llene todos los campos.");
         }
-        mostrarMovimientos();
     } else {
-        alert("Debes agregar información al movimiento.");
+        console.error("No se encontraron los campos de entrada.");
     }
 }
 
-// Función para mostrar los movimientos
+
 export function mostrarMovimientos() {
-    const list = document.getElementById('movimientos-list');
-    list.innerHTML = ''; // Limpiar la lista antes de actualizar
+    const listaMovimientos = document.getElementById('lista-movimientos');
 
-    movimientos.forEach(movimiento => {
-        const li = document.createElement('li');
-        li.textContent = `ID: ${movimiento.id}, Valor: ${movimiento.valor}`;
-        
-        const btnEliminar = document.createElement('button');
-        btnEliminar.textContent = 'Eliminar';
-        btnEliminar.addEventListener('click', () => eliminarMovimiento(movimiento.id));
-        
-        li.appendChild(btnEliminar);
-        list.appendChild(li);
-    });
+    if (listaMovimientos) {
+        listaMovimientos.innerHTML = ''; // Limpiar la lista antes de actualizar
+
+        movimientos.forEach((movimiento, index) => {
+            const movimientoElemento = document.createElement('div');
+            movimientoElemento.innerHTML = `
+                <span>${movimiento.tipo}</span> | 
+                <span>${movimiento.codigoCuenta}</span> | 
+                <span>${movimiento.valorCuenta}</span>
+            `;
+            listaMovimientos.appendChild(movimientoElemento);
+        });
+    } else {
+        console.error("El elemento 'lista-movimientos' no fue encontrado.");
+    }
 }
 
-// Función para eliminar un movimiento
-export function eliminarMovimiento(id) {
-    movimientos = movimientos.filter(m => m.id !== id);
-    mostrarMovimientos();
-}
-
-// Ejemplo de uso
-document.getElementById('addCampo').addEventListener('click', () => {
-    const id = Date.now(); // Ejemplo de ID único
-    const valor = document.getElementById('movimiento-valor').value;
+document.addEventListener('DOMContentLoaded', function() {
+    const addCampoBtn = document.getElementById('addCampo');
+    if (addCampoBtn) {
+        addCampoBtn.addEventListener('click', agregarMovimiento);
+    } else {
+        console.error("El botón 'addCampo' no fue encontrado.");
+    }
     
-    const movimiento = { id, valor };
-    agregarMovimiento(movimiento);
+    // Listener para el botón de submit
+    const submitButton = document.getElementById('submitButton');
+    if (submitButton) {
+        submitButton.addEventListener('click', function() {
+            const inputElement = document.getElementById('inputId'); // Asegúrate de que 'inputId' es el id correcto
+            if (inputElement) {
+                const value = inputElement.value;
+                console.log('Valor del input:', value);
+            } else {
+                console.error('El elemento de entrada no fue encontrado');
+            }
+        });
+    }
 });
-
-
 
 // funcion para calcular los descuentos y totales
 export function valorTotal() {
@@ -311,6 +323,7 @@ export function addNewField() {
     const tipo = tipoSelect.value;
     const cuenta = cuentaSelect.options[cuentaSelect.selectedIndex].text;
     const valorCuenta = valorCuentaInput.value;
+    
     
     // Actualizar los spans con los valores
     tipoSpan.textContent = tipo;
