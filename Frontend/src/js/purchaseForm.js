@@ -3,8 +3,8 @@ let movimientos = [];
 // Función para agregar un nuevo movimiento
 export function agregarMovimiento() {
     const tipo = document.getElementById('tipo');
-    const valorCuenta = document.getElementById('valor-cuenta');
     const codigoCuenta = document.getElementById('cuentas');
+    const valorCuenta = document.getElementById('valor-cuenta');
 
     if (tipo && valorCuenta && codigoCuenta) { 
         if (tipo.value && valorCuenta.value && codigoCuenta.value) {
@@ -17,6 +17,9 @@ export function agregarMovimiento() {
             movimientos.push(nuevoMovimiento);
             console.log('movimiento recibido', nuevoMovimiento);
             mostrarMovimientos();
+            tipo.value = '';
+            valorCuenta.value = '';
+            codigoCuenta.value = '';
         } else {
             alert("Por favor, llene todos los campos.");
         }
@@ -291,7 +294,7 @@ export function desplegableCuentas() {
         .then(data => {
             data.forEach(cuenta => {
                 const option = document.createElement('option');
-                option.value = cuenta.idcuentas;
+                option.value = cuenta.codigo;
                 option.textContent = cuenta.nombre; // Nota: Este solo muestra el nombre
                 option.dataset.encargado = cuenta.codigo;
                 selectElement.appendChild(option);
@@ -335,6 +338,18 @@ export function addNewField() {
     
     // Deshabilitar el botón después de usarlo
 }
+const tipoSpan = document.getElementById('tipoM');
+const cuentaSpan = document.getElementById('cuenta');
+const valorSpan = document.getElementById('valorbruto');
+
+if (tipoSpan && cuentaSpan && valorSpan) {
+    tipoSpan.textContent = tipo;
+    cuentaSpan.textContent = cuenta;
+    valorSpan.textContent = valorCuenta;
+} else {
+    console.error("Uno o más elementos no fueron encontrados en el DOM.");
+}
+
 
 document.addEventListener("DOMContentLoaded", function() {
     const email = localStorage.getItem("email");
