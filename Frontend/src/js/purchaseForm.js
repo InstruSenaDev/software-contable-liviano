@@ -37,10 +37,12 @@ export function mostrarMovimientos() {
 
         movimientos.forEach((movimiento, index) => {
             const movimientoElemento = document.createElement('div');
+            movimientoElemento.classList.add('flex', 'flex-col')
             movimientoElemento.innerHTML = `
-                <span>${movimiento.tipo}</span> | 
-                <span>${movimiento.codigoCuenta}</span> | 
-                <span>${movimiento.valorCuenta}</span>
+                <span>Tipo: ${movimiento.tipo}</span> 
+                <span>Valor: ${movimiento.valorCuenta}</span> 
+                <span>Codigo: ${movimiento.codigoCuenta}</span> 
+              
             `;
             listaMovimientos.appendChild(movimientoElemento);
         });
