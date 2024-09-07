@@ -37,7 +37,7 @@ export function mostrarMovimientos() {
 
         movimientos.forEach((movimiento, index) => {
             const movimientoElemento = document.createElement('div');
-            movimientoElemento.classList.add('flex', 'flex-col')
+            movimientoElemento.classList.add('flex', 'flex-col', 'border-b-black', 'border-b-2', 'p-2')
             movimientoElemento.innerHTML = `
                 <span>Tipo: ${movimiento.tipo}</span> 
                 <span>Valor: ${movimiento.valorCuenta}</span> 
@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // funcion para calcular los descuentos y totales
 export function valorTotal() {
     const ivaInput = document.getElementById('iva-valor');
-    const descuentoInput = document.getElementById('descuento-valor');
+    const descuentoInput = document.getElementById('descuento-valor');   
     const precioBrutoInput = document.getElementById('precio-bruto');
     
     const iva = parseFloat(ivaInput.value) || 0;
@@ -146,7 +146,7 @@ export function validatePurchaseForm() {
             input.removeAttribute('disabled');
         } else {
             input.setAttribute('disabled', 'true');
-            input.value = ''; // Limpiar el campo si el checkbox está desmarcado
+            input.value = '0'; // Limpiar el campo si el checkbox está desmarcado
         }
     };
 
@@ -158,7 +158,7 @@ export function validatePurchaseForm() {
             errorElement.classList.remove('hidden');
             return false;
         }
-        if (!/^\d+(\.\d+)?$/.test(value)) {
+        if (isNaN(value)) {
             errorElement.textContent = 'Este campo solo puede contener números.';
             errorElement.classList.remove('hidden');
             return false;
