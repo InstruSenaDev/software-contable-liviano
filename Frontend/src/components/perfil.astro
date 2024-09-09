@@ -1,44 +1,133 @@
 <div class="flex justify-end">
-    <div class="relative border-2 border-black bg-white rounded-md p-2 w-full">
-      
-      <div class="text-3xl flex justify-center mt-5 font-display text-blue-baby4">¡Bienvenido Usuario!</div>
-      <div class="ml-20 mr-20 font-display">
-        <div class="p-2">
-          <div class="mb-3 text-blue-baby4 font-bold">Nombres</div>
-          <div class="flex flex-row">
+  <div class="relative border-2 border-black bg-white rounded-md p-2 w-full">
+    <div class="text-3xl flex justify-center mt-5 font-display text-blue-baby4">
+      Editar Perfil
+    </div>
+    <div class="ml-20 mr-20 font-display">
+      <div class="p-2">
+        <div class="mb-3 text-blue-baby4 font-bold">Nombres</div>
+        <div class="flex flex-row">
+          <span class="flex flex-col w-full">
             <input
-            class="h-10 rounded-md border-black w-full  placeholder:text-blue-baby"
-            type="text"
-              placeholder="Nombres" 
+              id="input-nombres"
+              class="h-10 rounded-md border-black w-full placeholder:text-blue-baby"
+              type="text"
+              placeholder="Nombres"
+              disabled
             />
-          </div>
+            <span id="name-error" class="text-red-500"></span>
+          </span>
+          <span class="flex flex-row">
+            <button id="edit-nombres" class=""
+              ><img
+                class="w-4 h-auto m-2"
+                src="../../public/img/black/edit2.svg"
+                alt=""
+              /></button
+            >
+            <button id="save-nombres" class="hidden"
+              ><img
+                class="w-4 h-auto m-2"
+                src="../../public/img/black/edit.svg"
+                alt=""
+              /></button
+            >
+            <button id="cancel-nombres" class="hidden"
+              ><img
+                class="w-4 h-auto m-2"
+                src="../../public/img/black/trash.svg"
+                alt=""
+              /></button
+            >
+          </span>
         </div>
-        <div class="p-2">
-          <div class="mb-3 text-blue-baby4 font-bold">Apellidos</div>
-          <div class="flex flex-row">
+      </div>
+      <div class="p-2">
+        <div class="mb-3 text-blue-baby4 font-bold">Apellidos</div>
+        <div class="flex flex-row">
+          <span class="flex flex-col w-full">
             <input
-            class="h-10 rounded-md border-black w-full placeholder:text-blue-baby"
-            type="text"
+              id="input-apellidos"
+              class="h-10 rounded-md border-black w-full placeholder:text-blue-baby"
+              type="text"
               placeholder="Apellidos"
-            />      
-          </div>
+              disabled
+            />
+            <span id="lastName-error" class="text-red-500"></span>
+          </span>
+
+          <span class="flex flex-">
+            <button id="edit-apellidos" class=""
+              ><img
+                class="w-4 h-auto m-2"
+                src="../../public/img/black/edit2.svg"
+                alt=""
+              /></button
+            >
+            <button id="save-apellidos" class="hidden"
+              ><img
+                class="w-4 h-auto m-2"
+                src="../../public/img/black/edit.svg"
+                alt=""
+              /></button
+            >
+            <button id="cancel-apellidos" class="hidden"
+              ><img
+                class="w-4 h-auto m-2"
+                src="../../public/img/black/trash.svg"
+                alt=""
+              /></button
+            >
+          </span>
         </div>
-        <div class="p-2">
-          <div class="mb-3 text-blue-baby4  font-bold">Correo</div>
-          <div class="flex flex-row">
+      </div>
+      <div class="p-2">
+        <div class="mb-3 text-blue-baby4 font-bold">Correo</div>
+        <div class="flex flex-row">
+          <span class="flex flex-col w-full">
             <input
+              id="input-correo"
               class="h-10 rounded-md border-black w-full placeholder:text-blue-baby"
               type="text"
               placeholder="Correo"
-            />       
-          </div>
+              disabled
+            />
+            <span id="email-error" class="text-red-500"></span>
+          </span>
+
+          <span class="flex flex-">
+            <button id="edit-correo" class=""
+              ><img
+                class="w-4 h-auto m-2"
+                src="../../public/img/black/edit2.svg"
+                alt=""
+              /></button
+            >
+            <button id="save-correo" class="hidden"
+              ><img
+                class="w-4 h-auto m-2"
+                src="../../public/img/black/edit.svg"
+                alt=""
+              /></button
+            >
+            <button id="cancel-correo" class="hidden"
+              ><img
+                class="w-4 h-auto m-2"
+                src="../../public/img/black/trash.svg"
+                alt=""
+              /></button
+            >
+          </span>
         </div>
-       
-        <div class="flex justify-center mt-8 mb-8">
-        <button class="bg-blue-baby4 text-white w-80 rounded-md h-10 hover:bg-blue-baby3">Guardar cambios</button>
       </div>
+
+      <div class="flex justify-center mt-8 mb-8">
+        <button
+          class="bg-blue-baby4 text-white w-80 rounded-md h-10 hover:bg-blue-baby3"
+          >Guardar cambios</button
+        >
       </div>
     </div>
-    
   </div>
-  
+</div>
+<script src="../js/perfil"></script>
