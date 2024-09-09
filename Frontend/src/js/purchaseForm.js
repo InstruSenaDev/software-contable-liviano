@@ -135,7 +135,14 @@ export function validatePurchaseForm() {
 
     // Limpiar mensajes de error
     const clearErrors = () => {
-        [errorCodigoCompra, errorPrecioBruto, errorProveedor, errorValor, errorIvaValor, errorReteicaValor, errorDescuentoValor, errorRetefuenteValor, errorCodigoCuenta].forEach(el => el.classList.add('hidden'));
+        [errorCodigoCompra, 
+            errorPrecioBruto, 
+            errorProveedor, errorValor, 
+            errorIvaValor, errorReteicaValor, 
+            errorDescuentoValor,
+             errorRetefuenteValor,
+              errorCodigoCuenta
+            ].forEach(el => el.classList.add('hidden'));
     };
 
     clearErrors();
