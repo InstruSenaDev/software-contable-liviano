@@ -1,61 +1,51 @@
----
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;700&display=swap">
 
----
-
-<header
-  class="flex items-center p-4 bg-blue-baby4 shadow w-full md:items-end md:justify-end h-50"
->
+<header class="flex items-center p-4 bg-blue-baby4 shadow w-full md:items-end md:justify-end h-50">
   <div class="md:flex md:flex-row p-2">
     <div id="openModalButton" class="flex flex-col text-sm p-2">
-      <span id="header_user_email" class="text-white"></span>
+      <span id="header_user_email" class="text-white font-bold font-display"></span>
     </div>
-   
   </div>
 </header>
 
-<div class="relative  ">
+<div class="relative">
   <!-- Modal -->
-  <div id="modal" class="flex justify-end  fixed inset-0 hidden bg-black bg-opacity-25  z-50">
-    <div class="bg-white p-6 rounded-lg shadow-lg relative w-52 h-40 mt-24 max-w-lg flex flex-col items-center">
+  <div id="modal" class="flex justify-end fixed inset-0 hidden bg-black bg-opacity-25 z-50">
+    <div class="bg-white p-6 rounded-lg shadow-lg relative w-52 h-36 mt-24 max-w-lg flex flex-col items-center">
       <!-- Contenido del modal -->
-      <span id="modal_user_email" class="text-blue-baby4 flex justify-center font-display font-bold  flex-col mb-5">  
-      </span>
-      <a href="/perfilUsuario"><button class="hover:bg-blue-baby3 hover:text-white rounded-md p-2">Editar Perfil</button></a>
-      <a href=""><button class="p-2 hover:bg-blue-baby3 hover:text-white rounded-md ">Cerrar Sesión</button>
+      <span id="modal_user_email" class="text-blue-baby4 text-center flex justify-center font-display font-bold flex-col mb-5"></span>
+      <a href="/perfilUsuario">
+        <button class="hover:bg-blue-baby3 hover:text-white rounded-md p-2 ">Editar Perfil</button>
       </a>
-      <button id="closeModalButton" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700">
-        &times;
-      </button>
+      <button id="logoutButton" class="p-2 hover:bg-blue-baby3 hover:text-white rounded-md">Cerrar Sesión</button>
 
+      <button id="closeModalButton" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700">&times;</button>
     </div>
   </div>
 </div>
 
-  <script is:inline>
-  document.addEventListener("DOMContentLoaded", function () {
-    const email = localStorage.getItem("email");
+<div
+  id="modal-success"
+  class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-end p-5 justify-end hidden"
+>
+  <div class="bg-white rounded-md shadow-lg flex flex-row w-96 p-2">
+    <img class="w-9 h-auto p-2" src="../../../../public/img/Check.svg" alt="" />
+    <p class="text-green-600 p-2">Cerrando sesion</p>
+  </div>
+</div>
 
-    if (email) {
-      document.getElementById("header_user_email").textContent = email;
-      document.getElementById("modal_user_email").textContent = email;
-    } else {
-      document.getElementById("header_user_email").textContent = "Usuario desconocido";
-      document.getElementById("modal_user_email").textContent = "Usuario desconocido";
-    }
-  });
-
-  // Funciones para manejar la apertura y cierre del modal
-  const showModal = () => {
-    const modal = document.getElementById('modal');
-    modal.classList.remove('hidden');
-  };
-
-  const closeModal = () => {
-    const modal = document.getElementById('modal');
-    modal.classList.add('hidden');
-  };
-
-  // Asignar las funciones a los botones mediante IDs
-  document.getElementById('openModalButton').addEventListener('click', showModal);
-  document.getElementById('closeModalButton').addEventListener('click', closeModal);
+<div
+  id="modal-error"
+  class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-end p-5 justify-end hidden"
+>
+  <div class="bg-white rounded-md shadow-lg flex flex-row w-96 p-2">
+    <img class="w-9 h-auto p-2" src="../../../../public/img/Error.svg" alt="" />
+    <p class="text-rojing p-2">Error al cerrar sesion</p>
+  </div>
+</div>
+<!-- Enlace al archivo JavaScript externo -->
+<script src="../../js/header"></script>
+<script>
+  import { LogOut,  } from "../../js/header.js";
+  document.getElementById("logoutButton").addEventListener("click", LogOut);
 </script>
