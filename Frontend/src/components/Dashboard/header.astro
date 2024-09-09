@@ -1,7 +1,9 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;700&display=swap">
+
 <header class="flex items-center p-4 bg-blue-baby4 shadow w-full md:items-end md:justify-end h-50">
   <div class="md:flex md:flex-row p-2">
     <div id="openModalButton" class="flex flex-col text-sm p-2">
-      <span id="header_user_email" class="text-white"></span>
+      <span id="header_user_email" class="text-white font-bold font-display"></span>
     </div>
   </div>
 </header>
@@ -9,11 +11,11 @@
 <div class="relative">
   <!-- Modal -->
   <div id="modal" class="flex justify-end fixed inset-0 hidden bg-black bg-opacity-25 z-50">
-    <div class="bg-white p-6 rounded-lg shadow-lg relative w-52 h-52 mt-24 max-w-lg flex flex-col items-center">
+    <div class="bg-white p-6 rounded-lg shadow-lg relative w-52 h-36 mt-24 max-w-lg flex flex-col items-center">
       <!-- Contenido del modal -->
       <span id="modal_user_email" class="text-blue-baby4 text-center flex justify-center font-display font-bold flex-col mb-5"></span>
       <a href="/perfilUsuario">
-        <button class="hover:bg-blue-baby3 hover:text-white rounded-md p-2">Editar Perfil</button>
+        <button class="hover:bg-blue-baby3 hover:text-white rounded-md p-2 ">Editar Perfil</button>
       </a>
       <button id="logoutButton" class="p-2 hover:bg-blue-baby3 hover:text-white rounded-md">Cerrar Sesión</button>
 

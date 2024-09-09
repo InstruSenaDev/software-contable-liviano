@@ -16,33 +16,65 @@ const usuarios = (req, res) => {
     });
 };
 
-const usuariosLog = (req, res) => {
-    const { email } = req.body; 
-  
+// Otros controladores arriba...
+
+// Controlador para manejar el POST de usuariosLog
+function usuariosLog(req, res) {
+    const { email } = req.body;
+
     if (!email) {
-      res.status(400).json({ error: 'Se requiere el email para la consulta' });
-      return;
+        return res.status(400).json({ error: 'Se requiere el email para la operación.' });
     }
-  
+
+    // Lógica para manejar el almacenamiento o validación del email
+    console.log('Email recibido para guardar:', email);
+
+    res.status(200).json({ message: 'Email procesado correctamente' });
+}
+
+// Otros controladores arriba...
+
+// Controlador para manejar el POST de usuariosLog
+function usuariosLog(req, res) {
+    const { email } = req.body;
+
+    if (!email) {
+        return res.status(400).json({ error: 'Se requiere el email para la operación.' });
+    }
+
+    // Lógica para manejar el almacenamiento o validación del email
+    console.log('Email recibido para guardar:', email);
+
+    res.status(200).json({ message: 'Email procesado correctamente' });
+}
+
+// Controlador para manejar el GET de usuariosLog
+function obtenerUsuarioPorCorreo(req, res) {
+    const email = req.query.email;
+
+    if (!email) {
+        return res.status(400).json({ error: 'Se requiere el email para la consulta' });
+    }
+
     pool.query(
-      'SELECT idusuario, correo, nombre, apellido, estado, idrol FROM usuarios WHERE correo = $1',
-      [email], 
-      (error, results) => {
-        if (error) {
-          console.error('Error al ejecutar la consulta:', error);
-          res.status(500).json({ error: 'Error interno del servidor' });
-          return;
+        'SELECT idusuario, correo, nombre, apellido, estado, idrol FROM usuarios WHERE correo = $1',
+        [email],
+        (error, results) => {
+            if (error) {
+                console.error('Error al ejecutar la consulta:', error);
+                res.status(500).json({ error: 'Error interno del servidor' });
+                return;
+            }
+
+            if (results.rows.length === 0) {
+                res.status(404).json({ message: 'Usuario no encontrado' });
+                return;
+            }
+
+            res.status(200).json(results.rows);
         }
-        
-        if (results.rows.length === 0) {
-          res.status(404).json({ message: 'Usuario no encontrado' });
-          return;
-        }
-  
-        res.status(200).json(results.rows[0]); 
-      }
     );
-  };
+}
   
 const roles = (req, res) => {
     pool.query('SELECT * FROM roles', (error, results) => {
@@ -200,5 +232,6 @@ module.exports = {
     registerProviders,
     proveedores,
     cuentas,
-    usuariosLog
+    usuariosLog,
+    obtenerUsuarioPorCorreo
 };
