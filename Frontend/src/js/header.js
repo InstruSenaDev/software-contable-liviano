@@ -1,15 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
-  const email = localStorage.getItem("email");
 
-  if (email) {
-    enviarEmailAlServidor(email);
-  } else {
-    document.getElementById("header_user_email").textContent =
-      "Usuario desconocido";
-    document.getElementById("modal_user_email").textContent =
-      "Usuario desconocido";
-  }
-});
 export function LogOut() {
   try {
     // Intentar eliminar el correo del localStorage
