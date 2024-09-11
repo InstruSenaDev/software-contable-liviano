@@ -6,7 +6,7 @@ const saludo = (req, res) => {
     res.send("<h1>hola</h1>");
 }
 const usuarios = (req, res) => {
-    pool.query('SELECT idusuario, correo, nombre, apellido, estado, idrol FROM usuarios', (error, results) => {
+    pool.query('SELECT idusuario, correo, nombre, apellido, estado, idrol FROM usuarios WHERE estado = $1', ['activo'], (error, results) => {
         if (error) {
             console.error('Error al ejecutar la consulta:', error);
             res.status(500).json({ error: 'Error interno del servidor' });
@@ -16,9 +16,21 @@ const usuarios = (req, res) => {
     });
 };
 
-// Otros controladores arriba...
 
-// Controlador para manejar el POST de usuariosLog
+
+function usuariosLog(req, res) {
+    const { email } = req.body;
+
+    if (!email) {
+        return res.status(400).json({ error: 'Se requiere el email para la operación.' });
+    }
+
+    console.log('Email recibido para guardar:', email);
+
+    res.status(200).json({ message: 'Email procesado correctamente' });
+}
+
+
 function usuariosLog(req, res) {
     const { email } = req.body;
 
@@ -32,23 +44,6 @@ function usuariosLog(req, res) {
     res.status(200).json({ message: 'Email procesado correctamente' });
 }
 
-// Otros controladores arriba...
-
-// Controlador para manejar el POST de usuariosLog
-function usuariosLog(req, res) {
-    const { email } = req.body;
-
-    if (!email) {
-        return res.status(400).json({ error: 'Se requiere el email para la operación.' });
-    }
-
-    // Lógica para manejar el almacenamiento o validación del email
-    console.log('Email recibido para guardar:', email);
-
-    res.status(200).json({ message: 'Email procesado correctamente' });
-}
-
-// Controlador para manejar el GET de usuariosLog
 function obtenerUsuarioPorCorreo(req, res) {
     const email = req.query.email;
 
@@ -87,16 +82,16 @@ const roles = (req, res) => {
     });
 };
 
-const proveedores = (req, res) => {
-    pool.query('SELECT idproveedores, nombre, direccion, encargado, numerodocumento, correoelectronico, iddocumento, numerotelefono FROM proveedores', (error, results) => {
-        if (error) {
-            console.error('Error al ejecutar la consulta:', error);
-            res.status(500).json({ error: 'Error interno del servidor' });
-            return;
-        }
-        res.status(200).json(results.rows);
-    });
-};
+const proveedores = async (req, res) => {
+    try {
+      const result = await pool.query('SELECT * FROM proveedores WHERE estado = $1', ['activo']);
+      res.status(200).json(result.rows);
+    } catch (error) {
+      console.error('Error al obtener proveedores:', error);
+      res.status(500).json({ error: 'Error interno del servidor' });
+    }
+  };
+  
 
 const cuentas = (req, res) => {
     pool.query('SELECT idcuentas, codigo, nombre, tipocuenta FROM cuentas', (error, results) => {
@@ -111,7 +106,7 @@ const cuentas = (req, res) => {
 
 
 const registerUser = async (req, res) => {
-    const { first_name, last_name, email, password } = req.body;
+    const { first_name, last_name, email, password, } = req.body;
     try {
         const existingUser = await pool.query(
             'SELECT * FROM usuarios WHERE correo = $1',
@@ -139,14 +134,21 @@ const inicioUser = async (req, res) => {
     const { email, password } = req.body;
 
     try {
-        console.log('Password provided: ', password);
+        console.log('Email proporcionado: ', email);
+        console.log('Password proporcionada: ', password);
+
+        // Consulta para obtener el usuario por correo electrónico
         const result = await pool.query(
             "SELECT * FROM usuarios WHERE correo = $1",
             [email]
         );
+
         if (result.rows.length > 0) {
             const user = result.rows[0];
-            // const isMatch = await bcrypt.compare(password, user.contrasena);
+
+            if (user.estado === 'inactivo') {
+                return res.status(403).json({ message: "Cuenta inactiva." });
+            }
 
             const storedHash = user.contrasena.trim();
             console.log('Stored hashed password: ', storedHash);
@@ -154,27 +156,10 @@ const inicioUser = async (req, res) => {
             const isMatch = await bcrypt.compare(password, storedHash);
 
             if (isMatch) {
-                res
-                    .status(200)
-                    .json({ message: "Inicio de sesión exitoso", user: user });
+                res.status(200).json({ message: "Inicio de sesión exitoso", user: user });
             } else {
                 res.status(400).json({ message: "Contraseña incorrecta" });
             }
-
-
-
-            // bcrypt.compare(password, storedHash, (err, result) => {
-            //     if (err) throw err;
-            //     console.log('Password match statusss:', result); // Debería ser true
-            //     if (result) {
-            //         res.status(200).json({ message: "Inicio de sesión exitoso", user: user.nombre });
-            //     } else{
-            //         res.status(400).json({ message: "Contraseña incorrecta" });
-            //     }
-
-
-            // });
-
         } else {
             res.status(404).json({ message: "Usuario no encontrado" });
         }
@@ -183,8 +168,9 @@ const inicioUser = async (req, res) => {
         res.status(500).json({ message: "Error interno al procesar la solicitud", error });
     }
 };
+
 const registerProviders = async (req, res) => {
-    const { nombre, numero_documento, tipo_documento, numero_telefono, correo_electronico, direccion, encargado, hora, fecha } = req.body;
+    const { nombre, numero_documento, tipo_documento, numero_telefono, correo_electronico, direccion, encargado, hora, fecha,  } = req.body;
 
     console.log('Datos recibidos:', req.body);
 
@@ -209,8 +195,8 @@ const registerProviders = async (req, res) => {
 
         // Insertar el nuevo proveedor
         await pool.query(
-            'INSERT INTO proveedores (nombre, numeroDocumento, idDocumento, numeroTelefono, correoElectronico, direccion, encargado, hora, fecha) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)',
-            [nombre, numero_documento, tipo_documento, numero_telefono, correo_electronico, direccion, encargado, hora, fecha]
+            'INSERT INTO proveedores (nombre, numeroDocumento, idDocumento, numeroTelefono, correoElectronico, direccion, encargado, hora, fecha, estado) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)',
+            [nombre, numero_documento, tipo_documento, numero_telefono, correo_electronico, direccion, encargado, hora, fecha, "activo"]
         );
 
         res.status(201).json({ success: true, message: 'Proveedor registrado exitosamente' });
@@ -218,6 +204,64 @@ const registerProviders = async (req, res) => {
     } catch (error) {
         console.error('Error al registrar proveedor:', error.message);
         res.status(500).json({ success: false, message: 'Error interno del servidor: ' + error.message });
+    }
+};
+
+const eliminarProveedor = async (req, res) => {
+    const { numerodocumento } = req.body;
+
+    // Validación del número de documento
+    if (!numerodocumento) {
+        return res.status(400).json({ error: 'Número de documento es requerido' });
+    }
+
+    try {
+        // Verificar si el proveedor existe
+        const result = await pool.query(
+            'SELECT * FROM proveedores WHERE numerodocumento = $1',
+            [numerodocumento]
+        );
+
+        if (result.rows.length === 0) {
+            return res.status(404).json({ message: 'Proveedor no encontrado.' });
+        }
+
+        // Asegúrate de que este valor está definido correctamente como 'inactivo'
+        const nuevoEstado = 'inactivo';  // Definimos explícitamente la variable nuevoEstado
+
+        // Actualizar el estado del proveedor a "inactivo"
+        await pool.query(
+            'UPDATE proveedores SET estado = $1 WHERE numerodocumento = $2',
+            [nuevoEstado, numerodocumento]  // Usamos nuevoEstado en lugar de una referencia incorrecta
+        );
+
+        // Proveedor eliminado exitosamente
+        res.status(200).json({ message: `Proveedor con número de documento ${numerodocumento} eliminado exitosamente.` });
+    } catch (error) {
+        console.error('Error al eliminar proveedor:', error);
+        res.status(500).json({ error: 'Error interno del servidor.' });
+    }
+};
+
+const eliminarUsuario = async (req, res) => {
+    const { correo } = req.body;
+
+    if (!correo) {
+        return res.status(400).json({ error: 'Correo electrónico es requerido' });
+    }
+
+    try {
+        // Consulta para actualizar el estado del usuario a 'inactivo'
+        const result = await pool.query('UPDATE usuarios SET estado = $1 WHERE correo = $2 RETURNING *', ['inactivo', correo]);
+
+        if (result.rowCount === 0) {
+            return res.status(404).json({ error: 'Administrador no encontrado' });
+        }
+
+        res.status(200).json({ message: 'Administrador marcado como inactivo exitosamente' });
+    } catch (error) {
+        console.error('Error al actualizar el estado del usuario:', error);
+        res.status(500).json({ error: 'Error interno del servidor' });
     }
 };
 
@@ -233,5 +277,7 @@ module.exports = {
     proveedores,
     cuentas,
     usuariosLog,
-    obtenerUsuarioPorCorreo
+    obtenerUsuarioPorCorreo,
+    eliminarProveedor,
+    eliminarUsuario
 };

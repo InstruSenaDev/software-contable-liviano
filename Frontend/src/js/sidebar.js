@@ -1,37 +1,41 @@
-export function LogOut() {
-    try {
-      // Intentar eliminar el correo del localStorage
-      localStorage.removeItem("email");
-      console.log("Correo borrado del localStorage.");
-  
-      // Mostrar el modal de éxito
-      mostrarModal("modal-success");
-  
-      // Redirigir después de mostrar el modal
-      setTimeout(() => {
-        window.location.href = "/"; 
-      }, 3000);
-    } catch (error) {
-      mostrarModal("modal-error");
-      console.error("Error al borrar el correo del localStorage:", error);
-    }
-    
-  }
-  export function mostrarModal(modalId) {
-    const modal = document.getElementById(modalId);
-    if (!modal) {
-      console.error(`No se encontró un elemento con el ID: ${modalId}`);
+// Función para obtener el rol del usuario logueado
+async function obtenerRolUsuarioLogueado() {
+  try {
+    // Asume que el correo del usuario logueado está almacenado en el localStorage
+    const email = localStorage.getItem("email");
+
+    if (!email) {
+      console.error("No hay ningún correo almacenado en localStorage.");
       return;
     }
-    modal.classList.remove("hidden");
-    modal.classList.add("opacity-100");
-  
-    setTimeout(() => {
-      modal.classList.add("opacity-0");
-      modal.classList.remove("opacity-100");
-  
-      setTimeout(() => {
-        modal.classList.add("hidden");
-      }, 100);
-    }, 2000);
+
+    // Realizar el fetch para obtener los detalles del usuario
+    const response = await fetch(`http://localhost:8080/usuariosLog?email=${encodeURIComponent(email)}`);
+    const data = await response.json();
+
+    if (response.ok) {
+      const usuario = data[0]; // Suponiendo que hay un usuario en la respuesta
+      if (usuario) {
+        // Imprimir el rol del usuario en la consola
+        console.log("Rol del usuario:", usuario.idrol);
+
+        if (usuario.idrol === 1) {
+          // Mostrar el botón de Administradores si el rol es 1
+          document.getElementById("btnAdmins").parentElement.classList.remove("hidden");
+        } else {
+          // Ocultar el botón de Administradores si el rol no es 1
+          document.getElementById("btnAdmins").parentElement.classList.add("hidden");
+        }
+      } else {
+        console.error("No se encontró el usuario en la respuesta.");
+      }
+    } else {
+      console.error("Error al obtener el rol del usuario:", data.error || data.message);
+    }
+  } catch (error) {
+    console.error("Error al realizar la solicitud de rol de usuario:", error);
   }
+}
+
+// Llamar a la función cuando la página se cargue
+document.addEventListener("DOMContentLoaded", obtenerRolUsuarioLogueado);

@@ -11,14 +11,17 @@
 <div class="relative">
   <!-- Modal -->
   <div id="modal" class="flex justify-end fixed inset-0 hidden bg-black bg-opacity-25 z-50">
-    <div class="bg-white p-6 rounded-lg shadow-lg relative w-52 h-36 mt-24 max-w-lg flex flex-col items-center">
+    <div class="bg-white p-6 rounded-lg shadow-lg relative w-52 h-40 mt-24 max-w-lg flex flex-col items-center">
       <!-- Contenido del modal -->
-      <span id="modal_user_email" class="text-blue-baby4 text-center flex justify-center font-display font-bold flex-col mb-5"></span>
-      <a href="/perfilUsuario">
-        <button class="hover:bg-blue-baby3 hover:text-white rounded-md p-2 ">Editar Perfil</button>
+      <span id="modal_user_name" class="text-blue-baby4 text-center flex justify-center font-display font-bold flex-col mb-5"></span>
+      <a class="flex flex-row hover:bg-blue-baby3 rounded-md" href="/perfilUsuario">
+        <img class="w-4 item-center m-2" src="../../../public/img/black/edit2.svg" alt="">
+        <button class=" hover:text-white  p-2 ">Editar Perfil</button>
       </a>
-      <button id="logoutButton" class="p-2 hover:bg-blue-baby3 hover:text-white rounded-md">Cerrar Sesión</button>
-
+      <button id="logoutButton" class=" hover:bg-blue-baby3 hover:text-white rounded-md flex flex-row text-center "> 
+        <img class="w-4 item-center m-2" src="../../../public/img/black/Logout.svg" alt="">
+        Cerrar Sesión
+      </button>
       <button id="closeModalButton" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700">&times;</button>
     </div>
   </div>

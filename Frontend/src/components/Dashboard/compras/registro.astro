@@ -1,4 +1,4 @@
-<h1 class="font-bold text-3xl text-center mb-4">Registro de compras</h1>
+<h1 class="font-bold font-display text-bab text-3xl text-center mb-4">Registro de compras</h1>
 <div class="bg-grisesito  h-auto pt-2 pb-2 w-full rounded-md mb-2">
   <div class= " flex flex-row justify-around  ">
     <span class="flex flex-col text-grisfont">
@@ -21,7 +21,7 @@
   <div class="flex flex-row justify-around ">
     <span class="flex flex-col">
       <div class="text-grisfont font-bold">Encargado del registro:</div>
-      <span class="text-grisfont" id="encargadoUser"></span>
+      <span class="text-grisfont" id="user_namex"></span>
     </span>
     <span>
       <div class="text-grisfont font-bold">Valor iva:</div>
@@ -124,6 +124,7 @@
   <button id="registrar" class="bg-blue-baby4 text-white rounded-md p-2 w-52">Registrar</button>
 </div>
 
+<script src="../../../js/ValidacionUsuario"></script>
 <script>
   import { desplegable, setupInputListeners, addNewField, desplegableCuentas, agregarMovimiento,mostrarMovimientos } from "../../../js/purchaseForm.js";
   import { updateClock } from "../../../js/formatoFH.js";

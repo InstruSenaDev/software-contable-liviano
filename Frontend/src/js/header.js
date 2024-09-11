@@ -1,13 +1,10 @@
 
 export function LogOut() {
   try {
-    // Intentar eliminar el correo del localStorage
     localStorage.removeItem("email");
 
-    // Mostrar el modal de éxito
     mostrarModal("modal-success");
 
-    // Redirigir después de mostrar el modal
     setTimeout(() => {
       window.location.href = "/";
     }, 3000);

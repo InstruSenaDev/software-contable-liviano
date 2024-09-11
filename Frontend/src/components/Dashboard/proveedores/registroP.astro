@@ -16,7 +16,10 @@
     <div class="text-grisfont font-bold">Hora:</div>
     <span id="hora"></span>
   </span>
-  <div class="text-grisfont font-bold">Encargado del registro:</div>
+  <span>
+    <div class="text-grisfont font-bold">Encargado del registro:</div>
+    <span class="text-grisfont " id="user_names"></span>
+  </span>
 </div>
 <div class="flex flex-row justify-around p-1">
   <div
@@ -124,7 +127,7 @@
 </div>
 
 <div
-  id="modal-success"
+  id="modal-successx"
   class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-end p-5 justify-end hidden"
 >
   <div class="bg-white rounded-md shadow-lg flex flex-row w-96 p-2">
@@ -134,7 +137,7 @@
 </div>
 
 <div
-  id="modal-error"
+  id="modal-errorx"
   class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-end p-5 justify-end hidden"
 >
   <div class="bg-white rounded-md shadow-lg flex flex-row w-96 p-2">
@@ -142,7 +145,7 @@
     <p class="text-rojing p-2">Error en el registro</p>
   </div>
 </div>
-
+<script src="../../../js/ValidacionUsuario"></script>
 <script>
   import { updateClock } from "../../../js/formatoFH.js";
   import { validateForm, submitForm } from "../../../js/providersForm";
