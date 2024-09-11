@@ -21,7 +21,7 @@ export function agregarMovimiento() {
             valorCuenta.value = '';
             codigoCuenta.value = '';
         } else {
-            alert("Por favor, llene todos los campos.");
+            console.log("Por favor, llene todos los campos.");
         }
     } else {
         console.error("No se encontraron los campos de entrada.");

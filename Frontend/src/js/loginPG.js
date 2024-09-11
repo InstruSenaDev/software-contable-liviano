@@ -107,6 +107,6 @@ export function mostrarModal(modalId) {
 
     setTimeout(() => {
       modal.classList.add("hidden");
-    }, 300); // Duración de la transición de ocultación
-  }, 3000); // Tiempo que el modal permanece visible
+    }, 300);
+  }, 3000); 
 }

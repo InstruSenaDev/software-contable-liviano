@@ -131,25 +131,25 @@ export async function submitForm() {
 
     if (result.success) {
       // Muestra modal de éxito
-      document.getElementById('modal-success').classList.remove('hidden');
+      document.getElementById('modal-successx').classList.remove('hidden');
       setTimeout(() => {
-        document.getElementById('modal-success').classList.add('hidden');
+        document.getElementById('modal-successx').classList.add('hidden');
       }, 2000);
 
       // Limpia los campos del formulario
       document.getElementById('formProviders').reset();
     } else {
       // Muestra modal de error
-      document.getElementById('modal-error').classList.remove('hidden');
+      document.getElementById('modal-errorx').classList.remove('hidden');
       setTimeout(() => {
-        document.getElementById('modal-error').classList.add('hidden');
+        document.getElementById('modal-errorx').classList.add('hidden');
       }, 2000);
     }
   } catch (error) {
     console.error('Error al enviar el formulario:', error);
-    document.getElementById('modal-error').classList.remove('hidden');
+    document.getElementById('modal-errorx').classList.remove('hidden');
     setTimeout(() => {
-      document.getElementById('modal-error').classList.add('hidden');
+      document.getElementById('modal-errorx ').classList.add('hidden');
     }, 2000);
   }
 }
@@ -172,3 +172,4 @@ document.getElementById('formProviders').addEventListener('submit', function(eve
   event.preventDefault();
   submitForm();
 });
+

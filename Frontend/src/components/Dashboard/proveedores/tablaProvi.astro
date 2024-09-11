@@ -1,13 +1,12 @@
 ---
 import ProviderRow from "./dataProvi.astro";
 
-// Realiza el fetch a tu endpoint
 const fetchData = async () => {
   try {
-    const response = await fetch('http://localhost:8080/proveedores'); // Ajusta la URL según sea necesario
+    const response = await fetch('http://localhost:8080/proveedores'); 
     if (!response.ok) throw new Error('Network response was not ok');
     const data = await response.json();
-    console.log(data); // Muestra los datos en la consola
+    console.log(data); 
     return data;
   } catch (error) {
     console.error('Error al obtener los datos:', error);
@@ -15,7 +14,6 @@ const fetchData = async () => {
   }
 };
 
-// Función para convertir el tipo de documento a su descripción
 const getDocumentType = (type) => {
   switch(type) {
     case 1:
@@ -27,14 +25,13 @@ const getDocumentType = (type) => {
   }
 };
 
-// Obtén la lista de proveedores
 const providers = await fetchData();
 ---
 
-<h1 class="font-bold text-3xl flex justify-center">Proveedores</h1>
+<h1 class="font-bold font-display text-blue-baby4 text-3xl flex justify-center">Proveedores</h1>
 
 <div class="flex flex-row space-x-2 justify-between m-3">
-  <div class="flex items-center space-x-2 md:space-x-4">
+  <div class="hidden flex items-center space-x-2 md:space-x-4">
     <input
       class="h-8 w-48 md:w-96 rounded-md text-sm"
       type="text"
@@ -47,26 +44,27 @@ const providers = await fetchData();
       <option value="">Correo</option>
     </select>
   </div>
-  <div class="flex flex-row">
-    <div
-      class="flex flex-row p-1 bg-blue-baby4 text-white rounded-md font-display hover:bg-blue-baby3"
-    >
-      <img
-        class="m-1"
-        src="../../../public/img/white/register-shopping.svg"
-        alt=""
-      />
-    <a href="/rProviders">
-      <button>Registrar proveedores</button>
 
-    </a>
-    </div>
-    <div class="p-2 hover:border border-red-700 rounded-sm">
-      <img class="" src="../../../public/img/black/trash.svg" alt="" />
-    </div>
-  </div>
 </div>
+<div class="flex flex-row justify-end p-2">
+  <div
+    class="flex flex-row p-1 bg-blue-baby4 text-white rounded-md font-display hover:bg-blue-baby3"
+  >
+    <img
+      class="m-1"
+      src="../../../public/img/white/register-shopping.svg"
+      alt=""
+    />
+  <a href="/rProviders">
+    <button>Registrar proveedores</button>
 
+  </a>
+  </div>
+  <button id="btnDelete" class="m-2">
+    <img class="" src="../../../public/img/black/trash.svg" alt="" />
+  </button>
+
+</div>
 <table class="min-w-full bg-white border border-gray-200">
   <thead>
     <tr class="border-b text-justify">
@@ -94,3 +92,36 @@ const providers = await fetchData();
     ))}
   </tbody>
 </table>
+<div id="deleteModal" class=" hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-end z-50">
+  <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+    <h2 class="text-xl font-bold mb-4 text-center font-display text-blue-baby4">Eliminar Proveedor</h2>
+    <input id="documentInput" type="text" class="rounded-md border p-2 w-full mb-4" placeholder="Ingrese número de documento" />
+    <span id="errorMsg" class="text-red-500 text-sm hidden">Usuario no encontrado</span>
+    <div class="flex justify-end space-x-2 flex item-center">
+      <button id="closeModal" class="bg-black text-white px-4 py-2 rounded ">Cerrar</button>
+      <button id="deleteProvider" class="bg-blue-baby3 text-white px-4 py-2 rounded hover:bg-red-600">Eliminar Proveedor</button>
+    </div>
+  </div>
+</div>
+
+<div
+  id="modal-successxx"
+  class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-end p-5 justify-end hidden"
+>
+  <div class="bg-white rounded-md shadow-lg flex flex-row w-96 p-2">
+    <img class="w-9 h-auto p-2" src="../../../../public/img/Check.svg" alt="" />
+    <p class="text-green-600 p-2">Proveedor eliminado</p>
+  </div>
+</div>
+
+<div
+  id="modal-errorxx"
+  class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-end p-5 justify-end hidden"
+>
+  <div class="bg-white rounded-md shadow-lg flex flex-row w-96 p-2">
+    <img class="w-9 h-auto p-2" src="../../../../public/img/Error.svg" alt="" />
+    <p class="text-rojing p-2">Error al eliminar proveedor</p>
+  </div>
+</div>
+
+<script src="../../../js/tablaProveedores"></script>

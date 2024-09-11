@@ -74,37 +74,40 @@ const compras = [
   },
 ];
 ---
-<h1 class="font-bold text-3xl flex justify-center">Compras</h1>
+
+<h1 class="font-bold font-display text-blue-baby4 text-3xl flex justify-center">
+  Compras
+</h1>
 
 <div class="flex flex-row space-x-2 justify-between m-3">
-  <div class="flex items-center space-x-2 md:space-x-4">
+  <div class="hidden flex items-center space-x-2 md:space-x-4">
     <input
       class="h-8 w-48 md:w-96 rounded-md text-sm"
       type="text"
       placeholder="Buscar..."
     />
   </div>
-  <div class="flex flex-row">
-    <div
-      class="flex flex-row p-1 bg-blue-baby4 text-white rounded-md font-display hover:bg-blue-baby3"
-    >
-      <img
-        class="m-1"
-        src="../../../public/img/white/register-shopping.svg"
-        alt=""
-      />
+  
+</div>
+<div class="flex flex-row justify-end p-2">
+  <div
+    class="flex flex-row p-1 bg-blue-baby4 text-white rounded-md font-display hover:bg-blue-baby3"
+  >
+    <img
+      class="m-1"
+      src="../../../public/img/white/register-shopping.svg"
+      alt=""
+    />
     <a href="/rCompras">
       <button>Registrar compra</button>
     </a>
-    </div>
-    <div class="p-2 hover:border border-red-700 rounded-sm">
-      <img class="" src="../../../public/img/black/trash.svg" alt="" />
-    </div>
   </div>
+  <button id="btnDelete" class="m-2">
+    <img class="" src="../../../public/img/black/trash.svg" alt="" />
+  </button>
 </div>
 
 <table class="min-w-full bg-white border border-gray-200 flex flex-col">
-
   <thead id="compras" class="">
     <tr class="border-b flex justify-between">
       <th class="p-2">Codigo</th>
@@ -121,3 +124,34 @@ const compras = [
     {compras.map((provider) => <ProviderRow {...provider} />)}
   </tbody>
 </table>
+
+<div
+  id="deleteModal"
+  class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-end z-50"
+>
+  <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+    <h2 class="text-xl font-bold mb-4 text-center font-display text-blue-baby4">
+      Eliminar Compra
+    </h2>
+    <input
+      id="documentInput"
+      type="text"
+      class="rounded-md border p-2 w-full mb-4"
+      placeholder="Ingrese el codigo de factura"
+    />
+    <span id="errorMsg" class="text-red-500 text-sm hidden"
+      >compra no encontrada</span
+    >
+    <div class="flex justify-end space-x-2 flex item-center">
+      <button id="closeModal" class="bg-black text-white px-4 py-2 rounded"
+        >Cerrar</button
+      >
+      <button
+        id="deleteCompra"
+        class="bg-blue-baby3 text-white px-4 py-2 rounded hover:bg-red-600"
+        >Eliminar compra</button
+      >
+    </div>
+  </div>
+</div>
+<script src="../../../js/tablaCompras"></script>
