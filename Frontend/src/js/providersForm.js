@@ -20,6 +20,9 @@ export function validateForm() {
   const errorCorreoElectronico = document.getElementById('error-correo-electronico');
   const errorDireccion = document.getElementById('error-direccion');
   const errorEncargado = document.getElementById('error-encargado');
+  const namePattern = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s.;,:-_$(#*)]+$/;
+  const nameEncargado = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/;
+
 
   // Limpiar mensajes de error
   errorNombre.classList.add('hidden');
@@ -35,6 +38,11 @@ export function validateForm() {
     errorNombre.textContent = 'El nombre es obligatorio.';
     errorNombre.classList.remove('hidden');
     isValid = false;
+  }
+  else if(!namePattern.test(nombre)){
+    errorNombre.textContent = 'el nombre no debe contener numeros';
+    errorNombre.classList.remove('hidden');
+    isValid = false
   }
 
   if (tipoDocumento.value === '') {
@@ -71,9 +79,15 @@ export function validateForm() {
     errorDireccion.classList.remove('hidden');
     isValid = false;
   }
+ 
 
   if (encargado.value.trim() === '') {
     errorEncargado.textContent = 'El encargado es obligatorio.';
+    errorEncargado.classList.remove('hidden');
+    isValid = false;
+  }
+  else if (!nameEncargado.test(encargado.value)){
+    errorEncargado.textContent = 'El nombre no debe contener caracteres especiales.';
     errorEncargado.classList.remove('hidden');
     isValid = false;
   }
