@@ -1,17 +1,23 @@
 document.addEventListener("DOMContentLoaded", function () {
   // Configuración de edición de los campos
-  configurarEdicion("nombres");
-  configurarEdicion("apellidos");
-  configurarEdicion("correo");
+  configurarEdicion("nombres", "name-error");
+  configurarEdicion("apellidos", "lastName-error");
+  configurarEdicion("correo", "email-error");
 
   // Llamar a la función para obtener los datos del usuario
   obtenerDatosUsuario();
 
-  function configurarEdicion(campo) {
+  function configurarEdicion(campo, errorId) {
     const input = document.getElementById(`input-${campo}`);
     const editBtn = document.getElementById(`edit-${campo}`);
     const saveBtn = document.getElementById(`save-${campo}`);
     const cancelBtn = document.getElementById(`cancel-${campo}`);
+    const errorSpan = document.getElementById(errorId);
+
+    if (!input || !editBtn || !saveBtn || !cancelBtn || !errorSpan) {
+      console.error(`No se encontró uno de los elementos para el campo ${campo}.`);
+      return;
+    }
 
     // Evento para botón "Edit"
     editBtn.addEventListener("click", function () {
@@ -25,6 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
     cancelBtn.addEventListener("click", function () {
       input.disabled = true; // Deshabilitar input
       input.value = ""; // Limpiar input (opcional)
+      errorSpan.textContent = ""; // Limpiar mensajes de error
       editBtn.classList.remove("hidden"); // Mostrar botón "edit"
       saveBtn.classList.add("hidden"); // Ocultar botón "save"
       cancelBtn.classList.add("hidden"); // Ocultar botón "cancel"
@@ -32,19 +39,43 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Evento para botón "Save"
     saveBtn.addEventListener("click", function () {
-      console.log(`Valor guardado para ${campo}:`, input.value); // Puedes añadir aquí la lógica para guardar
+      const valor = input.value.trim();
+      console.log(`Validando ${campo}:`, valor); // Mensaje de depuración
 
-      input.disabled = true; // Deshabilitar input
-      editBtn.classList.remove("hidden"); // Mostrar botón "edit"
-      saveBtn.classList.add("hidden"); // Ocultar botón "save"
-      cancelBtn.classList.add("hidden"); // Ocultar botón "cancel"
+      const isValid = validarCampo(campo, valor);
+      if (isValid) {
+        console.log(`Valor guardado para ${campo}:`, valor); // Aquí guardarías los datos
+        input.disabled = true; // Deshabilitar input
+        editBtn.classList.remove("hidden"); // Mostrar botón "edit"
+        saveBtn.classList.add("hidden"); // Ocultar botón "save"
+        cancelBtn.classList.add("hidden"); // Ocultar botón "cancel"
+        errorSpan.textContent = ""; // Limpiar mensajes de error
+      } else {
+        console.log(`Campo ${campo} no válido:`, valor); // Mensaje de depuración
+        errorSpan.textContent = `El campo ${campo} no es válido.`; // Mostrar mensaje de error
+      }
     });
+  }
+
+  // Función para validar los campos
+  function validarCampo(campo, valor) {
+    let regex;
+    switch (campo) {
+      case "nombres":
+      case "apellidos":
+        regex = /^[a-zA-Z\s]+$/; // Solo letras y espacios
+        return regex.test(valor) && valor !== ""; // Validar que no esté vacío
+      case "correo":
+        regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Validación básica de correo
+        return regex.test(valor);
+      default:
+        return false;
+    }
   }
 
   // Función para obtener los datos del usuario
   function obtenerDatosUsuario() {
-    // Obtener el correo desde localStorage
-    const email = localStorage.getItem("email"); // Reemplaza con la clave que uses para almacenar el correo
+    const email = localStorage.getItem("email");
 
     if (!email) {
       console.error("Correo del usuario no encontrado en localStorage.");

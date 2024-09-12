@@ -18,7 +18,7 @@ export function validacioneLogin() {
         isValid = false;
       } else if (!emailPattern.test(email)) {
         document.getElementById("email_error").textContent =
-          "El correo debe contener un arroba (@)";
+          "El correo debe ser válido (usuario@dominio.com).";
         isValid = false;
       }
 
