@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const valor = input.value.trim();
       console.log(`Validando ${campo}:`, valor); // Mensaje de depuración
 
-      const isValid = validarCampo(campo, valor);
+      const isValid = validarCampo(campo, valor, errorSpan);
       if (isValid) {
         console.log(`Valor guardado para ${campo}:`, valor); // Aquí guardarías los datos
         input.disabled = true; // Deshabilitar input
@@ -50,27 +50,43 @@ document.addEventListener("DOMContentLoaded", function () {
         saveBtn.classList.add("hidden"); // Ocultar botón "save"
         cancelBtn.classList.add("hidden"); // Ocultar botón "cancel"
         errorSpan.textContent = ""; // Limpiar mensajes de error
-      } else {
-        console.log(`Campo ${campo} no válido:`, valor); // Mensaje de depuración
-        errorSpan.textContent = `El campo ${campo} no es válido.`; // Mostrar mensaje de error
       }
     });
   }
 
   // Función para validar los campos
-  function validarCampo(campo, valor) {
+  function validarCampo(campo, valor, errorSpan) {
     let regex;
-    switch (campo) {
-      case "nombres":
-      case "apellidos":
-        regex = /^[a-zA-Z\s]+$/; // Solo letras y espacios
-        return regex.test(valor) && valor !== ""; // Validar que no esté vacío
-      case "correo":
-        regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Validación básica de correo
-        return regex.test(valor);
-      default:
-        return false;
+    let mensajeError = "";
+
+    if (valor === "") {
+      mensajeError = `El campo ${campo} no puede estar vacío.`;
+    } else {
+      switch (campo) {
+        case "nombres":
+        case "apellidos":
+          regex = /^[a-zA-Z\s]+$/; // Solo letras y espacios
+          if (!regex.test(valor)) {
+            mensajeError = `El campo ${campo} solo puede contener letras y espacios.`;
+          }
+          break;
+        case "correo":
+          regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Validación básica de correo
+          if (!regex.test(valor)) {
+            mensajeError = `El campo ${campo} debe ser un correo electrónico válido.`;
+          }
+          break;
+        default:
+          return false;
+      }
     }
+
+    if (mensajeError) {
+      errorSpan.textContent = mensajeError;
+      return false;
+    }
+
+    return true;
   }
 
   // Función para obtener los datos del usuario
