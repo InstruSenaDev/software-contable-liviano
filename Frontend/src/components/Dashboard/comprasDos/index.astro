@@ -1,0 +1,98 @@
+---
+// Puedes incluir importaciones de componentes o scripts aquí si es necesario
+---
+
+
+<body class="bg-gray-100 p-8">
+    <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md">
+        <h1 class="text-2xl font-bold mb-6">Sistema de Contabilización de Compras</h1>
+
+        <!-- Formulario de datos principales de la compra -->
+        <form id="facturaForm" class="mb-8">
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label for="proveedor" class="block mb-2">Proveedor:</label>
+                    <input type="text" id="proveedor" required class="w-full p-2 border rounded">
+                </div>
+                <div>
+                    <label for="monto" class="block mb-2">Monto Total:</label>
+                    <input type="number" id="monto" required class="w-full p-2 border rounded">
+                </div>
+                <div>
+                    <label for="impuesto" class="block mb-2">Impuesto (%):</label>
+                    <input type="number" id="impuesto" required class="w-full p-2 border rounded">
+                </div>
+                <div>
+                    <label for="descuento" class="block mb-2">Descuento (%):</label>
+                    <input type="number" id="descuento" required class="w-full p-2 border rounded">
+                </div>
+            </div>
+
+            <!-- Sección para seleccionar cuentas contables -->
+            <div class="mt-4">
+                <label for="cuentas" class="block mb-2">Seleccione las cuentas contables:</label>
+                <div class="flex flex-row justify-between space-x-2">
+                    <select id="tipo" class="p-2 border rounded">
+                        <option value="">Tipo</option>
+                        <option value="debito">Débito</option>
+                        <option value="credito">Crédito</option>
+                    </select>
+                    <select id="cuentas" class="flex-grow p-2 border rounded"></select>
+                    <input id="valor" type="number" placeholder="Valor" class="p-2 border rounded">
+                    <button type="button" id="agregarCuentas" class="bg-blue-baby3 text-white p-2 rounded">Agregar Cuenta</button>
+                </div>
+                <div class="mt-4">
+                    <strong>Cuentas Seleccionadas:</strong>
+                    <ul id="cuentasSeleccionadas" class="list-disc list-inside mt-2"></ul>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <button type="button" id="contabilizar" class="bg-blue-baby4 text-white p-2 rounded">Contabilizar</button>
+            </div>
+        </form>
+
+        <!-- Resumen de compras -->
+        <div id="resumen" class="mt-8">
+            <h2 class="text-xl font-semibold mb-4">Resumen de Compras</h2>
+            <table class="w-full border-collapse border">
+                <thead>
+                    <tr class="bg-gray-200">
+                        <th class="border p-2">Proveedor</th>
+                        <th class="border p-2">Monto</th>
+                        <th class="border p-2">Impuesto</th>
+                        <th class="border p-2">Descuento</th>
+                        <th class="border p-2">Total</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaFacturas"></tbody>
+            </table>
+            <div class="mt-4">
+                <strong>Total de Compras: </strong><span id="totalCompras">$0.00</span>
+            </div>
+        </div>
+
+        <!-- Registro contable -->
+        <div id="registroContable" class="mt-8">
+            <h2 class="text-xl font-semibold mb-4">Registro Contable</h2>
+            <table class="w-full border-collapse border">
+                <thead>
+                    <tr class="bg-gray-200">
+                        <th class="border p-2">Cuenta Contable</th>
+                        <th class="border p-2">Débito</th>
+                        <th class="border p-2">Crédito</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaContabilidad"></tbody>
+            </table>
+            <div class="mt-4">
+                <strong>Totales - Débitos: </strong><span id="totalDebitos">$0.00</span>
+                <strong> | Créditos: </strong><span id="totalCreditos">$0.00</span>
+            </div>
+            <div id="validacionSaldos" class="mt-2 font-semibold"></div>
+        </div>
+    </div>
+</body>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="../../../js/comprasDos"></script>
