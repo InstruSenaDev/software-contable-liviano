@@ -1,35 +1,57 @@
-const cuentasContables = [
-    { codigo: '1', cuenta: 'Activo', naturaleza: 'Débito' },
-    { codigo: '11', cuenta: 'Efectivo y Equivalentes Al Efectivo', naturaleza: 'Débito' },
-    { codigo: '1105', cuenta: 'Caja', naturaleza: 'Débito' },
-    { codigo: '110505', cuenta: 'Caja General', naturaleza: 'Crédito' },
-    { codigo: '1110', cuenta: 'Bancos', naturaleza: 'Débito' },
-    { codigo: '1435', cuenta: 'Mercancías no fabricadas por la empresa', naturaleza: 'Débito' },
-    { codigo: '1525', cuenta: 'Equipos de Computación', naturaleza: 'Débito' },
-    { codigo: '2', cuenta: 'Pasivos', naturaleza: 'Crédito' },
-    { codigo: '2205', cuenta: 'Proveedores Nacionales', naturaleza: 'Crédito' },
-    { codigo: '2408', cuenta: 'Impuesto sobre las ventas por pagar', naturaleza: 'Crédito' },
-    { codigo: '240810', cuenta: 'IVA Descontable', naturaleza: 'Débito' },
-    { codigo: '5105', cuenta: 'Gastos por Servicios', naturaleza: 'Débito' },
-    { codigo: '510510', cuenta: 'Fletes y Transporte', naturaleza: 'Débito' },
-    { codigo: '5170', cuenta: 'Impuestos Arancelarios', naturaleza: 'Débito' },
-    { codigo: '5305', cuenta: 'Descuentos Comerciales en Compras', naturaleza: 'Crédito' },
-    { codigo: '5310', cuenta: 'Devoluciones en Compras', naturaleza: 'Crédito' }
-];
-
-let facturas = [];
+let cuentasContables = [];
 let cuentasSeleccionadas = [];
 
-document.addEventListener('DOMContentLoaded', () => {
-    const selectCuentas = document.getElementById('cuentas');
-    cuentasContables.forEach(cuenta => {
-        const option = document.createElement('option');
-        option.value = cuenta.codigo;
-        option.textContent = `${cuenta.codigo} - ${cuenta.cuenta}`;
-        selectCuentas.appendChild(option);
-    });
+export function desplegable() {
+    const selectElement = document.getElementById('proveedor');
 
-    // Función para actualizar valores en el resumen de compras en tiempo real
+    fetch('http://localhost:8080/proveedores')
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(proveedor => {
+                const option = document.createElement('option');
+                option.value = proveedor.idproveedores;
+                option.textContent = proveedor.nombre;
+                option.dataset.encargado = proveedor.encargado;
+                selectElement.appendChild(option);
+            });
+        })
+        .catch(error => {
+            console.error('Error al obtener los proveedores:', error);
+        });
+
+    selectElement.addEventListener('change', () => {
+        const nameElement = document.getElementById('nombreP');
+        const encargadoElement = document.getElementById('encargado_venta');
+
+        const selectedOption = selectElement.options[selectElement.selectedIndex];
+        nameElement.textContent = selectedOption.text;
+        encargadoElement.textContent = selectedOption.dataset.encargado;
+    });
+}
+
+export function desplegableCuentas() {
+    const selectElement = document.getElementById('cuentaz');
+
+    fetch('http://localhost:8080/cuentas')
+        .then(response => response.json())
+        .then(data => {
+            cuentasContables = data; // Actualiza la variable global aquí
+            data.forEach(cuenta => {
+                const option = document.createElement('option');
+                option.value = cuenta.codigo;
+                option.textContent = `${cuenta.codigo} - ${cuenta.nombre}`; // Corrección aquí
+                option.dataset.encargado = cuenta.codigo;
+                selectElement.appendChild(option);
+            });
+        })
+        .catch(error => {
+            console.error('Error al obtener las cuentas:', error);
+        });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    desplegableCuentas();
+
     document.querySelectorAll('#monto, #impuesto, #descuento').forEach(input => {
         input.addEventListener('input', actualizarResumenCompras);
     });
@@ -43,10 +65,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const montoDescuento = monto * (descuento / 100);
         const totalCalculado = monto + montoImpuesto - montoDescuento;
 
-        // Actualizar valores en el resumen de compras en tiempo real
-        const proveedor = document.getElementById('proveedor').value || "N/A";
+        const proveedorSelect = document.getElementById('proveedor');
+        const proveedor = proveedorSelect.options[proveedorSelect.selectedIndex]?.text || "N/A";
         const tablaFacturas = document.getElementById('tablaFacturas');
-        tablaFacturas.innerHTML = ''; // Limpiar la tabla para actualizar con los nuevos valores
+        tablaFacturas.innerHTML = '';
 
         const row = document.createElement('tr');
         row.innerHTML = `
@@ -59,13 +81,12 @@ document.addEventListener('DOMContentLoaded', () => {
         tablaFacturas.appendChild(row);
 
         const totalCompras = document.getElementById('totalCompras');
-        totalCompras.textContent = `$${totalCalculado.toFixed(2)}`;
+        totalCompras.textContent = `$${totalCalculado.toFixed(2)}`; // Corrección aquí
     }
 
-    // Función para manejar la selección y visualización de cuentas contables
     document.getElementById('agregarCuentas').addEventListener('click', () => {
         const tipo = document.getElementById('tipo').value;
-        const cuentaCodigo = document.getElementById('cuentas').value;
+        const cuentaCodigo = document.getElementById('cuentaz').value;
         const valor = parseFloat(document.getElementById('valor').value) || 0;
 
         if (cuentaCodigo && valor) {
@@ -74,6 +95,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 cuentasSeleccionadas.push({ tipo, cuenta: cuentaSeleccionada, valor });
                 actualizarCuentasSeleccionadas();
                 document.getElementById('valor').value = '';
+            } else {
+                console.error('Cuenta no encontrada:', cuentaCodigo);
             }
         }
     });
@@ -82,14 +105,25 @@ document.addEventListener('DOMContentLoaded', () => {
         const cuentasSeleccionadasList = document.getElementById('cuentasSeleccionadas');
         cuentasSeleccionadasList.innerHTML = '';
 
-        cuentasSeleccionadas.forEach(cuenta => {
+        cuentasSeleccionadas.forEach((cuenta, index) => {
             const listItem = document.createElement('li');
-            listItem.textContent = `${cuenta.tipo} - ${cuenta.cuenta.codigo} - ${cuenta.cuenta.cuenta}: $${cuenta.valor.toFixed(2)}`;
+            listItem.textContent = `${cuenta.tipo} - ${cuenta.cuenta.codigo} - ${cuenta.cuenta.nombre}: $${cuenta.valor.toFixed(2)}`; // Corrección aquí
+
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Eliminar';
+            deleteButton.className = 'bg-red-500 text-white px-2 py-1 ml-2 rounded';
+            deleteButton.addEventListener('click', () => eliminarCuenta(index));
+
+            listItem.appendChild(deleteButton);
             cuentasSeleccionadasList.appendChild(listItem);
         });
     }
 
-    // Función para contabilizar las compras
+    function eliminarCuenta(index) {
+        cuentasSeleccionadas.splice(index, 1);
+        actualizarCuentasSeleccionadas();
+    }
+
     document.getElementById('contabilizar').addEventListener('click', () => {
         const resumen = {
             proveedor: document.getElementById('proveedor').value,
@@ -98,7 +132,6 @@ document.addEventListener('DOMContentLoaded', () => {
             descuento: parseFloat(document.getElementById('descuento').value) || 0
         };
 
-        // Mostrar los datos en la tabla de registro contable
         const tablaContabilidad = document.getElementById('tablaContabilidad');
         tablaContabilidad.innerHTML = '';
 
@@ -108,7 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
         cuentasSeleccionadas.forEach(cuenta => {
             const row = document.createElement('tr');
             row.innerHTML = `
-                <td class="border p-2">${cuenta.cuenta.codigo} - ${cuenta.cuenta.cuenta}</td>
+                <td class="border p-2">${cuenta.cuenta.codigo} - ${cuenta.cuenta.nombre}</td>
                 <td class="border p-2">${cuenta.tipo === 'debito' ? `$${cuenta.valor.toFixed(2)}` : ''}</td>
                 <td class="border p-2">${cuenta.tipo === 'credito' ? `$${cuenta.valor.toFixed(2)}` : ''}</td>
             `;
@@ -124,7 +157,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('totalDebitos').textContent = `$${totalDebitos.toFixed(2)}`;
         document.getElementById('totalCreditos').textContent = `$${totalCreditos.toFixed(2)}`;
 
-        // Validar saldos
         const validacionSaldos = document.getElementById('validacionSaldos');
         if (totalDebitos === totalCreditos) {
             validacionSaldos.textContent = 'Los saldos están equilibrados.';
