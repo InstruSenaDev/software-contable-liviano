@@ -14,6 +14,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const cancelBtn = document.getElementById(`cancel-${campo}`);
     const errorSpan = document.getElementById(errorId);
 
+    let valorOriginal;
+
     if (!input || !editBtn || !saveBtn || !cancelBtn || !errorSpan) {
       console.error(`No se encontró uno de los elementos para el campo ${campo}.`);
       return;
@@ -21,35 +23,37 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Evento para botón "Edit"
     editBtn.addEventListener("click", function () {
-      input.disabled = false; // Habilitar input
-      editBtn.classList.add("hidden"); // Ocultar botón "edit"
-      saveBtn.classList.remove("hidden"); // Mostrar botón "save"
-      cancelBtn.classList.remove("hidden"); // Mostrar botón "cancel"
+      valorOriginal = input.value;  // Guardar el valor original
+      input.value = "";  // Limpiar el input para ingresar un nuevo dato
+      input.disabled = false;
+      editBtn.classList.add("hidden");
+      saveBtn.classList.remove("hidden");
+      cancelBtn.classList.remove("hidden");
     });
 
     // Evento para botón "Cancel"
     cancelBtn.addEventListener("click", function () {
-      input.disabled = true; // Deshabilitar input
-      input.value = ""; // Limpiar input (opcional)
-      errorSpan.textContent = ""; // Limpiar mensajes de error
-      editBtn.classList.remove("hidden"); // Mostrar botón "edit"
-      saveBtn.classList.add("hidden"); // Ocultar botón "save"
-      cancelBtn.classList.add("hidden"); // Ocultar botón "cancel"
+      input.disabled = true;
+      input.value = valorOriginal;  // Restaurar el valor original
+      errorSpan.textContent = "";
+      editBtn.classList.remove("hidden");
+      saveBtn.classList.add("hidden");
+      cancelBtn.classList.add("hidden");
     });
 
     // Evento para botón "Save"
     saveBtn.addEventListener("click", function () {
       const valor = input.value.trim();
-      console.log(`Validando ${campo}:`, valor); // Mensaje de depuración
-
       const isValid = validarCampo(campo, valor, errorSpan);
+
       if (isValid) {
-        console.log(`Valor guardado para ${campo}:`, valor); // Aquí guardarías los datos
-        input.disabled = true; // Deshabilitar input
-        editBtn.classList.remove("hidden"); // Mostrar botón "edit"
-        saveBtn.classList.add("hidden"); // Ocultar botón "save"
-        cancelBtn.classList.add("hidden"); // Ocultar botón "cancel"
-        errorSpan.textContent = ""; // Limpiar mensajes de error
+        console.log(`Guardando cambios para ${campo}: ${valor}`);
+        guardarCambios(campo, valor); // Guardar los cambios en la base de datos
+        input.disabled = true;
+        editBtn.classList.remove("hidden");
+        saveBtn.classList.add("hidden");
+        cancelBtn.classList.add("hidden");
+        errorSpan.textContent = "";
       }
     });
   }
@@ -65,13 +69,13 @@ document.addEventListener("DOMContentLoaded", function () {
       switch (campo) {
         case "nombres":
         case "apellidos":
-          regex = /^[a-zA-Z\s]+$/; // Solo letras y espacios
+          regex = /^[a-zA-Z\s]+$/;
           if (!regex.test(valor)) {
             mensajeError = `El campo ${campo} solo puede contener letras y espacios.`;
           }
           break;
         case "correo":
-          regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Validación básica de correo
+          regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
           if (!regex.test(valor)) {
             mensajeError = `El campo ${campo} debe ser un correo electrónico válido.`;
           }
@@ -108,16 +112,51 @@ document.addEventListener("DOMContentLoaded", function () {
       .then((data) => {
         if (data.length > 0) {
           const usuario = data[0];
-          // Establecer los placeholders de los inputs
-          document.getElementById("input-nombres").placeholder = usuario.nombre;
-          document.getElementById("input-apellidos").placeholder = usuario.apellido;
-          document.getElementById("input-correo").placeholder = usuario.correo;
+          // Establecer los valores de los inputs
+          document.getElementById("input-nombres").value = usuario.nombre || '';
+          document.getElementById("input-apellidos").value = usuario.apellido || '';
+          document.getElementById("input-correo").value = usuario.correo || '';
         } else {
           console.log("Usuario no encontrado.");
         }
       })
       .catch((error) => {
-        console.error("Error al realizar la solicitud:", error);
+        console.error("Error al realizar la solicitud:", error.message);
+      });
+  }
+
+  // Función para guardar los cambios
+  function guardarCambios(campo, valor) {
+    const email = localStorage.getItem("email");
+
+    if (!email) {
+      console.error("Correo del usuario no encontrado en localStorage.");
+      return;
+    }
+
+    const data = {
+      [campo]: valor, // Usamos la clave del campo como la propiedad del objeto
+      email
+    };
+
+    fetch("http://localhost:8080/actualizarPerfil", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Error al actualizar los datos.");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Datos actualizados exitosamente:", data);
+      })
+      .catch((error) => {
+        console.error("Error al actualizar los datos:", error.message);
       });
   }
 });
