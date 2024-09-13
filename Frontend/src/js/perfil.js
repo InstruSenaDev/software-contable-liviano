@@ -17,14 +17,16 @@ document.addEventListener("DOMContentLoaded", function () {
     let valorOriginal;
 
     if (!input || !editBtn || !saveBtn || !cancelBtn || !errorSpan) {
-      console.error(`No se encontró uno de los elementos para el campo ${campo}.`);
+      console.error(
+        `No se encontró uno de los elementos para el campo ${campo}.`
+      );
       return;
     }
 
     // Evento para botón "Edit"
     editBtn.addEventListener("click", function () {
-      valorOriginal = input.value;  // Guardar el valor original
-      input.value = "";  // Limpiar el input para ingresar un nuevo dato
+      valorOriginal = input.value; // Guardar el valor original
+      input.value = ""; // Limpiar el input para ingresar un nuevo dato
       input.disabled = false;
       editBtn.classList.add("hidden");
       saveBtn.classList.remove("hidden");
@@ -34,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Evento para botón "Cancel"
     cancelBtn.addEventListener("click", function () {
       input.disabled = true;
-      input.value = valorOriginal;  // Restaurar el valor original
+      input.value = valorOriginal; // Restaurar el valor original
       errorSpan.textContent = "";
       editBtn.classList.remove("hidden");
       saveBtn.classList.add("hidden");
@@ -102,7 +104,9 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    fetch(`http://localhost:8080/usuariosLog?email=${encodeURIComponent(email)}`)
+    fetch(
+      `http://localhost:8080/usuariosLog?email=${encodeURIComponent(email)}`
+    )
       .then((response) => {
         if (!response.ok) {
           throw new Error("Error al obtener los datos del usuario.");
@@ -113,9 +117,10 @@ document.addEventListener("DOMContentLoaded", function () {
         if (data.length > 0) {
           const usuario = data[0];
           // Establecer los valores de los inputs
-          document.getElementById("input-nombres").value = usuario.nombre || '';
-          document.getElementById("input-apellidos").value = usuario.apellido || '';
-          document.getElementById("input-correo").value = usuario.correo || '';
+          document.getElementById("input-nombres").value = usuario.nombre || "";
+          document.getElementById("input-apellidos").value =
+            usuario.apellido || "";
+          document.getElementById("input-correo").value = usuario.correo || "";
         } else {
           console.log("Usuario no encontrado.");
         }
@@ -136,7 +141,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const data = {
       [campo]: valor, // Usamos la clave del campo como la propiedad del objeto
-      email
+      email,
     };
 
     fetch("http://localhost:8080/actualizarPerfil", {
@@ -144,7 +149,7 @@ document.addEventListener("DOMContentLoaded", function () {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
+      // body: JSON.stringify(data),
     })
       .then((response) => {
         if (!response.ok) {
