@@ -1,0 +1,22 @@
+---
+import Compras from "../components/Dashboard/comprasDos/index.astro";
+import Header from "../components/Dashboard/header.astro"; 
+import Sidebar from "../components/Dashboard/sidebar.astro";
+---
+
+  <body class="bg-white">
+    
+    <div class="flex">
+      <Sidebar />
+      <div class="ml-64 w-full">
+        <Header />
+        <main class="p-6">
+
+          <div id="registro">
+            <Compras />
+          </div>
+          
+        </main>
+      </div>
+    </div>
+  </body>
