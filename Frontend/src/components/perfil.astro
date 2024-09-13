@@ -18,27 +18,15 @@
             <span id="name-error" class="text-red-500"></span>
           </span>
           <span class="flex flex-row">
-            <button id="edit-nombres" class=""
-              ><img
-                class="w-4 h-auto m-2"
-                src="../../public/img/black/edit2.svg"
-                alt=""
-              /></button
-            >
-            <button id="save-nombres" class="hidden"
-              ><img
-                class="w-4 h-auto m-2"
-                src="../../public/img/black/edit.svg"
-                alt=""
-              /></button
-            >
-            <button id="cancel-nombres" class="hidden"
-              ><img
-                class="w-4 h-auto m-2"
-                src="../../public/img/black/trash.svg"
-                alt=""
-              /></button
-            >
+            <button id="edit-nombres">
+              <img class="w-4 h-auto m-2" src="../../public/img/black/edit2.svg" alt="Editar" />
+            </button>
+            <button id="save-nombres" class="hidden">
+              <img class="w-4 h-auto m-2" src="../../public/img/black/edit.svg" alt="Guardar" />
+            </button>
+            <button id="cancel-nombres" class="hidden">
+              <img class="w-4 h-auto m-2" src="../../public/img/black/trash.svg" alt="Cancelar" />
+            </button>
           </span>
         </div>
       </div>
@@ -55,29 +43,16 @@
             />
             <span id="lastName-error" class="text-red-500"></span>
           </span>
-
-          <span class="flex flex-">
-            <button id="edit-apellidos" class=""
-              ><img
-                class="w-4 h-auto m-2"
-                src="../../public/img/black/edit2.svg"
-                alt=""
-              /></button
-            >
-            <button id="save-apellidos" class="hidden"
-              ><img
-                class="w-4 h-auto m-2"
-                src="../../public/img/black/edit.svg"
-                alt=""
-              /></button
-            >
-            <button id="cancel-apellidos" class="hidden"
-              ><img
-                class="w-4 h-auto m-2"
-                src="../../public/img/black/trash.svg"
-                alt=""
-              /></button
-            >
+          <span class="flex flex-row">
+            <button id="edit-apellidos">
+              <img class="w-4 h-auto m-2" src="../../public/img/black/edit2.svg" alt="Editar" />
+            </button>
+            <button id="save-apellidos" class="hidden">
+              <img class="w-4 h-auto m-2" src="../../public/img/black/edit.svg" alt="Guardar" />
+            </button>
+            <button id="cancel-apellidos" class="hidden">
+              <img class="w-4 h-auto m-2" src="../../public/img/black/trash.svg" alt="Cancelar" />
+            </button>
           </span>
         </div>
       </div>
@@ -94,29 +69,16 @@
             />
             <span id="email-error" class="text-red-500"></span>
           </span>
-
-          <span class="flex flex-">
-            <button id="edit-correo" class=""
-              ><img
-                class="w-4 h-auto m-2"
-                src="../../public/img/black/edit2.svg"
-                alt=""
-              /></button
-            >
-            <button id="save-correo" class="hidden"
-              ><img
-                class="w-4 h-auto m-2"
-                src="../../public/img/black/edit.svg"
-                alt=""
-              /></button
-            >
-            <button id="cancel-correo" class="hidden"
-              ><img
-                class="w-4 h-auto m-2"
-                src="../../public/img/black/trash.svg"
-                alt=""
-              /></button
-            >
+          <span class="flex flex-row">
+            <button id="edit-correo">
+              <img class="w-4 h-auto m-2" src="../../public/img/black/edit2.svg" alt="Editar" />
+            </button>
+            <button id="save-correo" class="hidden">
+              <img class="w-4 h-auto m-2" src="../../public/img/black/edit.svg" alt="Guardar" />
+            </button>
+            <button id="cancel-correo" class="hidden">
+              <img class="w-4 h-auto m-2" src="../../public/img/black/trash.svg" alt="Cancelar" />
+            </button>
           </span>
         </div>
       </div>
@@ -124,10 +86,12 @@
       <div class="flex justify-center mt-8 mb-8">
         <button
           class="bg-blue-baby4 text-white w-80 rounded-md h-10 hover:bg-blue-baby3"
-          >Guardar cambios</button
+          id="guardar-cambios"
         >
+          Guardar cambios
+        </button>
       </div>
     </div>
   </div>
 </div>
-<script src="../js/perfil"></script>
+<script src="../js/perfil.js"></script>
