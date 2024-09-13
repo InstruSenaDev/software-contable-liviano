@@ -265,7 +265,20 @@ const eliminarUsuario = async (req, res) => {
     }
 };
 
+const insertComprasDet = async (data) => {
+    const { descuento, iva, montototal, totalpagar, idcuentas } = data;
 
+    try {
+        await pool.query(
+            'INSERT INTO comprasdet ( descuento, iva, montototal, totalpagar, idproveedores, idcuenta ) VALUES ($1, $2, $3, $4, $5, $6)',
+            [descuento, iva, montototal, totalpagar, 54, idcuentas]
+        );
+    } catch (error) {
+        console.error('Error al insertar datos en la base de datos:', error);
+
+        throw error; // Propaga el error para manejarlo en el controlador
+    }
+};
 // Exporta las funciones necesarias
 module.exports = {
     saludo,
@@ -279,5 +292,6 @@ module.exports = {
     usuariosLog,
     obtenerUsuarioPorCorreo,
     eliminarProveedor,
-    eliminarUsuario
+    eliminarUsuario,
+    insertComprasDet
 };

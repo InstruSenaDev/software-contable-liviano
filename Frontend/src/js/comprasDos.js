@@ -1,6 +1,7 @@
 let cuentasContables = [];
 let cuentasSeleccionadas = [];
 
+// Función para llenar el select de proveedores desde la base de datos
 export function desplegable() {
     const selectElement = document.getElementById('proveedor');
 
@@ -9,7 +10,7 @@ export function desplegable() {
         .then(data => {
             data.forEach(proveedor => {
                 const option = document.createElement('option');
-                option.value = proveedor.idproveedores;
+                option.value = proveedor.idproveedores;  // Utilizamos idproveedores como valor
                 option.textContent = proveedor.nombre;
                 option.dataset.encargado = proveedor.encargado;
                 selectElement.appendChild(option);
@@ -18,17 +19,9 @@ export function desplegable() {
         .catch(error => {
             console.error('Error al obtener los proveedores:', error);
         });
-
-    selectElement.addEventListener('change', () => {
-        const nameElement = document.getElementById('nombreP');
-        const encargadoElement = document.getElementById('encargado_venta');
-
-        const selectedOption = selectElement.options[selectElement.selectedIndex];
-        nameElement.textContent = selectedOption.text;
-        encargadoElement.textContent = selectedOption.dataset.encargado;
-    });
 }
 
+// Función para llenar el select de cuentas contables desde la base de datos
 export function desplegableCuentas() {
     const selectElement = document.getElementById('cuentaz');
 
@@ -50,7 +43,8 @@ export function desplegableCuentas() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    desplegableCuentas();
+    desplegable();  // Llenar el select de proveedores
+    desplegableCuentas();  // Llenar el select de cuentas contables
 
     document.querySelectorAll('#monto, #impuesto, #descuento').forEach(input => {
         input.addEventListener('input', actualizarResumenCompras);
@@ -125,8 +119,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     document.getElementById('contabilizar').addEventListener('click', () => {
+        const proveedorSelect = document.getElementById('proveedor');
+        const idProveedorSeleccionado = proveedorSelect.value; // Obtenemos el id del proveedor seleccionado
+
         const resumen = {
-            proveedor: document.getElementById('proveedor').value,
+            idproveedores: idProveedorSeleccionado,  // Enviar el ID del proveedor seleccionado
             monto: parseFloat(document.getElementById('monto').value) || 0,
             impuesto: parseFloat(document.getElementById('impuesto').value) || 0,
             descuento: parseFloat(document.getElementById('descuento').value) || 0
@@ -165,5 +162,31 @@ document.addEventListener('DOMContentLoaded', () => {
             validacionSaldos.textContent = 'Los saldos NO están equilibrados.';
             validacionSaldos.className = 'text-red-500';
         }
+
+        // Enviar datos al backend
+        // Enviar datos al backend
+        fetch('http://localhost:8080/insertComprasDet', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                ...resumen, // Asegúrate de que resumen contiene idproveedores
+                cuentas: cuentasSeleccionadas
+            })
+        })
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    alert('Datos contabilizados exitosamente.');
+                    // Puedes agregar aquí la lógica para limpiar el formulario o redirigir al usuario si lo deseas.
+                } else {
+                    alert('Error al contabilizar los datos.');
+                }
+            })
+            .catch(error => {
+                console.error('Error al enviar los datos:', error);
+            });
+
     });
 });

@@ -9,7 +9,7 @@ Registro de compras        </h1>
 
         <!-- Formulario de datos principales de la compra -->
         <form id="facturaForm" class="mb-8">
-            <span id="userNameCompras" ></span>
+            <span id="user_namexz" ></span>
 
             <div class="grid grid-cols-2 gap-4">
                 <div>
@@ -147,8 +147,27 @@ Registro de compras        </h1>
         </div>
     </div>
 </body>
+<!-- Modal de éxito -->
+<div id="successModal" class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 hidden">
+    <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+        <h2 class="text-xl font-bold mb-4">¡Registro Exitoso!</h2>
+        <p>Los datos se han contabilizado correctamente.</p>
+        <button id="closeSuccessModal" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded">Cerrar</button>
+    </div>
+</div>
+
+<!-- Modal de error -->
+<div id="errorModal" class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 hidden">
+    <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+        <h2 class="text-xl font-bold mb-4">¡Error!</h2>
+        <p>No se pudieron contabilizar los datos.</p>
+        <button id="closeErrorModal" class="mt-4 bg-red-500 text-white px-4 py-2 rounded">Cerrar</button>
+    </div>
+</div>
+
 <script src="../../../js/ValidacionUsuario.js"></script>
 <script src="../../../js/comprasDos"></script>
+
 <script>
     import { desplegable, desplegableCuentas } from "../../../js/comprasDos";
     desplegable();
