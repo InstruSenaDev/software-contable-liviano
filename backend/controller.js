@@ -265,6 +265,60 @@ const eliminarUsuario = async (req, res) => {
     }
 };
 
+const insertComprasDet = async (data) => {
+    const { descuento, iva, montototal, totalpagar, idcuentas } = data;
+
+    try {
+        await pool.query(
+            'INSERT INTO comprasdet ( descuento, iva, montototal, totalpagar, idproveedores, idcuenta ) VALUES ($1, $2, $3, $4, $5, $6)',
+            [descuento, iva, montototal, totalpagar, 54, idcuentas]
+        );
+    } catch (error) {
+        console.error('Error al insertar datos en la base de datos:', error);
+
+        throw error; // Propaga el error para manejarlo en el controlador
+    }
+};
+
+const actualizarPerfil = (req, res) => {
+    const { email, nombres, apellidos, correo } = req.body;
+  
+    if (!email || (!nombres && !apellidos && !correo)) {
+      return res.status(400).json({ error: 'Datos incompletos para actualizar el perfil.' });
+    }
+  
+    // Construir la consulta de actualización
+    let query = 'UPDATE usuarios SET ';
+    const fields = [];
+    const values = [];
+    
+    if (nombres) {
+      fields.push('nombre = $' + (fields.length + 1));
+      values.push(nombres);
+    }
+    
+    if (apellidos) {
+      fields.push('apellido = $' + (fields.length + 1));
+      values.push(apellidos);
+    }
+    
+    if (correo) {
+      fields.push('correo = $' + (fields.length + 1));
+      values.push(correo);
+    }
+    
+    query += fields.join(', ') + ' WHERE correo = $' + (fields.length + 1);
+    values.push(email);
+  
+    pool.query(query, values, (error, result) => {
+      if (error) {
+        console.error('Error al actualizar el perfil:', error);
+        return res.status(500).json({ error: 'Error al actualizar el perfil.' });
+      }
+  
+      res.status(200).json({ message: 'Perfil actualizado correctamente.' });
+    });
+  };
 
 // Exporta las funciones necesarias
 module.exports = {
@@ -279,5 +333,7 @@ module.exports = {
     usuariosLog,
     obtenerUsuarioPorCorreo,
     eliminarProveedor,
-    eliminarUsuario
+    eliminarUsuario,
+    actualizarPerfil,
+    insertComprasDet
 };
