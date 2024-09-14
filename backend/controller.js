@@ -322,24 +322,35 @@ const eliminarUsuario = async (req, res) => {
 };
 
 const insertComprasDet = async (data) => {
-  const { montoDescuento, montoImpuesto, monto, totalCalculado } = data.body;
-  console.log("holaaaaaaaaaaaaaa", montoDescuento);
+  const { montoDescuento, montoImpuesto, monto, totalCalculado, idProveedorSeleccionado, cuentasSeleccionadas } = data.body;
 
   try {
     console.log("Datos recibidos para insertar:", data);
-    await pool.query(
-      "INSERT INTO comprasdet (descuento, iva, montototal, totalpagar, idproveedores, idcuenta, idusuarios) VALUES ($1, $2, $3, $4, $5, $6, $7)",
-      [montoDescuento, montoImpuesto, monto, totalCalculado, 54, 1, 3]
+
+    // Primero inserta la compra en la tabla 'comprasdet'
+    const result = await pool.query(
+      "INSERT INTO comprasdet (descuento, iva, montototal, totalpagar, idproveedores, idusuarios, estado) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING idcompra",
+      [montoDescuento, montoImpuesto, monto, totalCalculado, idProveedorSeleccionado, 3, 'activo']
     );
+
+    const idCompra = result.rows[0].idcompra; // Obtenemos el ID de la compra recién insertada
+    console.log("ID de la compra registrada:", idCompra);
+
+    // Luego inserta las cuentas contables seleccionadas en 'registrocuentas'
+    for (const cuenta of cuentasSeleccionadas) {
+      await pool.query(
+        "INSERT INTO registrocuentas (tipocuenta, codigocuenta, valor, idcompra) VALUES ($1, $2, $3, $4)",
+        [cuenta.tipo, cuenta.cuenta.codigo, cuenta.valor, idCompra]
+      );
+    }
 
     console.log("Datos insertados correctamente en la base de datos.");
   } catch (error) {
     console.error("Error al insertar datos en la base de datos:", error);
-    console.log("olaa");
-
     throw error;
   }
 };
+
 
 const actualizarPerfil = (req, res) => {
   const { email, nombres, apellidos, correo } = req.body;
