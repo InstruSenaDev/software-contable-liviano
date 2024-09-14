@@ -70,6 +70,7 @@ function obtenerInformacionUsuario(email) {
       if (data.length > 0) {
         const usuario = data[0];
         const nombreCompleto = `${usuario.nombre}`;
+        const userId = usuario.id;
 
         // Verificar que los elementos existen antes de modificar sus propiedades
         const userNameElement = document.getElementById("user_name");
