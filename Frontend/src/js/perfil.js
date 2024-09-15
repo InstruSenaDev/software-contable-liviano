@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", function () {
   // Configuración de edición de los campos
   configurarEdicion("nombres", "name-error");
@@ -6,7 +7,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   obtenerDatosUsuario();
 
-  // Botón global de "Guardar cambios"
   document.getElementById("guardar-cambios").addEventListener("click", function () {
     guardarCambios("nombres", document.getElementById("input-nombres").value);
     guardarCambios("apellidos", document.getElementById("input-apellidos").value);
@@ -22,15 +22,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let valorOriginal;
 
+    if (!input || !editBtn || !saveBtn || !cancelBtn || !errorSpan) {
+      console.error(`No se encontró uno de los elementos para el campo ${campo}.`);
+      return;
+    }
+
+    // Evento para botón "Edit"
     editBtn.addEventListener("click", function () {
       valorOriginal = input.value;
-      input.disabled = false;
       input.value = "";
+      input.disabled = false;
       editBtn.classList.add("hidden");
       saveBtn.classList.remove("hidden");
       cancelBtn.classList.remove("hidden");
     });
 
+    // Evento para botón "Cancel"
     cancelBtn.addEventListener("click", function () {
       input.disabled = true;
       input.value = valorOriginal;
@@ -40,6 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
       cancelBtn.classList.add("hidden");
     });
 
+    // Evento para botón "Save"
     saveBtn.addEventListener("click", function () {
       const valor = input.value.trim();
       const isValid = validarCampo(campo, valor, errorSpan);
@@ -54,7 +62,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Función para validar campos
   function validarCampo(campo, valor, errorSpan) {
     let regex;
     let mensajeError = "";
@@ -76,6 +83,8 @@ document.addEventListener("DOMContentLoaded", function () {
             mensajeError = `El campo ${campo} debe ser un correo electrónico válido.`;
           }
           break;
+        default:
+          return false;
       }
     }
 
@@ -87,73 +96,93 @@ document.addEventListener("DOMContentLoaded", function () {
     return true;
   }
 
-  // Obtener datos del usuario
   function obtenerDatosUsuario() {
     const email = localStorage.getItem("email");
 
     if (!email) {
-      console.error("Correo no encontrado.");
+      console.error("Correo del usuario no encontrado en localStorage.");
       return;
     }
 
-    fetch(`http://localhost:8080/api/usuario/${email}`)
-      .then((response) => response.json())
-      .then((data) => {
-        document.getElementById("input-nombres").value = data.nombres || "";
-        document.getElementById("input-apellidos").value = data.apellidos || "";
-        document.getElementById("input-correo").value = data.correo || "";
+    fetch(`http://localhost:8080/usuariosLog?email=${encodeURIComponent(email)}`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Error al obtener los datos del usuario.");
+        }
+        return response.json();
       })
-      .catch((error) => {
-        console.error("Error al obtener datos del usuario:", error);
-        mostrarModalError();
-      });
-  }
-
-  // Guardar cambios
-  function guardarCambios(campo, valor) {
-    const email = localStorage.getItem("email");
-
-    fetch(`http://localhost:8080/api/usuario/${email}`, {
-      method: "PUT",
-      body: JSON.stringify({ [campo]: valor }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
       .then((data) => {
-        mostrarModalExito();
-
-        // Guardar los nuevos datos en localStorage
-        if (campo === "nombres") {
-          localStorage.setItem("nombres", valor);
-        } else if (campo === "apellidos") {
-          localStorage.setItem("apellidos", valor);
-        } else if (campo === "correo") {
-          localStorage.setItem("email", valor);
+        if (data.length > 0) {
+          const usuario = data[0];
+          document.getElementById("input-nombres").value = usuario.nombre || '';
+          document.getElementById("input-apellidos").value = usuario.apellido || '';
+          document.getElementById("input-correo").value = usuario.correo || '';
+        } else {
+          console.log("Usuario no encontrado.");
         }
       })
       .catch((error) => {
-        console.error("Error al actualizar los datos:", error);
-        mostrarModalError();
+        console.error("Error al realizar la solicitud:", error.message);
       });
   }
 
-  // Mostrar modal de éxito
-  function mostrarModalExito() {
-    const modal = document.getElementById("modal-editexitoso");
-    modal.classList.remove("hidden");
+  function mostrarMensajeExitoso() {
+    const modalExito = document.getElementById("modal-editexitoso");
+    modalExito.classList.remove("hidden");
     setTimeout(() => {
-      modal.classList.add("hidden");
-    }, 3000); // Ocultar modal después de 3 segundos
+      modalExito.classList.add("hidden");
+    }, 3000);
   }
 
-  // Mostrar modal de error
-  function mostrarModalError() {
-    const modal = document.getElementById("modal-erroredit");
-    modal.classList.remove("hidden");
+  function mostrarMensajeError() {
+    const modalError = document.getElementById("modal-erroredit");
+    modalError.classList.remove("hidden");
     setTimeout(() => {
-      modal.classList.add("hidden");
-    }, 3000); // Ocultar modal después de 3 segundos
+      modalError.classList.add("hidden");
+    }, 3000);
+  }
+
+  function guardarCambios(campo, valor) {
+    const email = localStorage.getItem("email");
+
+    if (!email) {
+      console.error("Correo del usuario no encontrado en localStorage.");
+      return;
+    }
+
+    const data = {
+      [campo]: valor,
+      email
+    };
+
+    fetch("http://localhost:8080/actualizarPerfil", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          mostrarMensajeError();
+          throw new Error("Error al actualizar los datos.");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Datos actualizados exitosamente:", data);
+        localStorage.setItem(campo, valor);
+        actualizarVistaSuperior();
+        mostrarMensajeExitoso();
+      })
+      .catch((error) => {
+        console.error("Error al actualizar los datos:", error.message);
+        mostrarMensajeError();
+      });
+  }
+
+  function actualizarVistaSuperior() {
+    // Actualizar vista superior con los nuevos datos
   }
 });
+
