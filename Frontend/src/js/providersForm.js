@@ -108,6 +108,8 @@ export async function submitForm() {
   const encargado = document.getElementById('encargado').value;
   const fecha = document.getElementById('fecha').textContent;
   const hora = document.getElementById('hora').textContent;
+  const userId = localStorage.getItem("userId"); 
+
 
   console.log('Datos a enviar:', {
     nombre,
@@ -118,7 +120,8 @@ export async function submitForm() {
     direccion,
     encargado,
     fecha,
-    hora
+    hora,
+    userId
   });
 
   try {
@@ -136,7 +139,8 @@ export async function submitForm() {
         direccion,
         encargado,
         fecha,
-        hora
+        hora,
+        userId
       }),
     });
 

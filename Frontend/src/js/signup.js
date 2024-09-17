@@ -18,6 +18,9 @@ export function validacioneSignup() {
     document.getElementById('terms_error').textContent = '';
 
     // Validar nombre
+    const userId = localStorage.getItem("userId"); 
+
+
     const namePattern = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/;
     const firstName = document.getElementById('first_name').value;
     if (firstName.trim() === '') {
@@ -75,7 +78,8 @@ export function validacioneSignup() {
       first_name: firstName,
       last_name: lastName,
       email: email,
-      password: password
+      password: password,
+      userId: userId
     };
     
     try {
@@ -95,7 +99,7 @@ export function validacioneSignup() {
 
       } else {
         mostrarModal('error-modal', result.message);
-        console.error('Error al registrar usuario:', result.message);
+        console.error('Error al registrar usuario:', result.message,);
       }
     } catch (error) {
       mostrarModal('error-modal', 'Error al enviar la solicitud');

@@ -4,31 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
   if (email) {
     enviarEmailAlServidor(email);
   } else {
-    // Verificar que los elementos existen antes de modificar sus propiedades
-    const userNameElement = document.getElementById("user_name");
-    if (userNameElement) {
-      userNameElement.textContent = "Usuario desconocido";
-    }
-
-    const userNamesElement = document.getElementById("user_names");
-    if (userNamesElement) {
-      userNamesElement.textContent = "Usuario desconocido";
-    }
-
-    const userNamexzElement = document.getElementById("user_namexz");
-    if (userNamexzElement) {
-      userNamexzElement.textContent = "Usuario desconocido";
-    }
-
-    const userNamexElement = document.getElementById("user_namex");
-    if (userNamexElement) {
-      userNamexElement.textContent = "Usuario desconocido";
-    }
-
-    const modalUserNameElement = document.getElementById("modal_user_name");
-    if (modalUserNameElement) {
-      modalUserNameElement.textContent = "Usuario desconocido";
-    }
+    actualizarUIComoDesconocido();
   }
 });
 
@@ -66,63 +42,76 @@ function obtenerInformacionUsuario(email) {
       return response.json();
     })
     .then((data) => {
-      console.log("Respuesta del servidor:", data);
       if (data.length > 0) {
         const usuario = data[0];
         const nombreCompleto = `${usuario.nombre}`;
         const userId = usuario.idusuario;
         
-        // Asigna el id de usuario a la variable global
-        window.userId = userId;
+        // Guarda el userId en localStorage
+        localStorage.setItem("userId", userId);
 
-        // Verificar que los elementos existen antes de modificar sus propiedades
-        const userNameElement = document.getElementById("user_name");
-        if (userNameElement) {
-          userNameElement.textContent = nombreCompleto;
-        }
-
-        const userNamesElement = document.getElementById("user_names");
-        if (userNamesElement) {
-          userNamesElement.textContent = nombreCompleto;
-        }
-
-        const userNamexElement = document.getElementById("user_namex");
-        if (userNamexElement) {
-          userNamexElement.textContent = nombreCompleto;
-        }
-
-        const userNamexzElement = document.getElementById("user_namexz");
-        if (userNamexzElement) {
-          userNamexzElement.textContent = nombreCompleto;
-        }
-
-        const modalUserNameElement = document.getElementById("modal_user_name");
-        if (modalUserNameElement) {
-          modalUserNameElement.textContent = nombreCompleto;
-        }
+        // Actualizar UI con nombre del usuario
+        actualizarUIConNombre(nombreCompleto);
       } else {
-        const userNameElement = document.getElementById("user_name");
-        if (userNameElement) {
-          userNameElement.textContent = "Usuario no encontrado";
-        }
-
-        const userNamesElement = document.getElementById("user_names");
-        if (userNamesElement) {
-          userNamesElement.textContent = "Usuario no encontrado";
-        }
-
-        const userNamexElement = document.getElementById("user_namex");
-        if (userNamexElement) {
-          userNamexElement.textContent = "Usuario no encontrado";
-        }
-
-        const modalUserNameElement = document.getElementById("modal_user_name");
-        if (modalUserNameElement) {
-          modalUserNameElement.textContent = "Usuario no encontrado";
-        }
+        actualizarUIComoDesconocido();
       }
     })
     .catch((error) => {
       console.error("Hubo un problema con la solicitud:", error);
     });
+}
+
+
+function actualizarUIConNombre(nombre) {
+  const userNameElement = document.getElementById("user_name");
+  if (userNameElement) {
+    userNameElement.textContent = nombre;
+  }
+
+  const userNamesElement = document.getElementById("user_names");
+  if (userNamesElement) {
+    userNamesElement.textContent = nombre;
+  }
+
+  const userNamexzElement = document.getElementById("user_namexz");
+  if (userNamexzElement) {
+    userNamexzElement.textContent = nombre;
+  }
+
+  const userNamexElement = document.getElementById("user_namex");
+  if (userNamexElement) {
+    userNamexElement.textContent = nombre;
+  }
+
+  const modalUserNameElement = document.getElementById("modal_user_name");
+  if (modalUserNameElement) {
+    modalUserNameElement.textContent = nombre;
+  }
+}
+
+function actualizarUIComoDesconocido() {
+  const userNameElement = document.getElementById("user_name");
+  if (userNameElement) {
+    userNameElement.textContent = "Usuario desconocido";
+  }
+
+  const userNamesElement = document.getElementById("user_names");
+  if (userNamesElement) {
+    userNamesElement.textContent = "Usuario desconocido";
+  }
+
+  const userNamexzElement = document.getElementById("user_namexz");
+  if (userNamexzElement) {
+    userNamexzElement.textContent = "Usuario desconocido";
+  }
+
+  const userNamexElement = document.getElementById("user_namex");
+  if (userNamexElement) {
+    userNamexElement.textContent = "Usuario desconocido";
+  }
+
+  const modalUserNameElement = document.getElementById("modal_user_name");
+  if (modalUserNameElement) {
+    modalUserNameElement.textContent = "Usuario desconocido";
+  }
 }

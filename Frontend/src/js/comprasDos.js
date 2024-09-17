@@ -196,6 +196,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const montoImpuesto = monto * (impuesto / 100);
     const montoDescuento = monto * (descuento / 100);
     const totalCalculado = monto + montoImpuesto - montoDescuento;
+    const userId = localStorage.getItem("userId"); 
 
     fetch("http://localhost:8080/insertComprasDet", {
       method: "POST",
@@ -210,7 +211,8 @@ document.addEventListener("DOMContentLoaded", () => {
         idProveedorSeleccionado,
         cuentasSeleccionadas,
         fecha,
-        hora
+        hora,
+        userId
       }),
     })
       .then((response) => response.json())
@@ -254,3 +256,4 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("errorModal").classList.add("hidden");
   });
 });
+

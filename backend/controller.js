@@ -102,7 +102,7 @@ const cuentas = (req, res) => {
 };
 
 const registerUser = async (req, res) => {
-  const { first_name, last_name, email, password } = req.body;
+  const { first_name, last_name, email, password, userId } = req.body;
   try {
     const existingUser = await pool.query(
       "SELECT * FROM usuarios WHERE correo = $1",
@@ -117,8 +117,8 @@ const registerUser = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
     await pool.query(
-      "INSERT INTO usuarios (nombre, apellido, correo, estado, contrasena,idrol) VALUES ($1, $2, $3, $4, $5,$6)",
-      [first_name, last_name, email, "activo", hashedPassword, "2"]
+      "INSERT INTO usuarios (nombre, apellido, correo, estado, contrasena,idrol, idusuarios) VALUES ($1, $2, $3, $4, $5,$6,$7)",
+      [first_name, last_name, email, "activo", hashedPassword, "2", userId]
     );
 
     res
@@ -186,6 +186,7 @@ const registerProviders = async (req, res) => {
     encargado,
     hora,
     fecha,
+    userId
   } = req.body;
 
   console.log("Datos recibidos:", req.body);
@@ -228,7 +229,7 @@ const registerProviders = async (req, res) => {
 
     // Insertar el nuevo proveedor
     await pool.query(
-      "INSERT INTO proveedores (nombre, numeroDocumento, idDocumento, numeroTelefono, correoElectronico, direccion, encargado, hora, fecha, estado) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)",
+      "INSERT INTO proveedores (nombre, numeroDocumento, idDocumento, numeroTelefono, correoElectronico, direccion, encargado, hora, fecha, estado, idusuario) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)",
       [
         nombre,
         numero_documento,
@@ -240,6 +241,7 @@ const registerProviders = async (req, res) => {
         hora,
         fecha,
         "activo",
+        userId
       ]
     );
 
@@ -322,15 +324,15 @@ const eliminarUsuario = async (req, res) => {
 };
 
 const insertComprasDet = async (data) => {
-  const { montoDescuento, montoImpuesto, monto, totalCalculado, idProveedorSeleccionado, cuentasSeleccionadas, fecha, hora } = data.body;
+  const { montoDescuento, montoImpuesto, monto, totalCalculado, idProveedorSeleccionado, cuentasSeleccionadas, fecha, hora, userId } = data.body;
 
   try {
-    console.log("Datos recibidos para insertar:", data, hora, fecha);
+    console.log("Datos recibidos para insertar:", userId);
 
     // Primero inserta la compra en la tabla 'comprasdet'
     const result = await pool.query(
       "INSERT INTO comprasdet (descuento, iva, montototal, totalpagar, idproveedores, idusuarios, estado, fecha, hora) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING idcompra",
-      [montoDescuento, montoImpuesto, monto, totalCalculado, idProveedorSeleccionado, 3, 'activo', fecha, hora]
+      [montoDescuento, montoImpuesto, monto, totalCalculado, idProveedorSeleccionado, userId, 'activo', fecha, hora]
     );
 
     const idCompra = result.rows[0].idcompra; // Obtenemos el ID de la compra recién insertada
