@@ -322,15 +322,15 @@ const eliminarUsuario = async (req, res) => {
 };
 
 const insertComprasDet = async (data) => {
-  const { montoDescuento, montoImpuesto, monto, totalCalculado, idProveedorSeleccionado, cuentasSeleccionadas } = data.body;
+  const { montoDescuento, montoImpuesto, monto, totalCalculado, idProveedorSeleccionado, cuentasSeleccionadas, fecha, hora } = data.body;
 
   try {
-    console.log("Datos recibidos para insertar:", data);
+    console.log("Datos recibidos para insertar:", data, hora, fecha);
 
     // Primero inserta la compra en la tabla 'comprasdet'
     const result = await pool.query(
-      "INSERT INTO comprasdet (descuento, iva, montototal, totalpagar, idproveedores, idusuarios, estado) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING idcompra",
-      [montoDescuento, montoImpuesto, monto, totalCalculado, idProveedorSeleccionado, 3, 'activo']
+      "INSERT INTO comprasdet (descuento, iva, montototal, totalpagar, idproveedores, idusuarios, estado, fecha, hora) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING idcompra",
+      [montoDescuento, montoImpuesto, monto, totalCalculado, idProveedorSeleccionado, 3, 'activo', fecha, hora]
     );
 
     const idCompra = result.rows[0].idcompra; // Obtenemos el ID de la compra recién insertada

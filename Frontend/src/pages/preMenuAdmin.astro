@@ -1,8 +1,7 @@
 ---
 import Header from "../components/Dashboard/header.astro"; 
 import Sidebar from "../components/Dashboard/sidebar.astro";
-
-import Registro from "../components/Dashboard/compras/registro.astro";
+import PreMenu from "../components/Dashboard/Administradores/preMenu.astro";
 
 ---
 
@@ -11,13 +10,12 @@ import Registro from "../components/Dashboard/compras/registro.astro";
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Compras - ProviSoft</title>
+    <title>Proveedores - ProviSoft</title>
     <link rel="stylesheet" href="/src/styles/global.css" />
     <link rel="stylesheet" href="../input.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;700&display=swap">
   </head>
   <body class="bg-white">
-    
     <div class="flex">
       <Sidebar />
       <div class="ml-64 w-full">
@@ -25,7 +23,7 @@ import Registro from "../components/Dashboard/compras/registro.astro";
         <main class="p-6">
 
           <div id="registro">
-            <Registro />
+            <PreMenu />
           </div>
           
         </main>

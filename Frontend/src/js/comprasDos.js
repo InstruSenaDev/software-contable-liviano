@@ -12,7 +12,6 @@ export function desplegable() {
         const option = document.createElement("option");
         option.value = proveedor.idproveedores; // Utilizamos idproveedores como valor
         option.textContent = proveedor.nombre;
-        option.dataset.encargado = proveedor.encargado;
         selectElement.appendChild(option);
       });
     })
@@ -20,6 +19,7 @@ export function desplegable() {
       console.error("Error al obtener los proveedores:", error);
     });
 }
+
 // Función para llenar el select de cuentas contables desde la base de datos
 export function desplegableCuentas() {
   const selectElement = document.getElementById("cuentaz");
@@ -167,7 +167,7 @@ document.addEventListener("DOMContentLoaded", () => {
         totalCreditos += cuenta.valor;
       }
     });
-    console.log(cuentasSeleccionadas);
+
     document.getElementById(
       "totalDebitos"
     ).textContent = `$${totalDebitos.toFixed(2)}`;
@@ -190,9 +190,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const idProveedorSeleccionado = proveedorSelect.value;
     const monto = parseFloat(document.getElementById("monto").value) || 0;
     const impuesto = parseFloat(document.getElementById("impuesto").value) || 0;
-    const descuento =
-      parseFloat(document.getElementById("descuento").value) || 0;
-
+    const descuento = parseFloat(document.getElementById("descuento").value) || 0;
+    const fecha = document.getElementById('fecha').textContent;
+    const hora = document.getElementById('hora').textContent;
     const montoImpuesto = monto * (impuesto / 100);
     const montoDescuento = monto * (descuento / 100);
     const totalCalculado = monto + montoImpuesto - montoDescuento;
@@ -209,53 +209,48 @@ document.addEventListener("DOMContentLoaded", () => {
         totalCalculado,
         idProveedorSeleccionado,
         cuentasSeleccionadas,
+        fecha,
+        hora
       }),
     })
       .then((response) => response.json())
       .then((result) => {
         if (result.success) {
-          document.getElementById("successsModal").classList.remove("hidden");
+          document.getElementById("successModal").classList.remove("hidden");
           setTimeout(() => {
-            document.getElementById("successsModal").classList.add("hidden");
+            document.getElementById("successModal").classList.add("hidden");
             resetFormulario(); // Reiniciar formulario después de ocultar el modal
           }, 5000); // Cerrar modal después de 5 segundos
         } else {
-          document.getElementById("errorrModal").classList.remove("hidden");
+          document.getElementById("errorModal").classList.remove("hidden");
           setTimeout(() => {
-            document.getElementById("errorrModal").classList.add("hidden");
+            document.getElementById("errorModal").classList.add("hidden");
           }, 5000); // Cerrar modal después de 5 segundos
         }
       })
       .catch((error) => {
         console.error("Error al enviar los datos:", error);
-        document.getElementById("errorrModal").classList.remove("hidden");
+        document.getElementById("errorModal").classList.remove("hidden");
         setTimeout(() => {
-          document.getElementById("errorrModal").classList.add("hidden");
+          document.getElementById("errorModal").classList.add("hidden");
         }, 5000); // Cerrar modal después de 5 segundos
       });
   });
 
-  document.getElementById("cancelar").addEventListener("click", () => {
-    resetFormulario();
-  });
-
-  document.getElementById("closeSuccessModal").addEventListener("click", () => {
-    document.getElementById("successsModal").classList.add("hidden");
-  });
-
-  document.getElementById("closeErrorModal").addEventListener("click", () => {
-    document.getElementById("errorrModal").classList.add("hidden");
-  });
-
   function resetFormulario() {
-    document.getElementById("facturaForm").reset();
-    document.getElementById("tablaFacturas").innerHTML = "";
-    document.getElementById("tablaContabilidad").innerHTML = "";
-    document.getElementById("totalCompras").textContent = "$0.00";
-    document.getElementById("totalDebitos").textContent = "$0.00";
-    document.getElementById("totalCreditos").textContent = "$0.00";
-    document.getElementById("validacionSaldos").textContent = "";
+    document.getElementById("monto").value = "";
+    document.getElementById("impuesto").value = "";
+    document.getElementById("descuento").value = "";
     cuentasSeleccionadas = [];
     actualizarCuentasSeleccionadas();
+    actualizarResumenCompras();
   }
+
+  document.getElementById("registrar").addEventListener("click", () => {
+    document.getElementById("successModal").classList.add("hidden");
+  });
+
+  document.getElementById("registrar").addEventListener("click", () => {
+    document.getElementById("errorModal").classList.add("hidden");
+  });
 });
