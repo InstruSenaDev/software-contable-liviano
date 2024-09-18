@@ -1,118 +1,113 @@
-<section>
-  <div class="flex relative justify-center lg:px-0 items-center lg:h-screen md:px-12 overflow-hidden">
-    <div class="bg-white px-4 relative flex flex-1 flex-col lg:py-24 md:flex-none md:px-28 py-10 sm:justify-center xl:py-36 z-10">
-      <div class="w-full lg:h-full max-w-md md:max-w-sm md:px-0 md:w-96 mx-auto sm:px-4">
-        <div class="flex flex-col">
-          <div>
-            <h2 class="font-medium leading-tight text-black text-xl font-display flex relative justify-center">
-              <span class="text-blue-baby4">Registrar administrador</span>
-            </h2>
-            <div class="py-3">
-              <span class="w-full inline-flex relative mt-3 z-0"></span>
-              <div class="py-3 relative">
-                <div class="flex absolute inset-0 items-center" aria-hidden="true"></div>
-                <div class="flex relative justify-center">
-                  <span class="bg-white px-2 text-gray-500 text-xl">
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
+<body class="bg-gray-100 p-8">
+  <span class="flex flex-row ">
+    <div class="mt-4 p-2">
+      <button
+        type="button"
+        id="volver"
+        class="bg-blue-baby4  text-white p-2 rounded hover:bg-blue-baby3 "
+        onclick="window.history.back()">Volver</button>
+    </div>
+  <div class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md">
+    <h1 class="text-3xl font-display text-blue-baby4 text-center font-bold mb-6">
+      Registrar administrador
+    </h1>
+    
+    <form id="signupForm" class="mt-5">
+      <div class="grid grid-cols-2 gap-4 mb-4">
+        <div>
+          <label for="first_name" class="block mb-2">Nombres:</label>
+          <input
+            id="first_name"
+            name="first_name"
+            class="w-full p-2 border rounded focus:outline-none focus:ring focus:border-blue-baby4"
+            type="text"
+            placeholder="Nombres..."
+          />
+          <span id="first_name_error" class="text-red-500 text-xs"></span>
         </div>
-        <form id="signupForm" method="post">
-          <div class="space-y-6">
-            <div class="w-full flex flex-row ">
-              <div class="w-full">
-                <input
-                  class="w-full focus:outline-none border py-3 appearance-none h-12 bg-gray-50 block border-gray-200 focus:bg-white focus:border-accent-500 focus:ring-accent-500 placeholder-gray-400 px-3 rounded-xl sm:text-sm text-accent-500"
-                  id="first_name"
-                  name="first_name"
-                  autocomplete="given-name"
-                  placeholder="Nombres..." />
-                <span id="first_name_error" class="text-red-500 text-xxs ml-2"></span>
-              </div>
-              <div class="w-full">
-                <input
-                  class="w-full focus:outline-none border py-3 appearance-none h-12 bg-gray-50 block border-gray-200 focus:bg-white focus:border-accent-500 focus:ring-accent-500 placeholder-gray-400 px-3 rounded-xl sm:text-sm text-accent-500"
-                  id="last_name"
-                  name="last_name"
-                  autocomplete="family-name"
-                  placeholder="Apellidos.." />
-                <span id="last_name_error" class="text-red-500 text-xxs ml-2"></span>
-              </div>
-            </div>
-            <div>
-              <input
-                id="email"
-                name="email"
-                class="w-full focus:outline-none border py-3 appearance-none h-12 bg-gray-50 block border-gray-200 focus:bg-white focus:border-accent-500 focus:ring-accent-500 placeholder-gray-400 px-3 rounded-xl sm:text-sm text-accent-500"
-                placeholder="Correo Electrónico..." />
-              <span id="email_error" class="text-red-500 text-xxs ml-2"></span>
-            </div>
-            <div class="relative">
-              <input
-                id="company"
-                name="company"
-                class="w-full focus:outline-none border py-3 appearance-none h-12 pr-12 bg-gray-50 block border-gray-200 focus:bg-white focus:border-accent-500 focus:ring-accent-500 placeholder-gray-400 px-3 rounded-xl sm:text-sm text-accent-500"
-                placeholder="Contraseña..."
-                type="password"/>
-              <span id="company_error" class="text-red-500 text-xxs ml-2"></span>
-              <div id="hidden_password" class="absolute w-8 pb-6 inset-y-0 right-0 pr-3 flex items-center cursor-pointer">
-                <img  id="icon_password" src="../../../public/img/white/hidden.svg" alt="" >
-              </div>
-              
-            </div>
-            <div class="flex">
-              <div class="flex items-start">
-                <input
-                  class="text-accent-500 focus:ring-accent-500 border-accent-500 h-4 rounded w-4"
-                  id="remember-me"
-                  name="remember-me"
-                  type="checkbox" />
-                <div class="flex flex-col">
-                  <label class="font-medium text-xs block leading-tight ml-2 text-gray-500" for="remember-me">
-                    Crear una cuenta significa que estás de acuerdo con nuestros
-                    <a class="text-accent-500 hover:text-accent-400" href="/terms">Términos y condiciones de servicio.</a>
-                  </label>
-                  <span id="terms_error" class="text-red-500 text-xxs ml-2"></span>
-                </div>
-              </div>
-            </div>
-            <div class="col-span-full">
-              <button id="submits"
-                      name="submit_signup"
-                      class="items-center justify-center h-12 rounded-xl focus-visible:outline-black focus:outline-none inline-flex bg-black border-2 border-black duration-200 focus-visible:ring-black hover:bg-transparent hover:border-black hover:text-black px-6 py-3 text-center text-white w-full"
-                      type="submit">Crear cuenta</button>
-            </div>
-            <div class="space-y-4">
-              <!-- Mensajes adicionales o información -->
-            </div>
-          </div>
-        </form>
+        <div>
+          <label for="last_name" class="block mb-2">Apellidos:</label>
+          <input
+            id="last_name"
+            name="last_name"
+            class="w-full p-2 border rounded focus:outline-none focus:ring focus:border-blue-baby4"
+            type="text"
+            placeholder="Apellidos..."
+          />
+          <span id="last_name_error" class="text-red-500 text-xs"></span>
+        </div>
       </div>
+      
+      <div class="mb-4">
+        <label for="email" class="block mb-2">Correo Electrónico:</label>
+        <input
+          id="email"
+          name="email"
+          class="w-full p-2 border rounded focus:outline-none focus:ring focus:border-blue-baby4"
+          type="email"
+          placeholder="Correo Electrónico..."
+        />
+        <span id="email_error" class="text-red-500 text-xs"></span>
+      </div>
+      
+      <div class="mb-4 relative">
+        <label for="company" class="block mb-2">Contraseña:</label>
+        <input
+          id="company"
+          name="company"
+          class="w-full p-2 border rounded focus:outline-none focus:ring focus:border-blue-baby4"
+          type="password"
+          placeholder="Contraseña..."
+        />
+        <span id="company_error" class="text-red-500 text-xs"></span>
+        <div id="hidden_password" class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer" style="top: 32px;">
+          <img id="icon_password" src="../../../public/img/white/hidden.svg" alt="Toggle password visibility" class="w-5 h-5">
+        </div>
+      </div>
+      
+      <div class="mb-6">
+        <div class="flex items-start">
+          <input
+            id="remember-me"
+            name="remember-me"
+            type="checkbox"
+            class="mt-1 mr-2"
+          />
+          <label for="remember-me" class="text-sm text-gray-600">
+            Crear una cuenta significa que estás de acuerdo con nuestros
+            <a href="/terms" class="text-blue-baby4 hover:underline">Términos y condiciones de servicio.</a>
+          </label>
+        </div>
+        <span id="terms_error" class="text-red-500 text-xs"></span>
+      </div>
+      
+      <div class="flex justify-center">
+        <button
+          id="submits"
+          name="submit_signup"
+          type="submit"
+          class="bg-blue-baby4 text-white rounded p-2 px-4 hover:bg-blue-baby3 focus:outline-none focus:ring focus:border-blue-500"
+        >
+          Crear cuenta
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div id="success-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-end p-5 justify-end hidden z-50">
+    <div class="bg-white rounded-md shadow-lg flex flex-row w-96 p-2">
+      <img class="w-9 h-auto p-2" src="../../../../public/img/Check.svg" alt="" />
+      <p class="text-green-600 p-2">Registro exitoso</p>
     </div>
   </div>
-  <div
-  id="success-modal"
-  class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-end p-5 justify-end hidden z-50"
->
-  <div class="bg-white rounded-md shadow-lg flex flex-row w-96 p-2">
-    <img class="w-9 h-auto p-2" src="../../../../public/img/Check.svg" alt="" />
-    <p class="text-green-600 p-2">Registro exitoso</p>
-  </div>
-</div>
 
-<div
-  id="error-modal"
-  class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-end p-5 justify-end hidden z-50"
->
-  <div class="bg-white rounded-md shadow-lg flex flex-row w-96 p-2">
-    <img class="w-9 h-auto p-2" src="../../../../public/img/Error.svg" alt="" />
-    <p class="text-rojing p-2">Error en el registro</p>
+  <div id="error-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-end p-5 justify-end hidden z-50">
+    <div class="bg-white rounded-md shadow-lg flex flex-row w-96 p-2">
+      <img class="w-9 h-auto p-2" src="../../../../public/img/Error.svg" alt="" />
+      <p class="text-rojing p-2">Error en el registro</p>
+    </div>
   </div>
-</div>
-</section>
-
+</body>
 
 
 <script>

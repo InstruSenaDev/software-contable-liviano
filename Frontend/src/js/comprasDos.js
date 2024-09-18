@@ -218,6 +218,8 @@ document.addEventListener("DOMContentLoaded", () => {
         codeFactura
         
       })
+
+      
       
     })
       .then((response) => response.json())
