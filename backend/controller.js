@@ -324,15 +324,15 @@ const eliminarUsuario = async (req, res) => {
 };
 
 const insertComprasDet = async (data) => {
-  const { montoDescuento, montoImpuesto, monto, totalCalculado, idProveedorSeleccionado, cuentasSeleccionadas, fecha, hora, userId } = data.body;
+  const { montoDescuento, montoImpuesto, monto, totalCalculado, idProveedorSeleccionado, cuentasSeleccionadas, fecha, hora, userId, codeFactura } = data.body;
 
   try {
     console.log("Datos recibidos para insertar:", userId);
 
     // Primero inserta la compra en la tabla 'comprasdet'
     const result = await pool.query(
-      "INSERT INTO comprasdet (descuento, iva, montototal, totalpagar, idproveedores, idusuarios, estado, fecha, hora) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING idcompra",
-      [montoDescuento, montoImpuesto, monto, totalCalculado, idProveedorSeleccionado, userId, 'activo', fecha, hora]
+      "INSERT INTO comprasdet (descuento, iva, montototal, totalpagar, idproveedores, idusuarios, estado, fecha, hora, codigofactura) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING idcompra",
+      [montoDescuento, montoImpuesto, monto, totalCalculado, idProveedorSeleccionado, userId, 'activo', fecha, hora, codeFactura]
     );
 
     const idCompra = result.rows[0].idcompra; // Obtenemos el ID de la compra recién insertada
@@ -396,6 +396,19 @@ const actualizarPerfil = (req, res) => {
   });
 };
 
+const compras = async (req, res) => {
+  try {
+    const result = await pool.query(
+      "SELECT * FROM comprasdet WHERE estado = $1",
+      ["activo"]
+    );
+    res.status(200).json(result.rows);
+  } catch (error) {
+    console.error("Error al obtener proveedores:", error);
+    res.status(500).json({ error: "Error interno del servidor" });
+  }
+};
+
 // Exporta las funciones necesarias
 module.exports = {
   saludo,
@@ -412,4 +425,5 @@ module.exports = {
   eliminarUsuario,
   actualizarPerfil,
   insertComprasDet,
+  compras
 };

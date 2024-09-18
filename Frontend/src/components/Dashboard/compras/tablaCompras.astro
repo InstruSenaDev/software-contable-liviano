@@ -1,78 +1,5 @@
 ---
 import ProviderRow from "./dataCompras.astro";
-
-const compras = [
-  {
-    Codigo_de_compra: "1",
-    Nombre: "producto1",
-    Precio_unitario: "1000",
-    Cantidad: "20",
-    Descuento: "00%",
-    Proveedor: "Proveedor1",
-    Encargado_de_compra: "Usuario1",
-    Fecha: "1/11/2024",
-  },
-  {
-    Codigo_de_compra: "1",
-    Nombre: "producto1",
-    Precio_unitario: "1000",
-    Cantidad: "20",
-    Descuento: "00%",
-    Proveedor: "Proveedor1",
-    Encargado_de_compra: "Usuario1",
-    Fecha: "1/11/2024",
-  },
-  {
-    Codigo_de_compra: "1",
-    Nombre: "producto1",
-    Precio_unitario: "1000",
-    Cantidad: "20",
-    Descuento: "00%",
-    Proveedor: "Proveedor1",
-    Encargado_de_compra: "Usuario1",
-    Fecha: "1/11/2024",
-  },
-  {
-    Codigo_de_compra: "1",
-    Nombre: "producto1",
-    Precio_unitario: "1000",
-    Cantidad: "20",
-    Descuento: "00%",
-    Proveedor: "Proveedor1",
-    Encargado_de_compra: "Usuario1",
-    Fecha: "1/11/2024",
-  },
-  {
-    Codigo_de_compra: "1",
-    Nombre: "producto1",
-    Precio_unitario: "1000",
-    Cantidad: "20",
-    Descuento: "00%",
-    Proveedor: "Proveedor1",
-    Encargado_de_compra: "Usuario1",
-    Fecha: "1/11/2024",
-  },
-  {
-    Codigo_de_compra: "1",
-    Nombre: "producto1",
-    Precio_unitario: "1000",
-    Cantidad: "20",
-    Descuento: "00%",
-    Proveedor: "Proveedor1",
-    Encargado_de_compra: "Usuario1",
-    Fecha: "1/11/2024",
-  },
-  {
-    Codigo_de_compra: "1",
-    Nombre: "producto1",
-    Precio_unitario: "1000",
-    Cantidad: "20",
-    Descuento: "00%",
-    Proveedor: "Proveedor1",
-    Encargado_de_compra: "Usuario1",
-    Fecha: "1/11/2024",
-  },
-];
 ---
 
 <h1 class="font-bold font-display text-blue-baby4 text-3xl flex justify-center">
@@ -87,7 +14,6 @@ const compras = [
       placeholder="Buscar..."
     />
   </div>
-  
 </div>
 <div class="flex flex-row justify-end p-2">
   <div
@@ -107,22 +33,25 @@ const compras = [
   </button>
 </div>
 
-<table class="min-w-full bg-white border border-gray-200 flex flex-col">
+<table
+  id="tablacompras"
+  class="min-w-full bg-white border border-gray-200"
+>
   <thead id="compras" class="">
-    <tr class="border-b flex justify-between">
-      <th class="p-2">Codigo</th>
-      <th class="p-2">Nombre</th>
-      <th class="p-2">Precio unitario</th>
-      <th class="p-2">Cantidad</th>
+    <tr class="border-b justify-around text-justify">
+      <th class="p-2">No.Factura</th>
+      <th class="p-2">Monto total</th>
       <th class="p-2">Descuento</th>
+      <th class="p-2">Total pagar</th>
       <th class="p-2">Proveedor</th>
-      <th class="p-2">Encargado de compra</th>
+      <th class="p-2">Encargado</th>
+      <th class="p-2">Iva</th>
       <th class="p-2">Fecha</th>
+      <th class="p-2">Hora</th>
+      <th></th>
     </tr>
   </thead>
-  <tbody>
-    {compras.map((provider) => <ProviderRow {...provider} />)}
-  </tbody>
+  <tbody> </tbody>
 </table>
 
 <div

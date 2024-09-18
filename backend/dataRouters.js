@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { saludo, usuarios, roles, registerUser, inicioUser, registerProviders, proveedores, cuentas, usuariosLog, obtenerUsuarioPorCorreo,eliminarProveedor, eliminarUsuario, actualizarPerfil, insertComprasDet} = require('./controller');
+const { saludo, usuarios, roles, registerUser, inicioUser, registerProviders, proveedores, cuentas, usuariosLog, obtenerUsuarioPorCorreo,eliminarProveedor, eliminarUsuario, actualizarPerfil, insertComprasDet,compras} = require('./controller');
 
 // Definir las rutas
 router.get("/saludo", saludo);
@@ -9,6 +9,7 @@ router.get("/roles", roles);
 router.get("/cuentas", cuentas);
 router.get("/proveedores", proveedores);
 router.get("/usuariosLog", obtenerUsuarioPorCorreo);
+router.get("/compras", compras);
 router.post("/usuariosLog", usuariosLog);
 router.post("/register", registerUser);
 router.post("/login", inicioUser);

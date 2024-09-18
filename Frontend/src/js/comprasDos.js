@@ -197,6 +197,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const montoDescuento = monto * (descuento / 100);
     const totalCalculado = monto + montoImpuesto - montoDescuento;
     const userId = localStorage.getItem("userId"); 
+    const codigoFactura = document.getElementById("registroCodigo");
+    const codeFactura = Number(codigoFactura.value);
 
     fetch("http://localhost:8080/insertComprasDet", {
       method: "POST",
@@ -212,8 +214,11 @@ document.addEventListener("DOMContentLoaded", () => {
         cuentasSeleccionadas,
         fecha,
         hora,
-        userId
-      }),
+        userId,
+        codeFactura
+        
+      })
+      
     })
       .then((response) => response.json())
       .then((result) => {
