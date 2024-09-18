@@ -1,7 +1,10 @@
 ---
 import HeaderInicio from "../components/Dashboard/inicio/headerInicio.astro";
 import InicioDashboard from "../components/Dashboard/inicio/inicioDashboard.astro";
-
+import MiComponente from "../components/reactComponent"; // Este es un componente de React
+import PDF from "../components/PDF"; // También es un componente de React
+import { PDFDownloadLink } from '@react-pdf/renderer'; // Importación de librería React para PDFs
+import { Prueba }  from "../components/pruebaaaaa"
 ---
 
 <!doctype html>
@@ -13,12 +16,27 @@ import InicioDashboard from "../components/Dashboard/inicio/inicioDashboard.astr
     <link rel="stylesheet" href="/src/styles/tailwind.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;700&display=swap">
   </head> 
+
+  <body class="bg-white">
+    <div class="">
+      <header>
+        <!-- Este es un componente Astro -->
+        <HeaderInicio />
+      </header>
+    </div>
     
-        <div class="">
-          <header><HeaderInicio/></header>
-        </div>
-          <body class="bg-white">
-            <InicioDashboard/>
-       
-        
-    </body>
+    <main>
+      <!-- Componente Astro -->
+      <InicioDashboard />
+
+      <!-- Componente React -->
+      <MiComponente client:load />
+
+      <!-- PDFDownloadLink es un componente React, por eso usamos client:only="react" -->
+
+      <Prueba client:only="react" />
+
+      
+    </main>
+  </body>
+</html>
