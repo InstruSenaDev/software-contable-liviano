@@ -1,0 +1,1 @@
+function i(){const n=document.getElementById("fecha"),o=document.getElementById("hora");function t(){const e=new Date,c=e.toISOString().split("T")[0],a=e.toTimeString().split(" ")[0];n.textContent=c,o.textContent=a}t(),setInterval(t,1e3)}export{i as u};

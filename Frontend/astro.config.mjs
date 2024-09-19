@@ -4,6 +4,7 @@ import sitemap from "@astrojs/sitemap";
 import "./src/styles/global.css";
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
+import vercel from '@astrojs/vercel/serverless';
 
 
 export default defineConfig({
@@ -11,6 +12,7 @@ export default defineConfig({
   site: 'https://lexingtonthemes.com',
   integrations: [tailwind(), sitemap(), react()],
   plugins: [react()],
-  output:'server'
+  output: 'server',
+  adapter: vercel(),
 
 });

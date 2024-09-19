@@ -16,6 +16,7 @@ const {
   actualizarPerfil,
   insertComprasDet,
   obtenerDatosInforme,
+  compras
 } = require("./controller");
 
 // Definir las rutas

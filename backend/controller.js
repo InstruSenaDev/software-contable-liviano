@@ -409,7 +409,18 @@ const obtenerDatosInforme = async (req, res) => {
   }
 };
 
-
+const compras = async (req, res) => {
+  try {
+    const result = await pool.query(
+      "SELECT * FROM comprasdet WHERE estado = $1",
+      ["activo"]
+    );
+    res.status(200).json(result.rows);
+  } catch (error) {
+    console.error("Error al obtener proveedores:", error);
+    res.status(500).json({ error: "Error interno del servidor" });
+  }
+};
   
 
 module.exports = {
@@ -427,6 +438,6 @@ module.exports = {
   eliminarUsuario,
   actualizarPerfil,
   insertComprasDet,
-  obtenerDatosInforme
-
+  obtenerDatosInforme,
+  compras
 };
