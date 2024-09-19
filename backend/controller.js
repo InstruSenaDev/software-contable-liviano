@@ -396,20 +396,22 @@ const actualizarPerfil = (req, res) => {
   });
 };
 
-const compras = async (req, res) => {
+const obtenerDatosInforme = async (req, res) => {
   try {
     const result = await pool.query(
-      "SELECT * FROM comprasdet WHERE estado = $1",
+      "SELECT c.codigofactura, c.montototal, c.descuento, c.totalpagar, c.iva, c.fecha, c.hora, p.nombre as proveedor, u.nombre as encargado FROM comprasdet c JOIN proveedores p ON c.idproveedores = p.idproveedores JOIN usuarios u ON c.idusuarios = u.idusuario WHERE c.estado = $1",
       ["activo"]
     );
     res.status(200).json(result.rows);
   } catch (error) {
-    console.error("Error al obtener proveedores:", error);
+    console.error("Error al obtener datos para el informe:", error);
     res.status(500).json({ error: "Error interno del servidor" });
   }
 };
 
-// Exporta las funciones necesarias
+
+  
+
 module.exports = {
   saludo,
   usuarios,
@@ -425,5 +427,6 @@ module.exports = {
   eliminarUsuario,
   actualizarPerfil,
   insertComprasDet,
-  compras
+  obtenerDatosInforme
+
 };
