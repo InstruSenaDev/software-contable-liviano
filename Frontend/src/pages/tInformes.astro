@@ -2,6 +2,7 @@
 import Header from "../components/Dashboard/header.astro";
 import Sidebar from "../components/Dashboard/sidebar.astro";
 import Informe from "../components/Dashboard/Informes/informe.astro";
+import MiComponentePDF from "../components/MiComponentePDF";
 ---
 
 <!doctype html>
@@ -25,6 +26,8 @@ import Informe from "../components/Dashboard/Informes/informe.astro";
         <main class="p-6">
           <div id="informes">
             <Informe />
+
+            <MiComponentePDF client:only="react"/>
           </div>
         </main>
       </div>
