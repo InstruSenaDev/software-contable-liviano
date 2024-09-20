@@ -5,6 +5,8 @@ const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 const dataRouters = require('./dataRouters');
 const puerto = 8080;
+const bcrypt = require('bcryptjs');
+
 
 app.use(express.json());
 app.use(cors());
