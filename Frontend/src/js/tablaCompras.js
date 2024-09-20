@@ -2,7 +2,7 @@ const comprasTableBody = document.querySelector("#tablacompras tbody")
 
 const compraFetch = async () => {
   try {
-    const response = await fetch('http://localhost:8080/compras');
+    const response = await fetch('https://provisoft-backend.vercel.app/compras');
     if (!response.ok) throw new Error('Network response was not ok');
     const compras = await response.json();
     console.log(compras, "hola"); 

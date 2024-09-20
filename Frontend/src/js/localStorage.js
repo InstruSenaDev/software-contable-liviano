@@ -1,5 +1,5 @@
 export function localStorage (){
-    fetch('http://localhost:8080/usuarios')
+    fetch('https://provisoft-backend.vercel.app/usuarios')
     .then(response => response.json())
     .then(data => {
         data.forEach(user_email => {

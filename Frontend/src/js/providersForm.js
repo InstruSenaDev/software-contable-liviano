@@ -125,7 +125,7 @@ export async function submitForm() {
   });
 
   try {
-    const response = await fetch('http://localhost:8080/registerProviders', {
+    const response = await fetch('https://provisoft-backend.vercel.app/registerProviders', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

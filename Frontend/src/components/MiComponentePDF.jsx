@@ -9,7 +9,7 @@ const MiComponentePDF = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:8080/obtenerDatosInforme');
+        const response = await fetch('https://provisoft-backend-hj0dd2m6r-luisibarguens-projects.vercel.app/obtenerDatosInforme');
         if (!response.ok) throw new Error('Network response was not ok');
         const result = await response.json();
         setData(result);
