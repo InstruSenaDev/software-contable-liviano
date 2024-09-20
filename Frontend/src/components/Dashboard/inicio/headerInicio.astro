@@ -2,37 +2,36 @@
   <div class="w-full mx-auto md:px-12 px-8 max-w-7xl lg:px-16">
     <div
       x-data="{ open: false }"
-      class="relative flex flex-col w-full py-5 mx-auto bg-blue-baby4 md:items-center md:justify-between md:flex-row md:px-6">
-      <div class="flex flex-row items-center justify-between lg:justify-start">
-        <a href="/" class="text-white inline-flex items-center gap-3">
+      class="w-full py-5 mx-auto bg-blue-baby4 md:items-center md:justify-between md:flex-row md:px-6">
+      <div class="flex flex-row justify-between ">
+        <a href="/inicioDedashboard" class="text-white flex flex-row justify-center items-center">
           <img  class="w-8 h-auto" src="../../../public/img/logoPS.svg" alt="">
           <span class="font-bold font-display">ProviSoft</span>
         </a>
-        <button
-          @click="open = !open"
-          class="inline-flex items-center justify-center p-2 text-gray-400 hover:text-black focus:outline-none focus:text-black md:hidden">
-          <svg
-            class="w-6 h-6"
-            stroke="currentColor"
-            fill="none"
-            viewBox="0 0 24 24">
-            <path
-              :class="{ 'hidden': open, 'inline-flex': !open }"
-              class="inline-flex"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M4 6h16M4 12h16M4 18h16"></path>
-            <path
-              :class="{ 'hidden': !open, 'inline-flex': open }"
-              class="hidden"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M6 18L18 6M6 6l12 12"></path>
-          </svg>
-        </button>
+        <div id="openModalButton" class="flex flex-col text-sm p-2">
+          <span id="user_name" class="text-white font-bold font-display cursor-pointer"></span>
+        </div>
       </div>
     </div>
   </div>
 </section>
+<div class="relative">
+  <!-- Modal -->
+  <div id="modal" class="flex justify-end fixed inset-0 hidden bg-black bg-opacity-25 z-50">
+    <div class="bg-white p-6 rounded-lg shadow-lg relative w-52 h-40 mt-24 max-w-lg flex flex-col items-center">
+      <!-- Contenido del modal -->
+      <span id="modal_user_name" class="text-blue-baby4 text-center flex justify-center font-display font-bold flex-col mb-5"></span>
+      <a class="flex flex-row hover:bg-blue-baby3 rounded-md" href="/perfilUsuario">
+        <img class="w-4 item-center m-2" src="../../../public/img/black/edit2.svg" alt="">
+        <button class=" hover:text-white  p-2 ">Editar Perfil</button>
+      </a>
+      <button id="logoutButton" class=" hover:bg-blue-baby3 hover:text-white rounded-md flex flex-row text-center "> 
+        <img class="w-4 item-center m-2" src="../../../public/img/black/Logout.svg" alt="">
+        Cerrar Sesión
+      </button>
+      <button id="closeModalButton" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700">&times;</button>
+    </div>
+  </div>
+</div>
+<script src="../../../js/header"></script>
+<script src="../../../js/ValidacionUsuario"></script>
