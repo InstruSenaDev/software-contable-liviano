@@ -87,7 +87,7 @@ deleteUsuario.addEventListener("click", async () => {
     });
 
     if (response.ok) {
-      showModal('modal-successxxz'); 
+      showModal('modal-successxxxz'); 
       deleteModal.classList.add("hidden");
       documentInput.value = "";
       errorMsg.classList.add("hidden");
@@ -96,13 +96,13 @@ deleteUsuario.addEventListener("click", async () => {
       const result = await response.json();
       errorMsg.textContent = result.error || "Compra no encontrada.";
       errorMsg.classList.remove("hidden");
-      showModal('modal-errorxxz'); 
+      showModal('modal-errorxxxz'); 
     }
   } catch (error) {
     console.error("Error al eliminar compra:", error);
     errorMsg.textContent = "Error al procesar la solicitud.";
     errorMsg.classList.remove("hidden");
-    showModal('modal-errorxxz'); 
+    showModal('modal-errorxxxz'); 
   }
 });
 
