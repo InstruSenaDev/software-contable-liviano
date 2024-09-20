@@ -11,7 +11,8 @@ app.use(express.json());
 
 const allowedOrigins = [
   'https://provisoft-y0zr65fe1-luisibarguens-projects.vercel.app',
-  'https://provisoft.vercel.app'
+  'https://provisoft.vercel.app',
+  'http://localhost:4321'
 ];
 
 app.use(cors({
