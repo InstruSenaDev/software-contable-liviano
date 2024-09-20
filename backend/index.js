@@ -9,7 +9,7 @@ const bcrypt = require('bcryptjs');
 
 app.use(express.json());
 app.use(cors({
-    origin: 'https://provisoft-1ovftyp8u-luisibarguens-projects.vercel.app', // La URL exacta de tu frontend
+    origin: 'https://provisoft-p9j4hzbvw-luisibarguens-projects.vercel.app', // La URL exacta de tu frontend
   }));app.use('/', dataRouters);
 
 app.listen(PORT, () => {
