@@ -1,4 +1,4 @@
-const comprasTableBody = document.querySelector("#tablacompras tbody")
+const comprasTableBody = document.querySelector("#tablacompras tbody");
 
 const compraFetch = async () => {
   try {
@@ -21,18 +21,17 @@ const comprasdet = async () => {
 
   compras.forEach(compra => {
     const row = `
-      <tr key="${compra.idcompra}" class=" justify-around text-justify" > 
+      <tr key="${compra.idcompra}" class="justify-around text-justify"> 
         <td class="p-2">${compra.codigofactura}</td>
         <td class="p-2">${compra.montototal}</td>
         <td class="p-2">${compra.descuento}</td>
         <td class="p-2">${compra.totalpagar}</td>
-        <td class="p-2">${compra.idproveedores}</td>
-        <td class="p-2">${compra.idusuarios}</td>
-        <td class="p-2">${compra.iva}</td>
+        <td class="p-2">${compra.nombre_proveedor}</td> <!-- Cambiado -->
+        <td class="p-2">${compra.nombre_usuario}</td>   <!-- Cambiado -->
+        <td class="p-2">${compra.iva || 0}</td> <!-- Asegúrate de que iva se maneje correctamente -->
         <td class="p-2">${compra.fecha}</td>
         <td class="p-2">${compra.hora}</td>
-        <td class="p-2  text-white text-center "><button class="bg-blue-baby3 rounded-full w-5 h-5 text-center item-center">+</button></td>
-
+        <td class="p-2 text-white text-center"><button class="bg-blue-baby3 rounded-full w-5 h-5 text-center item-center">+</button></td>
       </tr>
     `;
     comprasTableBody.insertAdjacentHTML('beforeend', row);
@@ -41,4 +40,3 @@ const comprasdet = async () => {
 
 // Llama a la función para mostrar las compras cuando sea necesario (por ejemplo, cuando se carga la página)
 comprasdet();
-
