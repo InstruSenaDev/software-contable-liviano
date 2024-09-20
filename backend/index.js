@@ -8,8 +8,9 @@ const PORT = process.env.PORT || 8080; // Usa el puerto proporcionado por Render
 const bcrypt = require('bcryptjs');
 
 app.use(express.json());
-app.use(cors());
-app.use('/', dataRouters);
+app.use(cors({
+    origin: 'https://provisoft-p9j4hzbvw-luisibarguens-projects.vercel.app', // La URL exacta de tu frontend
+  }));app.use('/', dataRouters);
 
 app.listen(PORT, () => {
     console.log(`Servidor escuchando en http://localhost:${PORT}`);

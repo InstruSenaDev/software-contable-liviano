@@ -10,7 +10,7 @@ async function obtenerRolUsuarioLogueado() {
     }
 
     // Realizar el fetch para obtener los detalles del usuario
-    const response = await fetch(`http://localhost:8080/usuariosLog?email=${encodeURIComponent(email)}`);
+    const response = await fetch(`https://provisoft-backend.vercel.app/usuariosLog?email=${encodeURIComponent(email)}`);
     const data = await response.json();
 
     if (response.ok) {

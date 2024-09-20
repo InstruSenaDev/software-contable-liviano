@@ -104,7 +104,7 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    fetch(`http://localhost:8080/usuariosLog?email=${encodeURIComponent(email)}`)
+    fetch(`https://provisoft-backend.vercel.app/usuariosLog?email=${encodeURIComponent(email)}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Error al obtener los datos del usuario.");
@@ -155,7 +155,7 @@ document.addEventListener("DOMContentLoaded", function () {
       email
     };
 
-    fetch("http://localhost:8080/actualizarPerfil", {
+    fetch("https://provisoft-backend.vercel.app/actualizarPerfil", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

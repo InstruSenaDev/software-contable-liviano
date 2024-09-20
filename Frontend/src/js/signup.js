@@ -83,7 +83,7 @@ export function validacioneSignup() {
     };
     
     try {
-      const response = await fetch('http://localhost:8080/register', {
+      const response = await fetch('https://provisoft-backend.vercel.app/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
