@@ -31,7 +31,6 @@ const comprasdet = async () => {
         <td class="p-2">${compra.iva || 0}</td> <!-- Asegúrate de que iva se maneje correctamente -->
         <td class="p-2">${compra.fecha}</td>
         <td class="p-2">${compra.hora}</td>
-        <td class="p-2 text-white text-center"><button class="bg-blue-baby3 rounded-full w-5 h-5 text-center item-center">+</button></td>
       </tr>
     `;
     comprasTableBody.insertAdjacentHTML('beforeend', row);
@@ -87,7 +86,7 @@ deleteUsuario.addEventListener("click", async () => {
     });
 
     if (response.ok) {
-      showModal('modal-successxxxz'); 
+      showModal('sucesssmodall'); 
       deleteModal.classList.add("hidden");
       documentInput.value = "";
       errorMsg.classList.add("hidden");
@@ -96,13 +95,13 @@ deleteUsuario.addEventListener("click", async () => {
       const result = await response.json();
       errorMsg.textContent = result.error || "Compra no encontrada.";
       errorMsg.classList.remove("hidden");
-      showModal('modal-errorxxxz'); 
+      showModal('errorrrmodall'); 
     }
   } catch (error) {
     console.error("Error al eliminar compra:", error);
     errorMsg.textContent = "Error al procesar la solicitud.";
     errorMsg.classList.remove("hidden");
-    showModal('modal-errorxxxz'); 
+    showModal('errorrrmodall'); 
   }
 });
 
