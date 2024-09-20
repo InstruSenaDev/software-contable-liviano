@@ -29,14 +29,23 @@ import ProviderRow from "./dataCompras.astro";
     </a>
   </div>
   <button id="btnDelete" class="m-2">
-    <img class="" src="../../../public/img/black/trash.svg" alt="" />
+    <svg
+      width="13"
+      height="16"
+      viewBox="0 0 13 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M9.33333 0.888889H12.4444V2.66667H0V0.888889H3.11111L4 0H8.44444L9.33333 0.888889ZM2.66667 16C1.68889 16 0.888889 15.2 0.888889 14.2222V3.55556H11.5556V14.2222C11.5556 15.2 10.7556 16 9.77778 16H2.66667Z"
+        fill="black"></path>
+    </svg>
   </button>
 </div>
 
-<table
-  id="tablacompras"
-  class="min-w-full bg-white border border-gray-200"
->
+<table id="tablacompras" class="min-w-full bg-white border border-gray-200">
   <thead id="compras" class="">
     <tr class="border-b justify-around text-justify">
       <th class="p-2">No.Factura</th>
@@ -81,6 +90,25 @@ import ProviderRow from "./dataCompras.astro";
         >Eliminar compra</button
       >
     </div>
+  </div>
+</div>
+<div
+  id="modal-successxxxz"
+  class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-end p-5 justify-end hidden"
+>
+  <div class="bg-white rounded-md shadow-lg flex flex-row w-96 p-2">
+    <img class="w-9 h-auto p-2" src="../../../../public/img/Check.svg" alt="" />
+    <p class="text-green-600 p-2">Administrador eliminado</p>
+  </div>
+</div>
+
+<div
+  id="modal-errorxxxz"
+  class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-end p-5 justify-end hidden"
+>
+  <div class="bg-white rounded-md shadow-lg flex flex-row w-96 p-2">
+    <img class="w-9 h-auto p-2" src="../../../../public/img/Error.svg" alt="" />
+    <p class="text-red-600 p-2">Error al eliminar el administrador</p>
   </div>
 </div>
 <script src="../../../js/tablaCompras"></script>

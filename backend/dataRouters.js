@@ -16,7 +16,8 @@ const {
   actualizarPerfil,
   insertComprasDet,
   obtenerDatosInforme,
-  compras
+  compras,
+  eliminarCompras
 } = require("./controller");
 
 // Definir las rutas
@@ -33,6 +34,7 @@ router.post("/login", inicioUser);
 router.post("/registerProviders", registerProviders);
 router.post("/eliminarProveedor", eliminarProveedor);
 router.post("/eliminarUsuario", eliminarUsuario);
+router.post("/eliminarCompras", eliminarCompras);
 router.post("/actualizarPerfil", actualizarPerfil);
 router.post("/insertComprasDet", insertComprasDet);
 router.get("/obtenerDatosInforme", obtenerDatosInforme);
