@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     try {
-      const response = await fetch('https://provisoft-backend.vercel.app/eliminarUsuario', {
+      const response = await fetch('https://provisoft-backend.vercel.app/eliminarProveedor', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
         errorMsg.classList.add("hidden");
       } else {
         const result = await response.json();
-        errorMsg.textContent = result.error || "Usuario no encontrado.";
+        errorMsg.textContent = result.error || "proveedor no encontrado.";
         errorMsg.classList.remove("hidden");
         showModal('modal-error-xx'); 
       }

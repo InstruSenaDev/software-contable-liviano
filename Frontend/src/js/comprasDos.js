@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const montoImpuesto = monto * (impuesto / 100);
     const montoDescuento = monto * (descuento / 100);
-    const totalCalculado = monto + montoImpuesto - montoDescuento;
+    const totalCalculado = (monto + montoImpuesto) - montoDescuento;
 
     const proveedorSelect = document.getElementById("proveedor");
     const proveedor =
@@ -262,5 +262,10 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("registrar").addEventListener("click", () => {
     document.getElementById("errorModal").classList.add("hidden");
   });
+});
+
+document.getElementById("cancelar").addEventListener("click", () => {
+  // Recargar la página
+  location.reload();
 });
 

@@ -493,10 +493,6 @@ const obtenerDatosInformePorFecha = async (req, res)=>{
   }
 }
 
-
-
-
-
 const compras = async (req, res) => {
   try {
     const result = await pool.query(
