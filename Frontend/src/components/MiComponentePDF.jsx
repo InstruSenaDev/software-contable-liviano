@@ -82,8 +82,18 @@ const MiComponentePDF = () => {
   }
 
   return (
+    
     <div className="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg">
-      <h2 className="text-3xl font-display text-blue-baby4 font-bold mb-8 text-center">Generación de Informes</h2>
+      <span class="flex flex-row ">
+  <div class="mt-4 p-5">
+    <button
+      type="button"
+      id="volver"
+      class="bg-blue-baby4  text-white p-2 rounded hover:bg-blue-baby3"
+      onclick="window.history.back()">Volver</button>
+  </div>
+  
+</span>
       <div class="bg-gray-200 rounded-sm flex flex-row justify-around p-5  ">
       <span class="flex flex-row ">
         <p class="m-1">Registrador:</p>
@@ -98,6 +108,7 @@ const MiComponentePDF = () => {
         <p class="m-1" id="fecha"></p>
       </span>
     </div>
+      <h2 className="text-3xl font-display text-blue-baby4 font-bold mb-8 text-center">Generación de Informes</h2>
       <div className="bg-gray-100 p-6 rounded-lg mb-8">
         <h3 className="text-xl font-semibold mb-4 text-gray-700">Seleccionar Fecha</h3>
         <div className="flex flex-col sm:flex-row gap-4 items-center">
