@@ -398,16 +398,104 @@ const actualizarPerfil = (req, res) => {
 
 const obtenerDatosInforme = async (req, res) => {
   try {
-    const result = await pool.query(
-      "SELECT c.codigofactura, c.montototal, c.descuento, c.totalpagar, c.iva, c.fecha, c.hora, p.nombre as proveedor, u.nombre as encargado FROM comprasdet c JOIN proveedores p ON c.idproveedores = p.idproveedores JOIN usuarios u ON c.idusuarios = u.idusuario WHERE c.estado = $1",
-      ["activo"]
-    );
+    console.log("Iniciando consulta para obtener datos del informe");
+    const result = await pool.query(`
+      SELECT 
+        c.codigofactura, 
+        c.montototal, 
+        c.descuento, 
+        c.totalpagar, 
+        c.iva, 
+        c.fecha, 
+        c.hora, 
+        p.nombre as proveedor, 
+        u.nombre as encargado,
+        STRING_AGG(DISTINCT CONCAT(rc.codigocuenta, ' - ', cuentas.nombre), ', ') as cuentas_utilizadas
+      FROM 
+        comprasdet c
+      JOIN 
+        proveedores p ON c.idproveedores = p.idproveedores
+      JOIN 
+        usuarios u ON c.idusuarios = u.idusuario
+      LEFT JOIN
+        registrocuentas rc ON c.idcompra = rc.idcompra
+      LEFT JOIN
+        cuentas ON rc.codigocuenta::text = cuentas.codigo::text
+      WHERE 
+        c.estado = $1
+      GROUP BY
+        c.codigofactura, c.montototal, c.descuento, c.totalpagar, c.iva, c.fecha, c.hora, p.nombre, u.nombre
+    `, ["activo"]);
+    
+    console.log(`Consulta exitosa. Número de filas obtenidas: ${result.rows.length}`);
     res.status(200).json(result.rows);
   } catch (error) {
-    console.error("Error al obtener datos para el informe:", error);
-    res.status(500).json({ error: "Error interno del servidor" });
+    console.error("Error detallado al obtener datos para el informe:", error);
+    console.error("SQL State:", error.code);
+    console.error("Error Message:", error.message);
+    console.error("Detail:", error.detail);
+    console.error("Hint:", error.hint);
+    res.status(500).json({ 
+      error: "Error interno del servidor",
+      details: error.message,
+      hint: error.hint
+    });
   }
 };
+
+const obtenerDatosInformePorFecha = async (req, res)=>{
+  const {fechaDatos} = req.body
+  console.log(fechaDatos)
+  try {
+    console.log("Iniciando consulta para obtener datos del informe");
+    const result = await pool.query(`
+      SELECT 
+        c.codigofactura, 
+        c.montototal, 
+        c.descuento, 
+        c.totalpagar, 
+        c.iva, 
+        c.fecha, 
+        c.hora, 
+        p.nombre as proveedor, 
+        u.nombre as encargado,
+        STRING_AGG(DISTINCT CONCAT(rc.codigocuenta, ' - ', cuentas.nombre), ', ') as cuentas_utilizadas
+      FROM 
+        comprasdet c
+      JOIN 
+        proveedores p ON c.idproveedores = p.idproveedores
+      JOIN 
+        usuarios u ON c.idusuarios = u.idusuario
+      LEFT JOIN
+        registrocuentas rc ON c.idcompra = rc.idcompra
+      LEFT JOIN
+        cuentas ON rc.codigocuenta::text = cuentas.codigo::text
+      WHERE  
+        c.estado = $1 AND c.fecha = $2
+      GROUP BY
+        c.codigofactura, c.montototal, c.descuento, c.totalpagar, c.iva, c.fecha, c.hora, p.nombre, u.nombre
+    `, ["activo", fechaDatos]);
+    
+    
+    console.log(`Consulta exitosa. Número de filas obtenidas: ${result.rows.length}`);
+    res.status(200).json(result.rows);
+  } catch (error) {
+    console.error("Error detallado al obtener datos para el informe:", error);
+    console.error("SQL State:", error.code);
+    console.error("Error Message:", error.message);
+    console.error("Detail:", error.detail);
+    console.error("Hint:", error.hint);
+    res.status(500).json({ 
+      error: "Error interno del servidor",
+      details: error.message,
+      hint: error.hint
+    });
+  }
+}
+
+
+
+
 
 const compras = async (req, res) => {
   try {
@@ -439,5 +527,6 @@ module.exports = {
   actualizarPerfil,
   insertComprasDet,
   obtenerDatosInforme,
+  obtenerDatosInformePorFecha,
   compras
 };
