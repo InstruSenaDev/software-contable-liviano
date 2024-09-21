@@ -3,19 +3,21 @@ import ProviderRow from "./dataProvi.astro";
 
 const fetchData = async () => {
   try {
-    const response = await fetch('https://provisoft-backend.vercel.app/proveedores'); 
-    if (!response.ok) throw new Error('Network response was not ok');
+    const response = await fetch(
+      "https://provisoft-backend.vercel.app/proveedores",
+    );
+    if (!response.ok) throw new Error("Network response was not ok");
     const data = await response.json();
-    console.log(data); 
+    console.log(data);
     return data;
   } catch (error) {
-    console.error('Error al obtener los datos:', error);
+    console.error("Error al obtener los datos:", error);
     return [];
   }
 };
 
 const getDocumentType = (type) => {
-  switch(type) {
+  switch (type) {
     case 1:
       return "Cédula";
     case 2:
@@ -28,7 +30,9 @@ const getDocumentType = (type) => {
 const providers = await fetchData();
 ---
 
-<h1 class="font-bold font-display text-blue-baby4 text-3xl flex justify-center">Proveedores</h1>
+<h1 class="font-bold font-display text-blue-baby4 text-3xl flex justify-center">
+  Proveedores
+</h1>
 
 <div class="flex flex-row space-x-2 justify-between m-3">
   <div class="hidden flex items-center space-x-2 md:space-x-4">
@@ -37,38 +41,58 @@ const providers = await fetchData();
       type="text"
       placeholder="Buscar..."
     />
-    <select class="h-8  rounded-md text-sm" name="filtrar" id="">
+    <select class="h-8 rounded-md text-sm" name="filtrar" id="">
       <option value="">Nombre </option>
       <option value=""> Encargado </option>
       <option value="">Documento</option>
       <option value="">Correo</option>
     </select>
   </div>
-
 </div>
 <div class="flex flex-row justify-end p-2">
   <div
     class="flex flex-row p-1 bg-blue-baby4 text-white rounded-md font-display hover:bg-blue-baby3"
   >
-    <img
-      class="m-1"
-      src="../../../public/img/white/person.svg"
-      alt=""
-    />
-  <a href="/rProviders">
-    <button>Registrar proveedores</button>
+    <svg
+      class="w-6 h-auto"
+      width="21"
+      height="15"
+      viewBox="0 0 21 15"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M6.825 7.5C8.85544 7.5 10.5 5.82188 10.5 3.75C10.5 1.67813 8.85544 0 6.825 0C4.79456 0 3.15 1.67813 3.15 3.75C3.15 5.82188 4.79456 7.5 6.825 7.5ZM9.45 3.75C9.45 5.23012 8.27552 6.42857 6.825 6.42857C5.37448 6.42857 4.2 5.23012 4.2 3.75C4.2 2.26988 5.37448 1.07143 6.825 1.07143C8.27552 1.07143 9.45 2.26988 9.45 3.75ZM0 15V12C0 9.72 4.54713 8.57143 6.825 8.57143C8.34025 8.57143 10.8597 9.07966 12.3768 10.0911C13.4582 9.79275 14.6441 9.64286 15.4875 9.64286C16.4629 9.64286 17.7718 9.84332 18.8523 10.2486C19.3916 10.4509 19.9074 10.7164 20.2977 11.0605C20.6907 11.407 21 11.8755 21 12.4643V15H0ZM1.05 12C1.05 11.83 1.12642 11.5975 1.45224 11.2953C1.78452 10.9872 2.29594 10.6881 2.94358 10.4274C4.2399 9.90568 5.81522 9.64286 6.825 9.64286C7.83479 9.64286 9.4101 9.90568 10.7064 10.4274C11.3541 10.6881 11.8655 10.9872 12.1977 11.2953C12.5236 11.5975 12.6 11.83 12.6 12V13.9286H1.05V12ZM13.3104 10.9656C14.1045 10.7981 14.9013 10.7143 15.4875 10.7143C16.3519 10.7143 17.5368 10.8967 18.49 11.2542C18.9676 11.4334 19.3538 11.6443 19.6112 11.8713C19.8659 12.0958 19.95 12.293 19.95 12.4643V13.9286H13.65V12C13.65 11.6245 13.5267 11.2797 13.3104 10.9656ZM18.375 5.625C18.375 7.25288 17.0828 8.57143 15.4875 8.57143C13.8922 8.57143 12.6 7.25288 12.6 5.625C12.6 3.99707 13.8922 2.67857 15.4875 2.67857C17.0828 2.67857 18.375 3.99707 18.375 5.625ZM15.4875 7.5C16.503 7.5 17.325 6.66118 17.325 5.625C17.325 4.58882 16.503 3.75 15.4875 3.75C14.472 3.75 13.65 4.58882 13.65 5.625C13.65 6.66118 14.472 7.5 15.4875 7.5Z"
+        fill="white"></path>
+    </svg>
 
-  </a>
+    <a href="/rProviders">
+      <button class="mt-1">Registrar proveedores</button>
+    </a>
   </div>
   <button id="btnDelete" class="m-2">
-    <img class="" src="../../../public/img/black/trash.svg" alt="" />
+    <svg
+      class="w-6 h-auto p-1"
+      width="13"
+      height="16"
+      viewBox="0 0 13 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M9.33333 0.888889H12.4444V2.66667H0V0.888889H3.11111L4 0H8.44444L9.33333 0.888889ZM2.66667 16C1.68889 16 0.888889 15.2 0.888889 14.2222V3.55556H11.5556V14.2222C11.5556 15.2 10.7556 16 9.77778 16H2.66667Z"
+        fill="black"></path>
+    </svg>
   </button>
-
 </div>
 <table class="min-w-full bg-white border border-gray-200">
   <thead>
     <tr class="border-b text-justify">
-      <th class="p-2 text-red-500">Nombre</th>
+      <th class="p-2">Nombre</th>
       <th class="p-2">Encargado</th>
       <th class="p-2">Numero.Doc</th>
       <th class="p-2">Tipo documento</th>
@@ -79,27 +103,47 @@ const providers = await fetchData();
   </thead>
 
   <tbody>
-    {providers.map((provider) => (
-      <ProviderRow
-        name={provider.nombre}
-        encargado={provider.encargado}
-        nit={provider.numerodocumento}
-        tipeDocument={getDocumentType(provider.iddocumento)}
-        email={provider.correoelectronico}
-        telefono={provider.numerotelefono}
-        address={provider.direccion}
-      />
-    ))}
+    {
+      providers.map((provider) => (
+        <ProviderRow
+          name={provider.nombre}
+          encargado={provider.encargado}
+          nit={provider.numerodocumento}
+          tipeDocument={getDocumentType(provider.iddocumento)}
+          email={provider.correoelectronico}
+          telefono={provider.numerotelefono}
+          address={provider.direccion}
+        />
+      ))
+    }
   </tbody>
 </table>
-<div id="deleteModal" class=" hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-end z-50">
+<div
+  id="deleteModal"
+  class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-end z-50"
+>
   <div class="bg-white p-6 rounded-lg shadow-lg w-96">
-    <h2 class="text-xl font-bold mb-4 text-center font-display text-blue-baby4">Eliminar Proveedor</h2>
-    <input id="documentInput" type="text" class="rounded-md border p-2 w-full mb-4" placeholder="Ingrese número de documento" />
-    <span id="errorMsg" class="text-red-500 text-sm hidden">Usuario no encontrado</span>
+    <h2 class="text-xl font-bold mb-4 text-center font-display text-blue-baby4">
+      Eliminar Proveedor
+    </h2>
+    <input
+      id="documentInput"
+      type="text"
+      class="rounded-md border p-2 w-full mb-4"
+      placeholder="Ingrese número de documento"
+    />
+    <span id="errorMsg" class="text-red-500 text-sm hidden"
+      >Usuario no encontrado</span
+    >
     <div class="flex justify-end space-x-2 flex item-center">
-      <button id="closeModal" class="bg-black text-white px-4 py-2 rounded ">Cerrar</button>
-      <button id="deleteProvider" class="bg-blue-baby3 text-white px-4 py-2 rounded hover:bg-red-600">Eliminar Proveedor</button>
+      <button id="closeModal" class="bg-black text-white px-4 py-2 rounded"
+        >Cerrar</button
+      >
+      <button
+        id="deleteProvider"
+        class="bg-blue-baby3 text-white px-4 py-2 rounded hover:bg-red-600"
+        >Eliminar Proveedor</button
+      >
     </div>
   </div>
 </div>
@@ -110,11 +154,18 @@ const providers = await fetchData();
 >
   <div class="bg-white rounded-md shadow-lg flex flex-row w-96 p-2">
     <svg
-    class="w-6 h-auto p-1"
-     width="1536" height="1536" viewBox="0 0 1536 1536" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M1284 606C1284 587.333 1278 572 1266 560L1175 470C1162.33 457.333 1147.33 451 1130 451C1112.67 451 1097.67 457.333 1085 470L677 877L451 651C438.333 638.333 423.333 632 406 632C388.667 632 373.667 638.333 361 651L270 741C258 753 252 768.333 252 787C252 805 258 820 270 832L632 1194C644.667 1206.67 659.667 1213 677 1213C695 1213 710.333 1206.67 723 1194L1266 651C1278 639 1284 624 1284 606ZM1536 768C1536 907.333 1501.67 1035.83 1433 1153.5C1364.33 1271.17 1271.17 1364.33 1153.5 1433C1035.83 1501.67 907.333 1536 768 1536C628.667 1536 500.167 1501.67 382.5 1433C264.833 1364.33 171.667 1271.17 103 1153.5C34.3333 1035.83 0 907.333 0 768C0 628.667 34.3333 500.167 103 382.5C171.667 264.833 264.833 171.667 382.5 103C500.167 34.3333 628.667 0 768 0C907.333 0 1035.83 34.3333 1153.5 103C1271.17 171.667 1364.33 264.833 1433 382.5C1501.67 500.167 1536 628.667 1536 768Z" fill="#04CC00"/>
+      class="w-6 h-auto p-1"
+      width="1536"
+      height="1536"
+      viewBox="0 0 1536 1536"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M1284 606C1284 587.333 1278 572 1266 560L1175 470C1162.33 457.333 1147.33 451 1130 451C1112.67 451 1097.67 457.333 1085 470L677 877L451 651C438.333 638.333 423.333 632 406 632C388.667 632 373.667 638.333 361 651L270 741C258 753 252 768.333 252 787C252 805 258 820 270 832L632 1194C644.667 1206.67 659.667 1213 677 1213C695 1213 710.333 1206.67 723 1194L1266 651C1278 639 1284 624 1284 606ZM1536 768C1536 907.333 1501.67 1035.83 1433 1153.5C1364.33 1271.17 1271.17 1364.33 1153.5 1433C1035.83 1501.67 907.333 1536 768 1536C628.667 1536 500.167 1501.67 382.5 1433C264.833 1364.33 171.667 1271.17 103 1153.5C34.3333 1035.83 0 907.333 0 768C0 628.667 34.3333 500.167 103 382.5C171.667 264.833 264.833 171.667 382.5 103C500.167 34.3333 628.667 0 768 0C907.333 0 1035.83 34.3333 1153.5 103C1271.17 171.667 1364.33 264.833 1433 382.5C1501.67 500.167 1536 628.667 1536 768Z"
+        fill="#04CC00"></path>
     </svg>
-        <p class="text-green-600 p-2">Proveedor eliminado</p>
+    <p class="text-green-600 p-2">Proveedor eliminado</p>
   </div>
 </div>
 
@@ -124,18 +175,25 @@ const providers = await fetchData();
 >
   <div class="bg-white rounded-md shadow-lg flex flex-row w-96 p-2">
     <svg
-    class="w-6 h-auto p-1"
-     width="1536" height="1536" viewBox="0 0 1536 1536" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <g clip-path="url(#clip0_880_531)">
-    <path d="M768 0C616.104 0 467.619 45.0424 341.322 129.431C215.025 213.82 116.589 333.765 58.4609 474.099C0.332764 614.433 -14.8762 768.852 14.7572 917.829C44.3907 1066.81 117.536 1203.65 224.942 1311.06C332.349 1418.46 469.194 1491.61 618.171 1521.24C767.148 1550.88 921.568 1535.67 1061.9 1477.54C1202.23 1419.41 1322.18 1320.97 1406.57 1194.68C1490.96 1068.38 1536 919.896 1536 768C1535.78 564.381 1454.8 369.165 1310.82 225.185C1166.83 81.205 971.619 0.220229 768 0ZM1039.49 949.056C1051.49 961.058 1058.23 977.334 1058.23 994.304C1058.23 1011.27 1051.49 1027.55 1039.49 1039.55C1027.28 1051.16 1011.08 1057.63 994.24 1057.63C977.397 1057.63 961.198 1051.16 948.992 1039.55L768 858.496L587.008 1039.55C574.925 1051.4 558.68 1058.03 541.76 1058.03C524.841 1058.03 508.595 1051.4 496.512 1039.55C484.514 1027.55 477.774 1011.27 477.774 994.304C477.774 977.334 484.514 961.058 496.512 949.056L677.504 768L496.512 586.944C490.4 581.04 485.524 573.978 482.17 566.17C478.816 558.362 477.05 549.964 476.976 541.466C476.902 532.968 478.522 524.54 481.74 516.675C484.958 508.81 489.71 501.664 495.719 495.655C501.728 489.646 508.874 484.893 516.739 481.675C524.605 478.457 533.032 476.838 541.53 476.912C550.028 476.986 558.426 478.751 566.234 482.105C574.043 485.46 581.105 490.335 587.008 496.448L768 677.504L948.992 496.448C954.896 490.335 961.958 485.46 969.766 482.105C977.575 478.751 985.973 476.986 994.471 476.912C1002.97 476.838 1011.4 478.457 1019.26 481.675C1027.13 484.893 1034.27 489.646 1040.28 495.655C1046.29 501.664 1051.04 508.81 1054.26 516.675C1057.48 524.54 1059.1 532.968 1059.02 541.466C1058.95 549.964 1057.18 558.362 1053.83 566.17C1050.48 573.978 1045.6 581.04 1039.49 586.944L858.496 768L1039.49 949.056Z" fill="#C70000"/>
-    </g>
-    <defs>
-    <clipPath id="clip0_880_531">
-    <rect width="1536" height="1536" fill="white"/>
-    </clipPath>
-    </defs>
+      class="w-6 h-auto p-1"
+      width="1536"
+      height="1536"
+      viewBox="0 0 1536 1536"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g clip-path="url(#clip0_880_531)">
+        <path
+          d="M768 0C616.104 0 467.619 45.0424 341.322 129.431C215.025 213.82 116.589 333.765 58.4609 474.099C0.332764 614.433 -14.8762 768.852 14.7572 917.829C44.3907 1066.81 117.536 1203.65 224.942 1311.06C332.349 1418.46 469.194 1491.61 618.171 1521.24C767.148 1550.88 921.568 1535.67 1061.9 1477.54C1202.23 1419.41 1322.18 1320.97 1406.57 1194.68C1490.96 1068.38 1536 919.896 1536 768C1535.78 564.381 1454.8 369.165 1310.82 225.185C1166.83 81.205 971.619 0.220229 768 0ZM1039.49 949.056C1051.49 961.058 1058.23 977.334 1058.23 994.304C1058.23 1011.27 1051.49 1027.55 1039.49 1039.55C1027.28 1051.16 1011.08 1057.63 994.24 1057.63C977.397 1057.63 961.198 1051.16 948.992 1039.55L768 858.496L587.008 1039.55C574.925 1051.4 558.68 1058.03 541.76 1058.03C524.841 1058.03 508.595 1051.4 496.512 1039.55C484.514 1027.55 477.774 1011.27 477.774 994.304C477.774 977.334 484.514 961.058 496.512 949.056L677.504 768L496.512 586.944C490.4 581.04 485.524 573.978 482.17 566.17C478.816 558.362 477.05 549.964 476.976 541.466C476.902 532.968 478.522 524.54 481.74 516.675C484.958 508.81 489.71 501.664 495.719 495.655C501.728 489.646 508.874 484.893 516.739 481.675C524.605 478.457 533.032 476.838 541.53 476.912C550.028 476.986 558.426 478.751 566.234 482.105C574.043 485.46 581.105 490.335 587.008 496.448L768 677.504L948.992 496.448C954.896 490.335 961.958 485.46 969.766 482.105C977.575 478.751 985.973 476.986 994.471 476.912C1002.97 476.838 1011.4 478.457 1019.26 481.675C1027.13 484.893 1034.27 489.646 1040.28 495.655C1046.29 501.664 1051.04 508.81 1054.26 516.675C1057.48 524.54 1059.1 532.968 1059.02 541.466C1058.95 549.964 1057.18 558.362 1053.83 566.17C1050.48 573.978 1045.6 581.04 1039.49 586.944L858.496 768L1039.49 949.056Z"
+          fill="#C70000"></path>
+      </g>
+      <defs>
+        <clipPath id="clip0_880_531">
+          <rect width="1536" height="1536" fill="white"></rect>
+        </clipPath>
+      </defs>
     </svg>
-        <p class="text-rojing p-2">Error al eliminar proveedor</p>
+    <p class="text-rojing p-2">Error al eliminar proveedor</p>
   </div>
 </div>
 

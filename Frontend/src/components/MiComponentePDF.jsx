@@ -19,7 +19,7 @@ const MiComponentePDF = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:8080/obtenerDatosInforme');
+        const response = await fetch('https://provisoft-backend.vercel.app/obtenerDatosInforme');
         
         if (!response.ok) {
           const errorData = await response.json();
@@ -48,7 +48,7 @@ const MiComponentePDF = () => {
   },[filterDate])
   const getInformData = async () =>{
     try {
-      const response = await fetch('http://localhost:8080/obtenerDatosInformePorFecha', {
+      const response = await fetch('https://provisoft-backend.vercel.app/obtenerDatosInformePorFecha', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json', 
