@@ -1,51 +1,96 @@
 import React, { useState, useEffect } from 'react';
-import PDF from './PDF';
 import { PDFDownloadLink } from '@react-pdf/renderer';
+import PDF from './PDF'; 
+
+const estilobtn = {
+  backgroundColor: '#4CAF50',
+  color: 'white',
+  padding: '10px',
+  borderRadius: '5px',
+};
 
 const MiComponentePDF = () => {
   const [data, setData] = useState([]);
+  const [dataInforme, setDataInforme] = useState(null)
+  const [filterDate, setFilterDate] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('https://provisoft-backend-hj0dd2m6r-luisibarguens-projects.vercel.app/obtenerDatosInforme');
-        if (!response.ok) throw new Error('Network response was not ok');
+        const response = await fetch('http://localhost:8080/obtenerDatosInforme');
+        
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.details || errorData.error || 'Error del servidor');
+        }
+        
         const result = await response.json();
+        console.log("Datos obtenidos:", result);
         setData(result);
-        setIsLoading(false);
       } catch (error) {
         console.error('Error al obtener los datos:', error);
+        setError(error.message);
+      } finally {
         setIsLoading(false);
       }
     };
 
     fetchData();
   }, []);
+  useEffect(()=>{
+    if(filterDate === null){
 
-  const estilobtn = {
-    backgroundColor: 'blue',
-    color: 'white',
-    padding: '10px 20px',
-    border: 'none',
-    borderRadius: '5px',
-    cursor: 'pointer',
-  };
-
-  if (isLoading) {
-    return <button style={estilobtn}>Cargando...</button>;
+    }else{
+      getInformData()
+    }
+  },[filterDate])
+  const getInformData = async () =>{
+    try {
+      const response = await fetch('http://localhost:8080/obtenerDatosInformePorFecha', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json', 
+        },
+        body: JSON.stringify({ fechaDatos: filterDate}), // Convierte el objeto a JSON
+      });
+      const data = await response.json();
+      setDataInforme(data)
+    } catch (error) {
+      
+    }
   }
 
-  return (
+  if (isLoading) {
+    return <button style={estilobtn}>Cargando datos del informe...</button>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  if (data.length === 0) {
+    return <div>No hay datos disponibles para el informe.</div>;
+  }
+
+  return ( <div className='flex flex-row gap-2'><input type="date" name="" id="" onChange={(e)=>{setFilterDate(e.target.value), console.log(filterDate)}} />
+    {/* <button onClick={()=>getInformData()}>Obtener datos de informe</button> */}
     <PDFDownloadLink document={<PDF data={data} />} fileName="informeCompra.pdf">
       {({ loading }) =>
         loading ? (
-          <button style={estilobtn}>Generando PDF...</button>
+          <button style={estilobtn}>Generando PDF con cuentas...</button>
         ) : (
-          <button style={estilobtn}>Descargar Informe</button>
+          <button style={estilobtn}>Informe Completo</button>
         )
       }
     </PDFDownloadLink>
+    
+      <PDFDownloadLink document={<PDF data={dataInforme} />} fileName="informeCompra.pdf">
+      <button className='bg-blue-baby4  text-white p-2 rounded' disabled={ dataInforme === null ? true: false} > Informe Por Fecha</button>
+    </PDFDownloadLink>
+    
+    </div>
   );
 };
 

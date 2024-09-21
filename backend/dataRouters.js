@@ -16,6 +16,7 @@ const {
   actualizarPerfil,
   insertComprasDet,
   obtenerDatosInforme,
+  obtenerDatosInformePorFecha,
   compras,
   eliminarCompras
 } = require("./controller");
@@ -38,5 +39,6 @@ router.post("/eliminarCompras", eliminarCompras);
 router.post("/actualizarPerfil", actualizarPerfil);
 router.post("/insertComprasDet", insertComprasDet);
 router.get("/obtenerDatosInforme", obtenerDatosInforme);
+router.post("/obtenerDatosInformePorFecha", obtenerDatosInformePorFecha);
 
 module.exports = router;
