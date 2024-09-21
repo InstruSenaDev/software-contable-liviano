@@ -500,15 +500,55 @@ const obtenerDatosInformePorFecha = async (req, res)=>{
 const compras = async (req, res) => {
   try {
     const result = await pool.query(
-      "SELECT * FROM comprasdet WHERE estado = $1",
+      `SELECT 
+        c.montototal, 
+        c.codigofactura,
+        c.descuento,
+        c.totalpagar,
+        u.nombre AS nombre_usuario, 
+        p.nombre AS nombre_proveedor, 
+        c.fecha,
+        c.hora, 
+        c.totalpagar 
+      FROM comprasdet c
+      JOIN usuarios u ON c.idusuarios = u.idusuario  -- Corregido: c.idusuarios
+      JOIN proveedores p ON c.idproveedores = p.idproveedores  -- Corregido: c.idproveedores
+      WHERE c.estado = $1`,
       ["activo"]
     );
+    
     res.status(200).json(result.rows);
   } catch (error) {
-    console.error("Error al obtener proveedores:", error);
+    console.error("Error al obtener compras:", error);
     res.status(500).json({ error: "Error interno del servidor" });
   }
 };
+const eliminarCompras = async (req, res) => {
+  const { codigofacturas } = req.body;
+
+  if (!codigofacturas) {
+    return res.status(400).json({ error: "Código de factura es requerido" });
+  }
+
+  try {
+    const result = await pool.query(
+      "UPDATE comprasdet SET estado = $1 WHERE codigofactura = $2 RETURNING *",
+      ["inactivo", codigofacturas]
+    );
+
+    if (result.rowCount === 0) {
+      return res.status(404).json({ error: "Compra no encontrada" });
+    }
+
+    res.status(200).json({ message: "Compra eliminada exitosamente" });
+  } catch (error) {
+    console.error("Error al eliminar compra:", error);
+    res.status(500).json({ error: "Error interno del servidor" });
+  }
+};
+
+
+
   
 
 module.exports = {
@@ -528,5 +568,6 @@ module.exports = {
   insertComprasDet,
   obtenerDatosInforme,
   obtenerDatosInformePorFecha,
-  compras
+  compras,
+  eliminarCompras
 };

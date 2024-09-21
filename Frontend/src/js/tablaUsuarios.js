@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Función para obtener usuarios activos
     const fetchUsers = async () => {
       try {
-        const response = await fetch('http://localhost:8080/usuarios');
+        const response = await fetch('https://provisoft-backend.vercel.app/usuarios');
         if (!response.ok) throw new Error('Network response was not ok');
         const users = await response.json();
         console.log('Users fetched:', users); 
@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
   
       try {
-        const response = await fetch('http://localhost:8080/eliminarUsuario', {
+        const response = await fetch('https://provisoft-backend.vercel.app/eliminarUsuario', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

@@ -1,44 +1,45 @@
-<section class="bg-blue-baby4 border-b border-black/5">
-    <div class="w-full mx-auto md:px-12 px-8 max-w-7xl lg:px-16">
-      <div
-        x-data="{ open: false }"
-        class="relative flex flex-col w-full py-5 mx-auto bg-blue-baby4 md:items-center md:justify-between md:flex-row md:px-6">
-        <div class="flex flex-row items-center justify-between lg:justify-start">
-          <a href="/" class="text-white inline-flex items-center gap-3">
-            <svg class="h-4" viewBox="0 0 78 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M55.5 0H77.5L58.5 32H36.5L55.5 0Z" class="ccustom" fill="#283CFF"></path>
-              <path d="M35.5 0H51.5L32.5 32H16.5L35.5 0Z" class="ccompli1" fill="#5263FF"></path>
-              <path d="M19.5 0H31.5L12.5 32H0.5L19.5 0Z" class="ccompli2" fill="#808CFF"></path>
-            </svg>
-            <span class="font-bold font-display">ProviSoft</span>
-          </a>
-          <button
-            @click="open = !open"
-            class="inline-flex items-center justify-center p-2 text-gray-400 hover:text-black focus:outline-none focus:text-black md:hidden">
-            <svg
-              class="w-6 h-6"
-              stroke="currentColor"
-              fill="none"
-              viewBox="0 0 24 24">
-              <path
-                :class="{ 'hidden': open, 'inline-flex': !open }"
-                class="inline-flex"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M4 6h16M4 12h16M4 18h16"></path>
-              <path
-                :class="{ 'hidden': !open, 'inline-flex': open }"
-                class="hidden"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
-          </button>
+<section class="bg-blue-baby4 border-b border-black/5 py-8 md:py-1">
+  <div class="w-full mx-auto md:px-12 px-8 max-w-7xl lg:px-16">
+    <div
+      x-data="{ open: false }"
+      class="w-full py-5 mx-auto bg-blue-baby4 md:items-center md:justify-between md:flex-row md:px-6">
+      <div class="flex flex-row justify-between ">
+        <a href="/inicioDedashboard" class="text-white flex flex-row justify-center items-center">
+          <svg width="30" height="30" viewBox="0 0 183 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M26 15.5L136 0L145.5 13H137.5L133 7.5L48.5 22.5C67 59.5 62.3 45.5 81.5 95.5L72.5 106C73 104 40 24 26 15.5Z" fill="#FDFDFE"/>
+            <path d="M20 56.5C35 67 57 104.5 57 104.5C30.2 74.5 10.5 63 4 61L20 56.5Z" fill="#FDFDFE"/>
+            <path d="M27.5 33C55.5 63.8 67.1667 98.5 69.5 112L65.5 109.5C38.7 60.3 14.6667 41.3333 6 38L27.5 33Z" fill="#9BBEE4"/>
+            <path d="M70.5 116.5C43.3 98.9 12.1667 86.1667 0 82C23.6 99.6 59.5 134.333 74.5 149.5C120.9 74.3 166.167 25.8333 183 11C127 43 86.5 94.3333 70.5 116.5Z" fill="#9BBEE4"/>
+            </svg>            
+          <span class="font-bold font-display">ProviSoft</span>
+        </a>
+        <div id="openModalButton" class="flex flex-row items-center justify-center text-sm p-2">
+          <span id="user_name" class="text-white font-bold font-display cursor-pointer mr-2"></span>
+          <svg width="30" height="30" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7.763 2C5.96991 2.00185 4.25079 2.71498 2.98288 3.98288C1.71498 5.25079 1.00185 6.96991 1 8.763C1 10.57 1.703 12.268 2.98 13.545C3.6066 14.1751 4.352 14.6747 5.17301 15.0147C5.99403 15.3548 6.87435 15.5286 7.763 15.526C9.55609 15.5241 11.2752 14.811 12.5431 13.5431C13.811 12.2752 14.5241 10.5561 14.526 8.763C14.5241 6.96991 13.811 5.25079 12.5431 3.98288C11.2752 2.71498 9.55609 2.00185 7.763 2ZM3.675 13.501C4.14243 12.8929 4.74115 12.3982 5.42648 12.0538C6.11182 11.7094 6.86609 11.5242 7.633 11.512C7.657 11.513 7.68 11.519 7.704 11.519H7.727C7.749 11.519 7.769 11.513 7.791 11.512C8.56852 11.5252 9.33266 11.7165 10.0247 12.0712C10.7167 12.4259 11.3182 12.9345 11.783 13.558C10.6586 14.507 9.23437 15.0271 7.763 15.026C6.26076 15.0287 4.80845 14.4869 3.675 13.501ZM7.707 11.007C7.682 11.007 7.658 11.011 7.633 11.012C7.04931 10.9922 6.49635 10.7456 6.09168 10.3245C5.68701 9.90335 5.46254 9.34102 5.466 8.757C5.46705 8.46137 5.52644 8.16886 5.64078 7.89624C5.75513 7.62362 5.92216 7.37626 6.13232 7.16833C6.34247 6.96041 6.5916 6.79602 6.86543 6.68459C7.13925 6.57317 7.43238 6.51689 7.728 6.519C8.02363 6.52005 8.31614 6.57944 8.58876 6.69378C8.86138 6.80813 9.10874 6.97516 9.31667 7.18532C9.52459 7.39547 9.68898 7.6446 9.80041 7.91843C9.91183 8.19225 9.96811 8.48538 9.966 8.781C9.966 9.993 8.996 10.978 7.792 11.013C7.764 11.012 7.736 11.007 7.707 11.007ZM12.154 13.222C11.3808 12.2016 10.2809 11.4773 9.038 11.17C9.47049 10.933 9.83127 10.584 10.0825 10.1597C10.3338 9.73531 10.4662 9.25117 10.466 8.758C10.4648 8.39675 10.3924 8.03928 10.2529 7.70606C10.1134 7.37284 9.9095 7.0704 9.65294 6.81608C9.39639 6.56175 9.09219 6.36053 8.75776 6.22393C8.42333 6.08732 8.06525 6.01803 7.704 6.02C7.34275 6.02118 6.98528 6.0936 6.65206 6.23311C6.31884 6.37263 6.0164 6.5765 5.76208 6.83306C5.50775 7.08961 5.30653 7.39381 5.16993 7.72824C5.03332 8.06267 4.96403 8.42075 4.966 8.782C4.96784 9.27056 5.10075 9.74968 5.35087 10.1694C5.60099 10.589 5.95916 10.9339 6.388 11.168C5.1661 11.4681 4.08082 12.1709 3.307 13.163C2.14636 11.994 1.49686 10.4123 1.501 8.765C1.50285 7.10452 2.1633 5.51258 3.33744 4.33844C4.51158 3.1643 6.10352 2.50385 7.764 2.502C9.42448 2.50385 11.0164 3.1643 12.1906 4.33844C13.3647 5.51258 14.0252 7.10452 14.027 8.765C14.027 10.428 13.372 12.02 12.154 13.222Z" fill="#FDFDFE"/>
+          </svg>
         </div>
-
       </div>
     </div>
-  </section>
-  
+  </div>
+</section>
+<div class="relative">
+  <!-- Modal -->
+  <div id="modal" class="flex justify-end fixed inset-0 hidden bg-black bg-opacity-25 z-50">
+    <div class="bg-white p-6 rounded-lg shadow-lg relative w-52 h-40 mt-24 max-w-lg flex flex-col items-center">
+      <!-- Contenido del modal -->
+      <span id="modal_user_name" class="text-blue-baby4 text-center flex justify-center font-display font-bold flex-col mb-5"></span>
+      <a class="flex flex-row hover:bg-blue-baby3 rounded-md" href="/perfilUsuario">
+        <img class="w-4 item-center m-2" src="../../../public/img/black/edit2.svg" alt="">
+        <button class=" hover:text-white  p-2 ">Editar Perfil</button>
+      </a>
+      <button id="logoutButton" class=" hover:bg-blue-baby3 hover:text-white rounded-md flex flex-row text-center "> 
+        <img class="w-4 item-center m-2" src="../../../public/img/black/Logout.svg" alt="">
+        Cerrar Sesión
+      </button>
+      <button id="closeModalButton" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700">&times;</button>
+    </div>
+  </div>
+</div>
+<script src="../../../js/header"></script>
+<script src="../../../js/ValidacionUsuario"></script>

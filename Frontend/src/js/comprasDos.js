@@ -5,7 +5,7 @@ let cuentasSeleccionadas = [];
 export function desplegable() {
   const selectElement = document.getElementById("proveedor");
 
-  fetch("http://localhost:8080/proveedores")
+  fetch("https://provisoft-backend.vercel.app/proveedores")
     .then((response) => response.json())
     .then((data) => {
       data.forEach((proveedor) => {
@@ -24,7 +24,7 @@ export function desplegable() {
 export function desplegableCuentas() {
   const selectElement = document.getElementById("cuentaz");
 
-  fetch("http://localhost:8080/cuentas")
+  fetch("https://provisoft-backend.vercel.app/cuentas")
     .then((response) => response.json())
     .then((data) => {
       cuentasContables = data; // Actualiza la variable global aquí
@@ -200,7 +200,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const codigoFactura = document.getElementById("registroCodigo");
     const codeFactura = Number(codigoFactura.value);
 
-    fetch("http://localhost:8080/insertComprasDet", {
+    fetch("https://provisoft-backend.vercel.app/insertComprasDet", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

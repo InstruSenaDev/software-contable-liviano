@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function enviarEmailAlServidor(email) {
-  fetch(`http://localhost:8080/usuariosLog?email=${email}`, {
+  fetch(`https://provisoft-backend.vercel.app/usuariosLog?email=${email}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -32,7 +32,7 @@ function enviarEmailAlServidor(email) {
 }
 
 function obtenerInformacionUsuario(email) {
-  fetch(`http://localhost:8080/usuariosLog?email=${email}`, {
+  fetch(`https://provisoft-backend.vercel.app/usuariosLog?email=${email}`, {
     method: "GET",
   })
     .then((response) => {
