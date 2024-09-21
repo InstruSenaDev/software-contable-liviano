@@ -1,16 +1,22 @@
 import React from 'react';
 import { Page, Text, View, Document, StyleSheet } from "@react-pdf/renderer";
 
+// Estilos similares a los usados en Tailwind CSS
 const styles = StyleSheet.create({
   page: { flexDirection: "column", backgroundColor: "#FFFFFF", padding: 30 },
-  title: { fontSize: 24, marginBottom: 20, textAlign: 'center' },
+  title: { fontSize: 24, marginBottom: 20, textAlign: 'center', color: '#1E40AF' }, // Color similar a bg-blue-baby4
   table: { display: "table", width: "100%", borderStyle: "solid", borderWidth: 1, borderRightWidth: 0, borderBottomWidth: 0 },
-  tableRow: { flexDirection: "row" },
+  tableRow: { flexDirection: "row", backgroundColor: "#F3F4F6" }, // Similar a bg-gray-200
   tableCol: { width: "11.11%", borderStyle: "solid", borderWidth: 1, borderLeftWidth: 0, borderTopWidth: 0 },
   tableCell: { margin: "auto", marginTop: 5, fontSize: 8 },
+  header: { marginBottom: 10, padding: 10, backgroundColor: "#E5E7EB", borderRadius: 8 }, // Similar a la caja de información del registrador
+  flexRow: { flexDirection: 'row', justifyContent: 'space-between' }, // Flex similar a flex-row justify-between
+  textItem: { fontSize: 10, color: "#111827" }, // Color similar a texto negro
+  boldText: { fontSize: 10, fontWeight: 'bold', color: "#111827" }, // Texto en negrita para titulos
+  description: { marginVertical: 10, fontSize: 12, textAlign: 'justify', color: '#4B5563' }, // Estilo para el texto descriptivo
 });
 
-const PDF = ({data}) => {
+const PDF = ({ data }) => {
   console.log("Datos recibidos en el componente PDF:", data);
 
   if (!data || data.length === 0) {
@@ -26,13 +32,40 @@ const PDF = ({data}) => {
   return (
     <Document>
       <Page size="A4" style={styles.page}>
+        {/* Encabezado similar a la sección de registrador */}
+        <View style={styles.header}>
+          <View style={styles.flexRow}>
+            <Text style={styles.boldText}>Registrador: </Text>
+            <Text style={styles.textItem}>Nombre del usuario</Text> {/* Aquí podrías pasar dinámicamente el nombre */}
+          </View>
+          <View style={styles.flexRow}>
+            <Text style={styles.boldText}>Hora:</Text>
+            <Text style={styles.textItem}>00:00 AM</Text> {/* Aquí podrías pasar la hora */}
+          </View>
+          <View style={styles.flexRow}>
+            <Text style={styles.boldText}>Fecha:</Text>
+            <Text style={styles.textItem}>2024-09-21</Text> {/* Aquí podrías pasar la fecha */}
+          </View>
+        </View>
+
+        {/* Título del documento */}
         <Text style={styles.title}>Informe de Compras</Text>
+
+        {/* Descripción del informe */}
+        <Text style={styles.description}>
+          Este informe muestra un resumen detallado de las compras realizadas durante el período seleccionado. 
+          Incluye información relevante como el número de factura, monto total, descuentos aplicados, el total 
+          a pagar, y detalles de los proveedores involucrados. También se destacan las cuentas contables utilizadas 
+          y los impuestos aplicables.
+        </Text>
+
+        {/* Tabla de datos */}
         <View style={styles.table}>
           <View style={styles.tableRow}>
             <View style={styles.tableCol}><Text style={styles.tableCell}>No.Factura</Text></View>
             <View style={styles.tableCol}><Text style={styles.tableCell}>Monto total</Text></View>
             <View style={styles.tableCol}><Text style={styles.tableCell}>Descuento</Text></View>
-            <View style={styles.tableCol}><Text style={styles.tableCell}>Total pagar</Text></View>
+            <View style={styles.tableCol}><Text style={styles.tableCell}>Total a pagar</Text></View>
             <View style={styles.tableCol}><Text style={styles.tableCell}>Proveedor</Text></View>
             <View style={styles.tableCol}><Text style={styles.tableCell}>Encargado</Text></View>
             <View style={styles.tableCol}><Text style={styles.tableCell}>IVA</Text></View>
