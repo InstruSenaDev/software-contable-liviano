@@ -269,3 +269,14 @@ document.getElementById("cancelar").addEventListener("click", () => {
   location.reload();
 });
 
+// Evento para el botón de reset
+document.getElementById("resetearContable").addEventListener("click", () => {
+
+  // Limpiar la lista de cuentas seleccionadas
+  cuentasSeleccionadas = [];
+  const cuentasSeleccionadasList = document.getElementById("cuentasSeleccionadas");
+  cuentasSeleccionadasList.innerHTML = "";
+
+  const tablaContabilidad = document.getElementById("tablaContabilidad");
+  tablaContabilidad.innerHTML = '';
+});
