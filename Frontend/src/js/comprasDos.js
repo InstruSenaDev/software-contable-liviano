@@ -101,26 +101,31 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   function actualizarCuentasSeleccionadas() {
-    const cuentasSeleccionadasList = document.getElementById(
-      "cuentasSeleccionadas"
-    );
+    const cuentasSeleccionadasList = document.getElementById("cuentasSeleccionadas");
     cuentasSeleccionadasList.innerHTML = "";
-
+  
     cuentasSeleccionadas.forEach((cuenta, index) => {
       const listItem = document.createElement("li");
-      listItem.textContent = `${cuenta.tipo} - ${cuenta.cuenta.codigo} - ${
-        cuenta.cuenta.nombre
-      }: $${cuenta.valor.toFixed(2)}`; // Corrección aquí
-
-      const deleteButton = document.createElement("img");
-      deleteButton.src = "../../public/img/black/trash.svg";
-      deleteButton.className = "px-2 py-1 ml-2 click";
+      listItem.className = "flex justify-between items-center py-2 p-1 border-gray-300 border-2 rounded-md "; // Flex para alinear a izquierda y derecha
+      listItem.textContent = `${cuenta.tipo} - ${cuenta.cuenta.codigo} - ${cuenta.cuenta.nombre}: $${cuenta.valor.toFixed(2)}`;
+  
+      // Crear el botón de eliminar con el SVG como contenido
+      const deleteButton = document.createElement("button");
+      deleteButton.className = "px-2 py-1 ml-2 click"; // Ajustar el margen si es necesario
+      deleteButton.innerHTML = `
+        <svg width="13" height="16" viewBox="0 0 13 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M9.33333 0.888889H12.4444V2.66667H0V0.888889H3.11111L4 0H8.44444L9.33333 0.888889ZM2.66667 16C1.68889 16 0.888889 15.2 0.888889 14.2222V3.55556H11.5556V14.2222C11.5556 15.2 10.7556 16 9.77778 16H2.66667Z" fill="black"/>
+        </svg>
+      `;
+  
       deleteButton.addEventListener("click", () => eliminarCuenta(index));
-
+  
       listItem.appendChild(deleteButton);
       cuentasSeleccionadasList.appendChild(listItem);
     });
   }
+  
+  
 
   function eliminarCuenta(index) {
     cuentasSeleccionadas.splice(index, 1);
@@ -134,14 +139,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const impuesto = parseFloat(document.getElementById("impuesto").value) || 0;
     const descuento =
       parseFloat(document.getElementById("descuento").value) || 0;
-
+  
     const montoImpuesto = monto * (impuesto / 100);
     const montoDescuento = monto * (descuento / 100);
     const totalCalculado = monto + montoImpuesto - montoDescuento;
-
+  
     let totalDebitos = 0;
     let totalCreditos = 0;
-
+  
     cuentasSeleccionadas.forEach((cuenta) => {
       const row = document.createElement("tr");
       row.innerHTML = `
@@ -149,32 +154,36 @@ document.addEventListener("DOMContentLoaded", () => {
         cuenta.cuenta.nombre
       }</td>
                   <td class="border p-2">${
-                    cuenta.tipo === "debito"
+                    cuenta.tipo === "Debito"
                       ? `$${cuenta.valor.toFixed(2)}`
                       : ""
                   }</td>
                   <td class="border p-2">${
-                    cuenta.tipo === "credito"
+                    cuenta.tipo === "Credito"
                       ? `$${cuenta.valor.toFixed(2)}`
                       : ""
                   }</td>
               `;
       tablaContabilidad.appendChild(row);
-
-      if (cuenta.tipo === "debito") {
-        totalDebitos += cuenta.valor;
-      } else if (cuenta.tipo === "credito") {
-        totalCreditos += cuenta.valor;
+  
+      // Lógica para ajustar el total de debitos y creditos
+      if (cuenta.tipo === "Debito") {
+        if (
+          cuenta.cuenta.nombre === "Descuentos Comerciales en Compras                 " ||
+          cuenta.cuenta.nombre === "Devoluciones en Compras                           "
+        ) {
+          totalDebitos -= cuenta.valor; // Restar el valor
+        } else {
+          totalDebitos += cuenta.valor; // Sumar el valor
+        }
+      } else if (cuenta.tipo === "Credito") {
+        totalCreditos += cuenta.valor; // Sumar crédito normalmente
       }
     });
-
-    document.getElementById(
-      "totalDebitos"
-    ).textContent = `$${totalDebitos.toFixed(2)}`;
-    document.getElementById(
-      "totalCreditos"
-    ).textContent = `$${totalCreditos.toFixed(2)}`;
-
+  
+    document.getElementById("totalDebitos").textContent = `$${totalDebitos.toFixed(2)}`;
+    document.getElementById("totalCreditos").textContent = `$${totalCreditos.toFixed(2)}`;
+  
     const validacionSaldos = document.getElementById("validacionSaldos");
     if (totalDebitos === totalCreditos) {
       validacionSaldos.textContent = "Los saldos están equilibrados.";
@@ -184,6 +193,7 @@ document.addEventListener("DOMContentLoaded", () => {
       validacionSaldos.className = "text-red-500";
     }
   });
+  
 
   document.getElementById("registrar").addEventListener("click", () => {
     const proveedorSelect = document.getElementById("proveedor");
@@ -273,9 +283,6 @@ document.getElementById("cancelar").addEventListener("click", () => {
 document.getElementById("resetearContable").addEventListener("click", () => {
 
   // Limpiar la lista de cuentas seleccionadas
-  cuentasSeleccionadas = [];
-  const cuentasSeleccionadasList = document.getElementById("cuentasSeleccionadas");
-  cuentasSeleccionadasList.innerHTML = "";
 
   const tablaContabilidad = document.getElementById("tablaContabilidad");
   tablaContabilidad.innerHTML = '';
