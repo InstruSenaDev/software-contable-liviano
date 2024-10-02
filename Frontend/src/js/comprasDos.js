@@ -33,7 +33,7 @@ export function desplegableCuentas() {
     .then((response) => response.json())
     .then((data) => {
       // Ordenar las cuentas por el primer dígito y luego numéricamente
-      const cuentasContables = data.sort((a, b) => {
+      cuentasContables = data.sort((a, b) => {
         const primerDigitoA = a.codigo[0];
         const primerDigitoB = b.codigo[0];
 
@@ -102,20 +102,26 @@ document.addEventListener("DOMContentLoaded", () => {
     const tipo = document.getElementById("tipo").value;
     const cuentaCodigo = document.getElementById("cuentaz").value;
     const valor = parseFloat(document.getElementById("valor").value) || 0;
-
+  
+    console.log("Tipo:", tipo, "Cuenta Código:", cuentaCodigo, "Valor:", valor); // Para depuración
+  
     if (cuentaCodigo && valor) {
       const cuentaSeleccionada = cuentasContables.find(
         (c) => c.codigo === cuentaCodigo
       );
+      
       if (cuentaSeleccionada) {
         cuentasSeleccionadas.push({ tipo, cuenta: cuentaSeleccionada, valor });
         actualizarCuentasSeleccionadas();
-        document.getElementById("valor").value = "";
+        document.getElementById("valor").value = ""; // Limpia el input de valor
       } else {
         console.error("Cuenta no encontrada:", cuentaCodigo);
       }
+    } else {
+      console.error("Faltan datos para agregar la cuenta.");
     }
   });
+  
 
   function actualizarCuentasSeleccionadas() {
     const cuentasSeleccionadasList = document.getElementById("cuentasSeleccionadas");
