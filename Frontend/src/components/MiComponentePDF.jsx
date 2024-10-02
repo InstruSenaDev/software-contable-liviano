@@ -67,7 +67,7 @@ const MiComponentePDF = () => {
       setFechaHora({ fecha, hora });
 
       // Asignar nombre desde localStorage
-      const nombre = localStorage.getItem('user_name') || 'Desconocido';
+      const nombre = localStorage.getItem('nombreUsuario') || 'Desconocido';
       setNombreRegistrador(nombre); // Almacenar el nombre en el estado
     };
 
