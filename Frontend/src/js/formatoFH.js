@@ -18,3 +18,10 @@ export function updateClock() {
   // Actualiza cada segundo
   setInterval(update, 1000);
 }
+export const obtenerFechaHora = () => {
+  const ahora = new Date();
+  const fecha = ahora.toLocaleDateString(); // Formato de fecha: día/mes/año
+  const hora = ahora.toLocaleTimeString(); // Formato de hora: horas:minutos:segundos AM/PM
+
+  return { fecha, hora };
+};
