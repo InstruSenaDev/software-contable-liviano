@@ -67,11 +67,15 @@ const MiComponentePDF = () => {
       setFechaHora({ fecha, hora });
 
       // Asignar nombre desde localStorage
-      const nombre = localStorage.getItem('nombreUsuario') || 'Desconocido';
+      const nombre = localStorage.getItem('user_name') || 'Desconocido';
       setNombreRegistrador(nombre); // Almacenar el nombre en el estado
     };
 
     updateFechaHora();
+    const intervalId = setInterval(updateFechaHora, 1000);
+
+    // Limpiar el intervalo cuando el componente se desmonte
+    return () => clearInterval(intervalId);
   }, []);
 
   if (isLoading) {
