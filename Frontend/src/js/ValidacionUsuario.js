@@ -47,8 +47,6 @@ function obtenerInformacionUsuario(email) {
         const nombreCompleto = `${usuario.nombre}`;
         const userId = usuario.idusuario;
         const userNamesx = nombreCompleto.textContent;
-        localStorage.setItem("usernamee", userNamesx);
-        console.log(userNamesx, "olaaas  ");
         
         // Guarda el userId en localStorage
         localStorage.setItem("userId", userId);
