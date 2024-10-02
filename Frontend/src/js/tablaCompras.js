@@ -12,6 +12,9 @@ const compraFetch = async () => {
     return [];
   }
 };
+const formatNumber = (num) => {
+  return new Intl.NumberFormat('es-ES', { minimumFractionDigits: 0, maximumFractionDigits: 2 }).format(num);
+};
 
 const comprasdet = async () => {
   const compras = await compraFetch();
@@ -23,18 +26,19 @@ const comprasdet = async () => {
     const row = `
       <tr key="${compra.idcompra}" class="justify-around text-justify"> 
         <td class="p-2">${compra.codigofactura}</td>
-        <td class="p-2">${compra.montototal}</td>
-        <td class="p-2">${compra.descuento}</td>
-        <td class="p-2">${compra.totalpagar}</td>
+        <td class="p-2">${formatNumber(compra.montototal)}</td>
+        <td class="p-2">${formatNumber(compra.descuento)}</td>
+        <td class="p-2">${formatNumber(compra.totalpagar)}</td>
         <td class="p-2">${compra.nombre_proveedor}</td> <!-- Cambiado -->
         <td class="p-2">${compra.nombre_usuario}</td>   <!-- Cambiado -->
-        <td class="p-2">${compra.iva || 0}</td> <!-- Asegúrate de que iva se maneje correctamente -->
+        <td class="p-2">${formatNumber(compra.iva || 0)}</td> <!-- Asegúrate de que iva se maneje correctamente -->
         <td class="p-2">${compra.fecha}</td>
         <td class="p-2">${compra.hora}</td>
       </tr>
     `;
     comprasTableBody.insertAdjacentHTML('beforeend', row);
   });
+  
 };
 
 // Definición de showModal

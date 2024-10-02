@@ -1,6 +1,11 @@
 let cuentasContables = [];
 let cuentasSeleccionadas = [];
 
+// Función para formatear números con separadores de miles
+function formatNumber(num) {
+  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}
+
 // Función para llenar el select de proveedores desde la base de datos
 export function desplegable() {
   const selectElement = document.getElementById("proveedor");
@@ -10,7 +15,7 @@ export function desplegable() {
     .then((data) => {
       data.forEach((proveedor) => {
         const option = document.createElement("option");
-        option.value = proveedor.idproveedores; // Utilizamos idproveedores como valor
+        option.value = proveedor.idproveedores;
         option.textContent = proveedor.nombre;
         selectElement.appendChild(option);
       });
@@ -27,11 +32,24 @@ export function desplegableCuentas() {
   fetch("https://provisoft-backend.vercel.app/cuentas")
     .then((response) => response.json())
     .then((data) => {
-      cuentasContables = data; // Actualiza la variable global aquí
-      data.forEach((cuenta) => {
+      // Ordenar las cuentas por el primer dígito y luego numéricamente
+      const cuentasContables = data.sort((a, b) => {
+        const primerDigitoA = a.codigo[0];
+        const primerDigitoB = b.codigo[0];
+
+        // Comparar por el primer dígito
+        if (primerDigitoA === primerDigitoB) {
+          return a.codigo - b.codigo; // Si son iguales, ordenar numéricamente
+        } else {
+          return primerDigitoA - primerDigitoB; // Ordenar por el primer dígito
+        }
+      });
+
+      // Añadir las cuentas al select
+      cuentasContables.forEach((cuenta) => {
         const option = document.createElement("option");
         option.value = cuenta.codigo;
-        option.textContent = `${cuenta.codigo} - ${cuenta.nombre}`; // Corrección aquí
+        option.textContent = `${cuenta.codigo} - ${cuenta.nombre}`;
         option.dataset.encargado = cuenta.codigo;
         selectElement.appendChild(option);
       });
@@ -41,9 +59,10 @@ export function desplegableCuentas() {
     });
 }
 
+
 document.addEventListener("DOMContentLoaded", () => {
-  desplegable(); // Llenar el select de proveedores
-  desplegableCuentas(); // Llenar el select de cuentas contables
+  desplegable();
+  desplegableCuentas();
 
   document
     .querySelectorAll("#monto, #impuesto, #descuento")
@@ -54,31 +73,29 @@ document.addEventListener("DOMContentLoaded", () => {
   function actualizarResumenCompras() {
     const monto = parseFloat(document.getElementById("monto").value) || 0;
     const impuesto = parseFloat(document.getElementById("impuesto").value) || 0;
-    const descuento =
-      parseFloat(document.getElementById("descuento").value) || 0;
+    const descuento = parseFloat(document.getElementById("descuento").value) || 0;
 
     const montoImpuesto = monto * (impuesto / 100);
     const montoDescuento = monto * (descuento / 100);
     const totalCalculado = (monto + montoImpuesto) - montoDescuento;
 
     const proveedorSelect = document.getElementById("proveedor");
-    const proveedor =
-      proveedorSelect.options[proveedorSelect.selectedIndex]?.text || "N/A";
+    const proveedor = proveedorSelect.options[proveedorSelect.selectedIndex]?.text || "N/A";
     const tablaFacturas = document.getElementById("tablaFacturas");
     tablaFacturas.innerHTML = "";
 
     const row = document.createElement("tr");
     row.innerHTML = `
-            <td class="border p-2">${proveedor}</td>
-            <td class="border p-2">$${monto.toFixed(2)}</td>
-            <td class="border p-2">$${montoImpuesto.toFixed(2)}</td>
-            <td class="border p-2">$${montoDescuento.toFixed(2)}</td>
-            <td class="border p-2">$${totalCalculado.toFixed(2)}</td>
-        `;
+      <td class="border p-2">${proveedor}</td>
+      <td class="border p-2">$${formatNumber(monto.toFixed(2))}</td>
+      <td class="border p-2">$${formatNumber(montoImpuesto.toFixed(2))}</td>
+      <td class="border p-2">$${formatNumber(montoDescuento.toFixed(2))}</td>
+      <td class="border p-2">$${formatNumber(totalCalculado.toFixed(2))}</td>
+    `;
     tablaFacturas.appendChild(row);
 
     const totalCompras = document.getElementById("totalCompras");
-    totalCompras.textContent = `$${totalCalculado.toFixed(2)}`; // Corrección aquí
+    totalCompras.textContent = `$${formatNumber(totalCalculado.toFixed(2))}`;
   }
 
   document.getElementById("agregarCuentas").addEventListener("click", () => {
@@ -101,27 +118,29 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   function actualizarCuentasSeleccionadas() {
-    const cuentasSeleccionadasList = document.getElementById(
-      "cuentasSeleccionadas"
-    );
+    const cuentasSeleccionadasList = document.getElementById("cuentasSeleccionadas");
     cuentasSeleccionadasList.innerHTML = "";
-
+  
     cuentasSeleccionadas.forEach((cuenta, index) => {
       const listItem = document.createElement("li");
-      listItem.textContent = `${cuenta.tipo} - ${cuenta.cuenta.codigo} - ${
-        cuenta.cuenta.nombre
-      }: $${cuenta.valor.toFixed(2)}`; // Corrección aquí
-
-      const deleteButton = document.createElement("img");
-      deleteButton.src = "../../public/img/black/trash.svg";
+      listItem.className = "flex justify-between items-center py-2 p-1 border-gray-300 border-2 rounded-md ";
+      listItem.textContent = `${cuenta.tipo} - ${cuenta.cuenta.codigo} - ${cuenta.cuenta.nombre}: $${formatNumber(cuenta.valor.toFixed(2))}`;
+  
+      const deleteButton = document.createElement("button");
       deleteButton.className = "px-2 py-1 ml-2 click";
+      deleteButton.innerHTML = `
+        <svg width="13" height="16" viewBox="0 0 13 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M9.33333 0.888889H12.4444V2.66667H0V0.888889H3.11111L4 0H8.44444L9.33333 0.888889ZM2.66667 16C1.68889 16 0.888889 15.2 0.888889 14.2222V3.55556H11.5556V14.2222C11.5556 15.2 10.7556 16 9.77778 16H2.66667Z" fill="black"/>
+        </svg>
+      `;
+  
       deleteButton.addEventListener("click", () => eliminarCuenta(index));
-
+  
       listItem.appendChild(deleteButton);
       cuentasSeleccionadasList.appendChild(listItem);
     });
   }
-
+  
   function eliminarCuenta(index) {
     cuentasSeleccionadas.splice(index, 1);
     actualizarCuentasSeleccionadas();
@@ -129,52 +148,44 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.getElementById("contabilizar").addEventListener("click", () => {
     const proveedorSelect = document.getElementById("proveedor");
-    const idProveedorSeleccionado = proveedorSelect.value; // Obtenemos el id del proveedor seleccionado
+    const idProveedorSeleccionado = proveedorSelect.value;
     const monto = parseFloat(document.getElementById("monto").value) || 0;
     const impuesto = parseFloat(document.getElementById("impuesto").value) || 0;
-    const descuento =
-      parseFloat(document.getElementById("descuento").value) || 0;
-
+    const descuento = parseFloat(document.getElementById("descuento").value) || 0;
+  
     const montoImpuesto = monto * (impuesto / 100);
     const montoDescuento = monto * (descuento / 100);
     const totalCalculado = monto + montoImpuesto - montoDescuento;
-
+  
     let totalDebitos = 0;
     let totalCreditos = 0;
-
+  
     cuentasSeleccionadas.forEach((cuenta) => {
       const row = document.createElement("tr");
       row.innerHTML = `
-                  <td class="border p-2">${cuenta.cuenta.codigo} - ${
-        cuenta.cuenta.nombre
-      }</td>
-                  <td class="border p-2">${
-                    cuenta.tipo === "debito"
-                      ? `$${cuenta.valor.toFixed(2)}`
-                      : ""
-                  }</td>
-                  <td class="border p-2">${
-                    cuenta.tipo === "credito"
-                      ? `$${cuenta.valor.toFixed(2)}`
-                      : ""
-                  }</td>
-              `;
+        <td class="border p-2">${cuenta.cuenta.codigo} - ${cuenta.cuenta.nombre}</td>
+        <td class="border p-2">${cuenta.tipo === "Debito" ? `$${formatNumber(cuenta.valor.toFixed(2))}` : ""}</td>
+        <td class="border p-2">${cuenta.tipo === "Credito" ? `$${formatNumber(cuenta.valor.toFixed(2))}` : ""}</td>
+      `;
       tablaContabilidad.appendChild(row);
-
-      if (cuenta.tipo === "debito") {
-        totalDebitos += cuenta.valor;
-      } else if (cuenta.tipo === "credito") {
+  
+      if (cuenta.tipo === "Debito") {
+        if (
+          cuenta.cuenta.nombre === "Descuentos Comerciales en Compras                 " ||
+          cuenta.cuenta.nombre === "Devoluciones en Compras                           "
+        ) {
+          totalDebitos -= cuenta.valor;
+        } else {
+          totalDebitos += cuenta.valor;
+        }
+      } else if (cuenta.tipo === "Credito") {
         totalCreditos += cuenta.valor;
       }
     });
-
-    document.getElementById(
-      "totalDebitos"
-    ).textContent = `$${totalDebitos.toFixed(2)}`;
-    document.getElementById(
-      "totalCreditos"
-    ).textContent = `$${totalCreditos.toFixed(2)}`;
-
+  
+    document.getElementById("totalDebitos").textContent = `$${formatNumber(totalDebitos.toFixed(2))}`;
+    document.getElementById("totalCreditos").textContent = `$${formatNumber(totalCreditos.toFixed(2))}`;
+  
     const validacionSaldos = document.getElementById("validacionSaldos");
     if (totalDebitos === totalCreditos) {
       validacionSaldos.textContent = "Los saldos están equilibrados.";
@@ -184,7 +195,7 @@ document.addEventListener("DOMContentLoaded", () => {
       validacionSaldos.className = "text-red-500";
     }
   });
-
+  
   document.getElementById("registrar").addEventListener("click", () => {
     const proveedorSelect = document.getElementById("proveedor");
     const idProveedorSeleccionado = proveedorSelect.value;
@@ -216,11 +227,7 @@ document.addEventListener("DOMContentLoaded", () => {
         hora,
         userId,
         codeFactura
-        
       })
-
-      
-      
     })
       .then((response) => response.json())
       .then((result) => {
@@ -228,13 +235,13 @@ document.addEventListener("DOMContentLoaded", () => {
           document.getElementById("successModal").classList.remove("hidden");
           setTimeout(() => {
             document.getElementById("successModal").classList.add("hidden");
-            resetFormulario(); // Reiniciar formulario después de ocultar el modal
-          }, 5000); // Cerrar modal después de 5 segundos
+            resetFormulario();
+          }, 5000);
         } else {
           document.getElementById("errorModal").classList.remove("hidden");
           setTimeout(() => {
             document.getElementById("errorModal").classList.add("hidden");
-          }, 5000); // Cerrar modal después de 5 segundos
+          }, 5000);
         }
       })
       .catch((error) => {
@@ -242,7 +249,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("errorModal").classList.remove("hidden");
         setTimeout(() => {
           document.getElementById("errorModal").classList.add("hidden");
-        }, 5000); // Cerrar modal después de 5 segundos
+        }, 5000);
       });
   });
 
@@ -265,7 +272,10 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 document.getElementById("cancelar").addEventListener("click", () => {
-  // Recargar la página
   location.reload();
 });
 
+document.getElementById("resetearContable").addEventListener("click", () => {
+  const tablaContabilidad = document.getElementById("tablaContabilidad");
+  tablaContabilidad.innerHTML = '';
+});

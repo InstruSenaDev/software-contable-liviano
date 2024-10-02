@@ -501,6 +501,7 @@ const compras = async (req, res) => {
         c.codigofactura,
         c.descuento,
         c.totalpagar,
+        c.iva,
         u.nombre AS nombre_usuario, 
         p.nombre AS nombre_proveedor, 
         c.fecha,
