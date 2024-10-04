@@ -242,12 +242,12 @@ document.addEventListener("DOMContentLoaded", () => {
           setTimeout(() => {
             document.getElementById("successModal").classList.add("hidden");
             resetFormulario();
-          }, 5000);
+          }, 3000);
         } else {
           document.getElementById("errorModal").classList.remove("hidden");
-          setTimeout(() => {
+          setTimeout(() => {0
             document.getElementById("errorModal").classList.add("hidden");
-          }, 5000);
+          }, 3000);
         }
       })
       .catch((error) => {
@@ -255,7 +255,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("errorModal").classList.remove("hidden");
         setTimeout(() => {
           document.getElementById("errorModal").classList.add("hidden");
-        }, 5000);
+        }, 3000);
       });
   });
 

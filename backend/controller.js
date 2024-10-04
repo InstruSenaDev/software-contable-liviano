@@ -19,7 +19,6 @@ const usuarios = (req, res) => {
     }
   );
 };
-
 function usuariosLog(req, res) {
   const { email } = req.body;
 
@@ -33,7 +32,6 @@ function usuariosLog(req, res) {
 
   res.status(200).json({ message: "Email procesado correctamente" });
 }
-
 function obtenerUsuarioPorCorreo(req, res) {
   const email = req.query.email;
 
@@ -62,7 +60,6 @@ function obtenerUsuarioPorCorreo(req, res) {
     }
   );
 }
-
 const roles = (req, res) => {
   pool.query("SELECT * FROM roles", (error, results) => {
     if (error) {
@@ -73,7 +70,6 @@ const roles = (req, res) => {
     res.status(200).json(results.rows);
   });
 };
-
 const proveedores = async (req, res) => {
   try {
     const result = await pool.query(
@@ -86,7 +82,6 @@ const proveedores = async (req, res) => {
     res.status(500).json({ error: "Error interno del servidor" });
   }
 };
-
 const cuentas = (req, res) => {
   pool.query(
     "SELECT idcuentas, codigo, nombre, tipocuenta FROM cuentas",
@@ -100,7 +95,6 @@ const cuentas = (req, res) => {
     }
   );
 };
-
 const registerUser = async (req, res) => {
   const { first_name, last_name, email, password, userId } = req.body;
   try {
@@ -131,7 +125,6 @@ const registerUser = async (req, res) => {
       .json({ success: false, message: "Error interno del servidor" + error });
   }
 };
-
 const inicioUser = async (req, res) => {
   const { email, password } = req.body;
 
@@ -174,7 +167,6 @@ const inicioUser = async (req, res) => {
       .json({ message: "Error interno al procesar la solicitud", error });
   }
 };
-
 const registerProviders = async (req, res) => {
   const {
     nombre,
@@ -257,7 +249,6 @@ const registerProviders = async (req, res) => {
     });
   }
 };
-
 const eliminarProveedor = async (req, res) => {
   const { numerodocumento } = req.body;
 
@@ -295,7 +286,6 @@ const eliminarProveedor = async (req, res) => {
     res.status(500).json({ error: "Error interno del servidor." });
   }
 };
-
 const eliminarUsuario = async (req, res) => {
   const { correo } = req.body;
 
@@ -322,14 +312,35 @@ const eliminarUsuario = async (req, res) => {
     res.status(500).json({ error: "Error interno del servidor" });
   }
 };
-
 const insertComprasDet = async (data) => {
-  const { montoDescuento, montoImpuesto, monto, totalCalculado, idProveedorSeleccionado, cuentasSeleccionadas, fecha, hora, userId, codeFactura } = data.body;
+  const {
+    montoDescuento,
+    montoImpuesto,
+    monto,
+    totalCalculado,
+    idProveedorSeleccionado,
+    cuentasSeleccionadas,
+    fecha,
+    hora,
+    userId,
+    codeFactura
+  } = data.body;
 
   try {
     console.log("Datos recibidos para insertar:", userId);
 
-    // Primero inserta la compra en la tabla 'comprasdet'
+    // Verificar si el código de factura ya existe
+    const facturaExistente = await pool.query(
+      "SELECT codigofactura FROM comprasdet WHERE codigofactura = $1",
+      [codeFactura]
+    );
+
+    if (facturaExistente.rows.length > 0) {
+      // Si ya existe una factura con el mismo código, lanzamos un error
+      throw new Error(`La factura con el código ${codeFactura} ya está registrada.`);
+    }
+
+    // Si no existe, inserta la compra en la tabla 'comprasdet'
     const result = await pool.query(
       "INSERT INTO comprasdet (descuento, iva, montototal, totalpagar, idproveedores, idusuarios, estado, fecha, hora, codigofactura) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING idcompra",
       [montoDescuento, montoImpuesto, monto, totalCalculado, idProveedorSeleccionado, userId, 'activo', fecha, hora, codeFactura]
@@ -349,10 +360,9 @@ const insertComprasDet = async (data) => {
     console.log("Datos insertados correctamente en la base de datos.");
   } catch (error) {
     console.error("Error al insertar datos en la base de datos:", error);
-    throw error;
+    throw error; // O puedes enviar el error al frontend según tu flujo
   }
 };
-
 
 const actualizarPerfil = (req, res) => {
   const { email, nombres, apellidos, correo } = req.body;
@@ -395,7 +405,6 @@ const actualizarPerfil = (req, res) => {
     res.status(200).json({ message: "Perfil actualizado correctamente." });
   });
 };
-
 const obtenerDatosInforme = async (req, res) => {
   try {
     console.log("Iniciando consulta para obtener datos del informe");
@@ -442,7 +451,6 @@ const obtenerDatosInforme = async (req, res) => {
     });
   }
 };
-
 const obtenerDatosInformePorFecha = async (req, res)=>{
   const {fechaDatos} = req.body
   console.log(fechaDatos)
@@ -492,7 +500,6 @@ const obtenerDatosInformePorFecha = async (req, res)=>{
     });
   }
 }
-
 const compras = async (req, res) => {
   try {
     const result = await pool.query(
@@ -543,10 +550,6 @@ const eliminarCompras = async (req, res) => {
     res.status(500).json({ error: "Error interno del servidor" });
   }
 };
-
-
-
-  
 
 module.exports = {
   saludo,
