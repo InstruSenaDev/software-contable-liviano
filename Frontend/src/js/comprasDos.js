@@ -102,14 +102,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const tipo = document.getElementById("tipo").value;
     const cuentaCodigo = document.getElementById("cuentaz").value;
     const valor = parseFloat(document.getElementById("valor").value) || 0;
-  
+
     console.log("Tipo:", tipo, "Cuenta Código:", cuentaCodigo, "Valor:", valor); // Para depuración
-  
+
     if (cuentaCodigo && valor) {
       const cuentaSeleccionada = cuentasContables.find(
         (c) => c.codigo === cuentaCodigo
       );
-      
+
       if (cuentaSeleccionada) {
         cuentasSeleccionadas.push({ tipo, cuenta: cuentaSeleccionada, valor });
         actualizarCuentasSeleccionadas();
@@ -121,32 +121,39 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error("Faltan datos para agregar la cuenta.");
     }
   });
-  
+
 
   function actualizarCuentasSeleccionadas() {
     const cuentasSeleccionadasList = document.getElementById("cuentasSeleccionadas");
     cuentasSeleccionadasList.innerHTML = "";
-  
+
     cuentasSeleccionadas.forEach((cuenta, index) => {
       const listItem = document.createElement("li");
       listItem.className = "flex justify-between items-center py-2 p-1 border-gray-300 border-2 rounded-md ";
       listItem.textContent = `${cuenta.tipo} - ${cuenta.cuenta.codigo} - ${cuenta.cuenta.nombre}: $${formatNumber(cuenta.valor.toFixed(2))}`;
-  
+
       const deleteButton = document.createElement("button");
       deleteButton.className = "px-2 py-1 ml-2 click";
       deleteButton.innerHTML = `
         <svg width="13" height="16" viewBox="0 0 13 16" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd" d="M9.33333 0.888889H12.4444V2.66667H0V0.888889H3.11111L4 0H8.44444L9.33333 0.888889ZM2.66667 16C1.68889 16 0.888889 15.2 0.888889 14.2222V3.55556H11.5556V14.2222C11.5556 15.2 10.7556 16 9.77778 16H2.66667Z" fill="black"/>
         </svg>
+        <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M1 15L5.54342 13.9473L13.9162 6.07569L10.4925 2.85687L2.12 10.7285L1 15Z" stroke="black" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M13.9803 1.37146L15.4959 2.79636C15.6212 2.91414 15.7206 3.05397 15.7885 3.20787C15.8563 3.36177 15.8912 3.52673 15.8912 3.69331C15.8912 3.8599 15.8563 4.02486 15.7885 4.17876C15.7206 4.33266 15.6212 4.47249 15.4959 4.59027L13.9159 6.0757L10.4922 2.85688L12.0725 1.37146C12.3255 1.13362 12.6686 1 13.0264 1C13.3842 1 13.7273 1.13362 13.9803 1.37146Z" stroke="black" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M2.12012 10.7285L5.54354 13.9473" stroke="black" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M1.03613 15H15.9998" stroke="black" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+
       `;
-  
+
       deleteButton.addEventListener("click", () => eliminarCuenta(index));
-  
+
       listItem.appendChild(deleteButton);
       cuentasSeleccionadasList.appendChild(listItem);
     });
   }
-  
+
   function eliminarCuenta(index) {
     cuentasSeleccionadas.splice(index, 1);
     actualizarCuentasSeleccionadas();
@@ -158,14 +165,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const monto = parseFloat(document.getElementById("monto").value) || 0;
     const impuesto = parseFloat(document.getElementById("impuesto").value) || 0;
     const descuento = parseFloat(document.getElementById("descuento").value) || 0;
-  
+
     const montoImpuesto = monto * (impuesto / 100);
     const montoDescuento = monto * (descuento / 100);
     const totalCalculado = monto + montoImpuesto - montoDescuento;
-  
+
     let totalDebitos = 0;
     let totalCreditos = 0;
-  
+
     cuentasSeleccionadas.forEach((cuenta) => {
       const row = document.createElement("tr");
       row.innerHTML = `
@@ -174,7 +181,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <td class="border p-2">${cuenta.tipo === "Credito" ? `$${formatNumber(cuenta.valor.toFixed(2))}` : ""}</td>
       `;
       tablaContabilidad.appendChild(row);
-  
+
       if (cuenta.tipo === "Debito") {
         if (
           cuenta.cuenta.nombre === "Descuentos Comerciales en Compras                 " ||
@@ -188,10 +195,10 @@ document.addEventListener("DOMContentLoaded", () => {
         totalCreditos += cuenta.valor;
       }
     });
-  
+
     document.getElementById("totalDebitos").textContent = `$${formatNumber(totalDebitos.toFixed(2))}`;
     document.getElementById("totalCreditos").textContent = `$${formatNumber(totalCreditos.toFixed(2))}`;
-  
+
     const validacionSaldos = document.getElementById("validacionSaldos");
     if (totalDebitos === totalCreditos) {
       validacionSaldos.textContent = "Los saldos están equilibrados.";
@@ -201,7 +208,7 @@ document.addEventListener("DOMContentLoaded", () => {
       validacionSaldos.className = "text-red-500";
     }
   });
-  
+
   document.getElementById("registrar").addEventListener("click", () => {
     const proveedorSelect = document.getElementById("proveedor");
     const idProveedorSeleccionado = proveedorSelect.value;
@@ -213,7 +220,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const montoImpuesto = monto * (impuesto / 100);
     const montoDescuento = monto * (descuento / 100);
     const totalCalculado = monto + montoImpuesto - montoDescuento;
-    const userId = localStorage.getItem("userId"); 
+    const userId = localStorage.getItem("userId");
     const codigoFactura = document.getElementById("registroCodigo");
     const codeFactura = Number(codigoFactura.value);
 
@@ -245,7 +252,8 @@ document.addEventListener("DOMContentLoaded", () => {
           }, 3000);
         } else {
           document.getElementById("errorModal").classList.remove("hidden");
-          setTimeout(() => {0
+          setTimeout(() => {
+            0
             document.getElementById("errorModal").classList.add("hidden");
           }, 3000);
         }
